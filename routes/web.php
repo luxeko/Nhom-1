@@ -48,6 +48,8 @@ Route::group(['namespace'=>'Public'], function(){
     // Xử lý CRUD Blogs
     Route::group(['prefix'=>'public/blogs','middleware'=>'CheckLogedOut'], function(){
         Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
+        Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
+        Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
     }); 
 });
 

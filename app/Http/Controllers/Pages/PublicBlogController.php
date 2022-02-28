@@ -17,4 +17,10 @@ class PublicBlogController extends Controller
         $blogs = $this->blog->where('status', '=', 1)->paginate(5);
         return view('pages.social.blog',compact('blogs'));
     }
+    public function detail(){
+        
+    }
+    public function test(){
+        return view('pages.social.single_blog');
+    }
 }

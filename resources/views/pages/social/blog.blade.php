@@ -161,7 +161,9 @@
                                         <h2>{{ $item->title}}</h2>
                                     </a>
                                     <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                        he earth it first without heaven in place seed it second morning saying... <a href="#" class="text-primary">Read More</a></p>
+                                        he earth it first without heaven in place seed it second morning saying... <a href="{{ asset('public/blogs/test') }}" class="text-primary">Read More</a></p>
+                                    {{-- <p>That dominion stars lights dominion divide years for fourth have don't stars is that
+                                        he earth it first without heaven in place seed it second morning saying... <a href="{{ Route('blog.detail', ['id'=>$item->id])}}" class="text-primary">Read More</a></p> --}}
                                     <ul class="blog-info-link">
                                         <li><i class="fas fa-user"></i> {{ $item->author }}</li>
                                     </ul>
