@@ -86,15 +86,9 @@
         Giao diện
     </div>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="{{ route('discount.index') }}">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Discounts</span>
-        </a>
-    </li>
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
+
+    <li class="nav-item active_blogs_sliderbar">
+        <a class="nav-link" href="{{asset('admin/blogs/index')}}">
             <i class="fas fa-fw fa-table"></i>
             <span>Blogs</span>
         </a>

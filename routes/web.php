@@ -3,9 +3,10 @@
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Pages\PublicBlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
 use App\Http\Controllers\Pages\PublicProductController;
@@ -42,7 +43,13 @@ Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data
 Route::get('/contact',[PublicHomeController::class,'contactUs']);
 
 
-
+// Public route (Đức Anh)
+Route::group(['namespace'=>'Public'], function(){
+    // Xử lý CRUD Blogs
+    Route::group(['prefix'=>'public/blogs','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
+    }); 
+});
 
 // Admin route
 Route::group(['namespace'=>'Admin'], function(){
@@ -83,24 +90,25 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/details',[ProductController::class,'details_product']);
         Route::get('/getCategoryById/{id}',[ProductController::class,'get_category_name']);
         Route::get('/getThumbnail/{id}',[ProductController::class,'get_thumbnail']);
-        Route::get('/getDiscountById/{id}',[ProductController::class,'get_discount']);
+        // Route::get('/getDiscountById/{id}',[ProductController::class,'get_discount']);
         Route::get('/create',[ProductController::class,'create']);
         Route::post('/store',[ProductController::class,'store']);
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
         Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
-        Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
+        // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
 
     }); 
 
-    // Xử lý CRUD Discount
-    Route::group(['prefix'=>'admin/discounts','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/index',[DiscountController::class,'index'])->name('discount.index');
-        Route::get('/create',[DiscountController::class,'create'])->name('discount.create');
-        Route::post('/store',[DiscountController::class,'store'])->name('discount.store');
-        Route::get('/edit/{id}',[DiscountController::class,'edit'])->name('discount.edit');
-        Route::post('/update/{id}',[DiscountController::class,'update'])->name('discount.update');
-        Route::get('/delete/{id}',[DiscountController::class,'delete'])->name('discount.delete');
+    // Xử lý CRUD Blogs
+    Route::group(['prefix'=>'admin/blogs','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[BlogController::class,'index'])->name('blog.index');
+        Route::get('/create',[BlogController::class,'create'])->name('blog.create');
+        Route::post('/store',[BlogController::class,'store'])->name('blog.store');
+        Route::get('/edit/{id}',[BlogController::class,'edit'])->name('blog.edit');
+        Route::post('/update/{id}',[BlogController::class,'update'])->name('blog.update');
+        Route::get('/delete/{id}',[BlogController::class,'delete'])->name('blog.delete');
+        Route::get('/details',[BlogController::class,'details_blog']);
     }); 
 
 });

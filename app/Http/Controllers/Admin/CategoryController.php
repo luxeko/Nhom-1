@@ -46,7 +46,7 @@ class CategoryController extends Controller
             $err['desc_null'] = 'Vui lòng nhập miêu tả';
         }
         if(count($err) > 0){
-            return Redirect::back()->with($err);
+            return Redirect::back()->withInput()->with($err);
         } else{
             $result = $this->category->create([
                 'name'          => $request->category_name,
@@ -77,7 +77,7 @@ class CategoryController extends Controller
             $err['desc_null'] = 'Vui lòng nhập miêu tả';
         }
         if(count($err) > 0){
-            return Redirect::back()->with($err);
+            return Redirect::back()->withInput()->with($err);
         } else{
             $result = $this->category->find($id)->update([
                 'name'          => $request->category_name,
