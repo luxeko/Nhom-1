@@ -43,12 +43,7 @@
                             echo "</div>";
                             Session::put('price_null', null);
                         }
-                        if($price_not_int){
-                            echo "<div class='alert alert-danger'>";
-                                echo $price_not_int;
-                            echo "</div>";
-                            Session::put('price_not_int', null);
-                        }
+                       
                     @endphp
                     <div class="form-group">
                         <label for="avatar">Chọn ảnh đại diện</label>
@@ -100,11 +95,7 @@
                             Session::put('status_null', null);
                         }
                     @endphp
-                    <div class="form-group">
-                        <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
-                            
-                        </select>
-                    </div>
+                    
                 </div>
                 <div class="col-md-12">
                     <div class="form-group" >

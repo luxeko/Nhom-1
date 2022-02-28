@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/slick.css'); }}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css'); }}">
+    @livewireStyles
 </head>
 
 <body>
@@ -120,7 +121,7 @@
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><ion-icon name="arrow-up-outline"></ion-icon></button>
     <!-- banner part start-->
-    @yield('content')
+    {{$slot}}
     <!--::subscribe_area part end::-->
 
     <!--::footer_part start::-->
@@ -247,6 +248,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    @livewireScripts
 </body>
 
 </html>

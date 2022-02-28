@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
 use App\Http\Controllers\Pages\PublicProductController;
 
+use App\Http\Livewire\HomeComponent;
+use App\Http\Livewire\CartComponent;
+use App\Http\Livewire\CheckoutComponent;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,26 +26,32 @@ use App\Http\Controllers\Pages\PublicProductController;
 */
 
 
-// Route for Home
-// Route::get('/',[PublicHomeController::class,'index']);
-Route::get('/home',[PublicHomeController::class,'index']);
-Route::get('/layout',[PublicHomeController::class,'layoutMaster']);
-Route::get('/product_detail',[PublicHomeController::class,'productDetails']);
-Route::get('/all_product',[PublicHomeController::class,'showAllProduct']);
-Route::get('/checkout',[PublicHomeController::class,'checkOut']);
-Route::get('/cart',[PublicHomeController::class,'cart']);
-Route::get('/blog',[PublicHomeController::class,'blog']);
-Route::get('/single_blog',[PublicHomeController::class,'singleBlog']);
-// 3 cái router dưới này không sửa nhé ae
-Route::get('/',[PublicProductController::class,'index']);
-Route::get('detail/{id}',[PublicProductController::class,'productDetail']);
-Route::get('products/list',[PublicProductController::class,'productList']);
-Route::get('/all_product', [PublicProductController::class,'allProduct']);
-Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data']);
-// Route for social
-Route::get('/contact',[PublicHomeController::class,'contactUs']);
+// // Route for Home
+// // Route::get('/',[PublicHomeController::class,'index']);
+// Route::get('/home',[PublicHomeController::class,'index']);
+// Route::get('/layout',[PublicHomeController::class,'layoutMaster']);
+// Route::get('/product_detail',[PublicHomeController::class,'productDetails']);
+// Route::get('/all_product',[PublicHomeController::class,'showAllProduct']);
+// Route::get('/checkout',[PublicHomeController::class,'checkOut']);
+// Route::get('/cart',[PublicHomeController::class,'cart']);
+// Route::get('/blog',[PublicHomeController::class,'blog']);
+// Route::get('/single_blog',[PublicHomeController::class,'singleBlog']);
 
 
+// // 3 cái router dưới này không sửa nhé ae
+// Route::get('/',[PublicProductController::class,'index']);
+// Route::get('detail/{id}',[PublicProductController::class,'productDetail']);
+// Route::get('products/list',[PublicProductController::class,'productList']);
+// Route::get('/all_product', [PublicProductController::class,'allProduct']);
+// Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data']);
+// // Route for social
+// Route::get('/contact',[PublicHomeController::class,'contactUs']);
+
+// Livewire route
+
+Route::get('/', HomeComponent::class);
+Route::get('/cart',CartComponent::class);
+Route::get('/checkout',CheckoutComponent::class);
 
 
 // Admin route

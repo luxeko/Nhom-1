@@ -95,9 +95,6 @@ class ProductController extends Controller
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
             }
-            if( !is_int($request->product_price) ){
-                $err['price_not_int'] = 'Giá tiền phải là số';
-            }
             if($request->contents == null){
                 $err['content_null'] = 'Vui lòng nhập nội dung cho sản phẩm';
             }
@@ -111,7 +108,7 @@ class ProductController extends Controller
                 $dataProductCreate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(",", "", $request->product_price),
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'discount_id'   => $request->discount_id,

@@ -1,5 +1,4 @@
-@extends('index')
-@section('content')
+<div>
 <section class="feature_part padding_top">
         <div class="container">
             <div class="row justify-content-center">
@@ -131,7 +130,7 @@
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-12">
                     <div class="best_product_slider owl-carousel">
-                        @foreach($new_pro as $item)
+                        @foreach($products as $item)
                         <div class="single_product_item">
                             <a href="detail/{{$item['id']}}"><img src="{{$item['feature_image_path']}}" alt=""></a>
                             <div class="single_product_text">
@@ -209,4 +208,4 @@
             </div>
         </div>
     </section>
-@endsection
+</div>
