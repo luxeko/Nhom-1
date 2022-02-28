@@ -1,0 +1,595 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+html {
+  scroll-behavior: smooth;
+  scroll-margin-top: 8.5rem;
+}
+
+html::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #4e73df;
+  border-radius: 5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+/* ---------- DucAnh-LoadingPage-Code ---------- */
+#admin-preloader {
+  background: url(../img/admin_loadingpage.gif) no-repeat center center;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.admin_container {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.admin_container .forms-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.admin_container .forms-container .signin-signup {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  left: 75%;
+  width: 50%;
+  -webkit-transition: 1s 0.7s ease-in-out;
+  transition: 1s 0.7s ease-in-out;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  z-index: 5;
+}
+
+.admin_container .forms-container .signin-signup form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0rem 5rem;
+  -webkit-transition: all 0.2s 0.7s;
+  transition: all 0.2s 0.7s;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1 / 2;
+  overflow: hidden;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1 / 2;
+}
+
+.admin_container .forms-container .signin-signup form.sign-in-form {
+  z-index: 2;
+}
+
+.admin_container .forms-container .signin-signup form .title {
+  font-size: 2.2rem;
+  color: #444;
+}
+
+.admin_container .forms-container .signin-signup form .input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f7f7f7;
+  height: 55px;
+  display: -ms-grid;
+  display: grid;
+  margin: 10px 0;
+  border-radius: 45px;
+  -ms-grid-columns: 15% 85%;
+      grid-template-columns: 15% 85%;
+  position: relative;
+  border: 1px solid #979797;
+}
+
+.admin_container .forms-container .signin-signup form .input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  font-size: 1.1rem;
+}
+
+.admin_container .forms-container .signin-signup form .input-field input {
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  padding-right: 15px;
+}
+
+.admin_container .forms-container .signin-signup form .input-field input::-webkit-input-placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.admin_container .forms-container .signin-signup form .input-field input:-ms-input-placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.admin_container .forms-container .signin-signup form .input-field input::-ms-input-placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.admin_container .forms-container .signin-signup form .input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.admin_container .forms-container .signin-signup form .checkbox-field {
+  max-width: 380px;
+  width: 100%;
+  position: relative;
+  padding-left: 20px;
+}
+
+.admin_container .forms-container .signin-signup form .checkbox-field .checkbox-children {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.admin_container .forms-container .signin-signup form .checkbox-field .checkbox-children input {
+  margin-right: 8px;
+}
+
+.admin_container .forms-container .signin-signup form .checkbox-field .checkbox-children label {
+  color: #333;
+  font-weight: 400;
+}
+
+.admin_container .forms-container .signin-signup form .btn {
+  width: 150px;
+  background-color: #4e73df;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 45px;
+  color: #f7f7f7;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 15px 0;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.admin_container .forms-container .signin-signup form .btn:hover {
+  background-color: #fccf33;
+  color: #130f40;
+}
+
+.admin_container .panels-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+.admin_container .panels-container .panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  text-align: center;
+  z-index: 6;
+  pointer-events: all;
+  padding: 3rem 17% 2rem 12%;
+}
+
+.admin_container .panels-container .panel .image {
+  width: 100%;
+  -webkit-transition: -webkit-transform 1.1s ease-in-out;
+  transition: -webkit-transform 1.1s ease-in-out;
+  transition: transform 1.1s ease-in-out;
+  transition: transform 1.1s ease-in-out, -webkit-transform 1.1s ease-in-out;
+  -webkit-transition-delay: 0.4s;
+          transition-delay: 0.4s;
+}
+
+.admin_container .panels-container .panel .content {
+  color: #fff;
+  -webkit-transition: -webkit-transform 0.9s ease-in-out;
+  transition: -webkit-transform 0.9s ease-in-out;
+  transition: transform 0.9s ease-in-out;
+  transition: transform 0.9s ease-in-out, -webkit-transform 0.9s ease-in-out;
+  -webkit-transition-delay: 0.6s;
+          transition-delay: 0.6s;
+}
+
+.admin_container .panels-container .panel .content h3 {
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.admin_container .panels-container .panel .content p {
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+}
+
+.admin_container::before {
+  content: "";
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: 1.8s ease-in-out;
+  transition: 1.8s ease-in-out;
+  background-color: #4e73df;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #4e73df), to(#224abe));
+  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  background-size: cover;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+.admin_product_img {
+  width: 100px;
+  height: 100px;
+}
+
+.admin_product_img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.single-product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.single-product .details_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.single-product .details_row .details_col {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  margin: 0 10px;
+}
+
+.single-product .details_row .details_col .product-detail-content div {
+  max-height: 500px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.single-product .details_row .details_col .main-img-row img {
+  width: 100%;
+  height: 100%;
+  padding: 10px 0px;
+}
+
+.single-product .details_row .details_col .small-img-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.single-product .details_row .details_col .small-img-row .small-img-col {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  cursor: pointer;
+  margin: 5px 5px 5px 0px;
+  width: 50px;
+}
+
+.select2-selection__choice {
+  background-color: #4e73df !important;
+  color: #fff !important;
+}
+
+.select2-selection__choice span {
+  color: #fff !important;
+}
+
+.tox-notifications-container {
+  display: none !important;
+}
+
+.tox-tinymce {
+  height: 400px !important;
+}
+
+@media (max-width: 870px) {
+  .admin_container {
+    min-height: 800px;
+    height: 100vh;
+  }
+  .admin_container::before {
+    width: 1500px;
+    height: 1500px;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    left: 30%;
+    bottom: 68%;
+    right: initial;
+    top: initial;
+    -webkit-transition: 2s ease-in-out;
+    transition: 2s ease-in-out;
+  }
+  .admin_container .forms-container .signin-signup {
+    width: 100%;
+    top: 70%;
+    -webkit-transform: translate(-50%, -100%);
+            transform: translate(-50%, -100%);
+    -webkit-transition: 1s 0.8s ease-in-out;
+    transition: 1s 0.8s ease-in-out;
+    left: 50%;
+  }
+  .admin_container .panels-container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: 1fr 2fr 1fr;
+        grid-template-rows: 1fr 2fr 1fr;
+  }
+  .admin_container .panels-container .panel {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 2.5rem 8%;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1 / 2;
+  }
+  .admin_container .panels-container .panel .image {
+    width: 200px;
+    -webkit-transition: -webkit-transform 0.9s ease-in-out;
+    transition: -webkit-transform 0.9s ease-in-out;
+    transition: transform 0.9s ease-in-out;
+    transition: transform 0.9s ease-in-out, -webkit-transform 0.9s ease-in-out;
+    -webkit-transition-delay: 0.6s;
+            transition-delay: 0.6s;
+  }
+  .admin_container .panels-container .panel .content {
+    padding-right: 15%;
+    -webkit-transition: -webkit-transform 0.9s ease-in-out;
+    transition: -webkit-transform 0.9s ease-in-out;
+    transition: transform 0.9s ease-in-out;
+    transition: transform 0.9s ease-in-out, -webkit-transform 0.9s ease-in-out;
+    -webkit-transition-delay: 0.8s;
+            transition-delay: 0.8s;
+  }
+  .admin_container .panels-container .panel .content h3 {
+    font-size: 1.2rem;
+  }
+  .admin_container .panels-container .panel .content p {
+    font-size: 0.7rem;
+    padding: 0.5rem 0;
+  }
+}
+
+.confirm_container {
+  min-height: 100vh;
+  -webkit-transition: 5s linear;
+  transition: 5s linear;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 100;
+}
+
+.confirm_container .confirm_form {
+  bottom: 10%;
+  position: absolute;
+  width: 420px;
+  padding: 20px 10px;
+  background-color: #ffffff;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  position: relative;
+  border-radius: 5px;
+  -webkit-transition: 5s linear;
+  transition: 5s linear;
+}
+
+.confirm_container .confirm_form form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.confirm_container .confirm_form strong i {
+  color: #5cb85c;
+  font-size: 60px;
+}
+
+.scrollTop {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  z-index: 10000;
+  font-size: 15px;
+  padding: 12px;
+  outline: none;
+  border: none;
+  border-radius: 0.6rem;
+  background-color: #4e73df;
+  color: #fff;
+  cursor: pointer;
+  visibility: hidden;
+  -webkit-transition: 0.3s linear;
+  transition: 0.3s linear;
+}
+
+.scrollTop:hover {
+  background-color: #5a5c69;
+  color: #fccf33;
+}
+
+.scrollTop.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.scrollTop i {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media (max-width: 570px) {
+  .admin_container {
+    padding: 1.5rem;
+  }
+  .admin_container::before {
+    bottom: 72%;
+    left: 50%;
+  }
+  .admin_container .forms-container .signin-signup form {
+    padding: 0 1.5rem;
+  }
+  .admin_container .forms-container .signin-signup form .title {
+    font-size: 1.8rem;
+  }
+  .admin_container .forms-container .signin-signup form .input-field input {
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+  .admin_container .panels-container .panel .content {
+    padding: 0.5rem 1rem;
+  }
+  .admin_container .panels-container .panel .image {
+    display: none;
+  }
+}
+/*# sourceMappingURL=admin.css.map */
