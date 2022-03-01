@@ -36,9 +36,10 @@ Route::get('/single_blog',[PublicHomeController::class,'singleBlog']);
 Route::get('/',[PublicProductController::class,'index']);
 Route::get('detail/{id}',[PublicProductController::class,'productDetail']);
 Route::get('products/list',[PublicProductController::class,'productList']);
-Route::get('/all_product', [PublicProductController::class,'allProduct']);
-Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data']);
-// Route for social
+Route::get('/all_product',[PublicProductController::class, 'searchPaginate']);
+// Route::get('/all_product/{id}',[PublicProductController::class, 'filterBrand']);
+
+// Route for social 
 Route::get('/contact',[PublicHomeController::class,'contactUs']);
 
 

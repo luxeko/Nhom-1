@@ -1,5 +1,11 @@
-@foreach($products as $item)
-<div class="col-lg-4 col-sm-6">
+
+
+                        <div class="row align-items-center latest_product_inner " id="pagination_data">
+                            <div style="position: absolute; top:100px">
+                                <p><span>{{$count ?? 0}} </span> Product Found</p>
+                            </div>
+                        @foreach($products as $item)
+                        <div class="col-lg-4 col-sm-6">
                             <div class="single_product_item">
                                 <img src="{{$item['feature_image_path']}}" alt="">
                                 <div class="single_product_text">
@@ -10,4 +16,11 @@
                             </div>
                         </div>
                         @endforeach
-                        {!! $products->links() !!}
+                        <div id="pagination" class="pagination pageination" >
+                            {!!$products->links()!!}
+                        </div>
+                        
+                                    
+</div>
+
+   
