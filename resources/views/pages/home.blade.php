@@ -14,7 +14,7 @@
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
                         <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
                         <img src="{{ URL::asset('/frontend/img/feature/feature_1.png'); }}" alt="">
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
                         <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
                         <img src="{{ URL::asset('/frontend/img/feature/feature_2.png'); }}" alt="">
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
                         <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
                         <img src="{{ URL::asset('/frontend/img/feature/feature_3.png'); }}" alt="">
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
                         <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
                         <img src="{{ URL::asset('/frontend/img/feature/feature_4.png'); }}" alt="">
                     </div>
                 </div>
