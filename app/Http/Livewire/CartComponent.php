@@ -23,6 +23,6 @@ class CartComponent extends Component
 
     public function render()
     {
-        return view('livewire.cart-component')->layout('index');
+        return view('livewire.cart-component')->layout('layout');
     }
 }

@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/price_rangs.css'); }}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css'); }}">
+    <!-- css trang checkout -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
+    @livewireStyles
 </head>
 
 <body>
@@ -47,7 +51,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{URL::to('/home')}}">Home</a>
+                                    <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
@@ -90,11 +94,38 @@
                         </div>
                         <div class="hearer_icon d-flex">
                             <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
-                            <a class="navbar__icon" href=""><ion-icon name="person-circle-outline"></ion-icon></i></a>
-                                <a class="navbar__icon" class="dropdown-toggle navbar__icon" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <ion-icon name="cart-outline"></ion-icon>
+                            <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                <a class="navbar__icon">
+                                    <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                 </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" title="My Account" href="#" style="color:#fefefe">Login</a>
+                                    <a class="dropdown-item" title="My Account" href="#" style="color:#fefefe">Register</a>
+                                </div>
+                            </div>
+
+                            <!-- @auth
+                                @if(Auth::user()->utype === "USR")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account({{Auth::user()->name}})</a>
+                                            <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                        <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"
+                                            onclick="event.preventDefault() document.getElementById('logout-form').submit()";>Logout</a>
+                                        </div>
+                                        <form id="logout-form" method="POST" action="{{route('logout')}}">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                @endif
+                            @else
+                                
+                            @endif -->
+                            <a class="navbar__icon" href="/cart" ><ion-icon name="cart-outline"></ion-icon></a>
                         </div>
                     </nav>
                 </div>
@@ -128,8 +159,7 @@
     </section>
     <!-- breadcrumb start-->
     <!--================Home Banner Area =================-->
-    @yield('all_products')
-    @yield('detail')
+    {{$slot}}
 
     <!--::footer_part start::-->
     <footer class="footer_part">
@@ -228,6 +258,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!--::footer_part end::-->
 
     <!-- jquery plugins here-->
+    @livewireScripts
     <script src="{{ URL::asset('/frontend/js/jquery-1.12.1.min.js'); }}"></script>
     <!-- popper js -->
     <script src="{{ URL::asset('/frontend/js/popper.min.js'); }}"></script>

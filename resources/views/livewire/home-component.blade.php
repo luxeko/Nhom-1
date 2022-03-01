@@ -56,6 +56,11 @@
                     </div>
                 </div>
             </div>
+            @if(Session::has('success_message'))
+              <div class="alert alert-success">
+                <strong>Success</strong> {{Session::get('success_message')}}
+              </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="">
