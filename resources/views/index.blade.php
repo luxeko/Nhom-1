@@ -64,7 +64,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         <a class="dropdown-item" href="login.html"> cases</a>
                                         <a class="dropdown-item" href="tracking.html">cooling</a>
-                                        <a class="dropdown-item" href="checkout.html">components</a>
+                                        <a class="dropdown-item" href="{{URL::to('/cases')}}">components</a>
                                         <a class="dropdown-item" href="cart.html">Audio</a>
                                         <a class="dropdown-item" href="confirmation.html">CAM</a>
                                     </div>
