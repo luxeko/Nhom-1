@@ -42,12 +42,6 @@
                             echo "</div>";
                             Session::put('price_null', null);
                         }
-                        if($price_not_int){
-                            echo "<div class='alert alert-danger'>";
-                                echo $price_not_int;
-                            echo "</div>";
-                            Session::put('price_not_int', null);
-                        }
                     @endphp
                     <div class="form-group">
                         <label for="avatar">Chọn ảnh đại diện</label>
@@ -69,7 +63,7 @@
                     @endphp
                     
                     <div class="form-group">
-                        <label for="thumbnail">Chọn các ảnh chi tiết <span class="text-danger">(Max: 5)</span></label>
+                        <label for="thumbnail">Chọn các ảnh chi tiết <span class="text-danger">(Max: 5 | Min: 3)</span></label>
                         <input multiple type="file" id="thumbnail" name="image_path[]">
                         <span id="err_thumbnail"></span>
                         <div class="col-md-12">
@@ -114,11 +108,6 @@
                             Session::put('status_null', null);
                         }
                     @endphp
-                    <div class="form-group">
-                        <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
-                            
-                        </select>
-                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group" >
@@ -182,6 +171,8 @@
                 err += '<p>Bạn chỉ được phép chọn tối đa 5 ảnh</p>'
             } else if(file.size > 2000000){
                 err += '<p>File ảnh không được quá 2MB</p>'
+            } else if(file.length < 3){
+                err += '<p>Bạn không được chọn dưới 3 ảnh</p>'
             }
 
             if(err == ''){

@@ -70,7 +70,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{URL::to('/blog')}}" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -109,7 +109,7 @@
 
     <!-- banner part start-->
     <div class="bg-video-wrap">
-    <video src="{{ URL::asset('/frontend/img/New H-Series Case Overview & Comparison.mp4'); }}" loop muted autoplay>
+    <video src="{{ URL::asset('/frontend/img/background.mp4'); }}" loop muted autoplay>
     </video>
     <div class="overlay">
     </div>

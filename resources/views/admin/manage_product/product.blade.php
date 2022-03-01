@@ -25,25 +25,27 @@
             <div> 
                 <form class="form-inline">
                     <div class="d-flex flex-row form-group mr-sm-4">
-                        <label class="mr-sm-2" for="test1">Price </label>
-                        <select  class="form-control input-xs"  name="" id="test1" >
-                            <option value="">-----------</option>
-                            <option value="">Low to High</option>
-                            <option value="">High to Low</option>
+                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
+                    </div>
+                    <div class="d-flex flex-row form-group mr-sm-4">
+                    
+                        <select  class="form-control input-xs"  name="" >
+                            <option value="">Giá tiền</option>
+                            <option value="">Thấp đến cao</option>
+                            <option value="">Cao đến thấp</option>
                         </select>
                     </div>
                     <div class="d-flex flex-row mr-sm-4">
-                        <label class="mr-sm-2" for="test3">Category </label>
-                        <select  class="form-control input-xs "  name="" id="test3" >
-                            <option value="">-----------</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                  
+                        <select name="category_filter" class="form-control input-xs">
+                            <option value=""> Danh mục </option>
+                            {!! $htmlOption !!}
                         </select>
                     </div>
                     <div class="d-flex flex-row">
-                        <label class="mr-sm-2" for="test2">Status </label>
-                        <select  class="form-control input-xs"  name="" id="test2">
-                            <option value="">-----------</option>
+                
+                        <select  class="form-control input-xs"  name="" >
+                            <option value="">Status</option>
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
                         </select>
@@ -76,11 +78,43 @@
                     </tr>
                 </thead> 
                 <tbody id="list-product">
-                    @include('admin/manage_product.data')
+                    @if(!empty($data) && $data->count()>0)
+                        @foreach ($data as $key => $value)                         
+                            <tr>
+                                <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
+                                <td class='text-center admin_product_img'><img src='{{$value->feature_image_path}}'></td>
+                                <td class="text-center">{{$value->name}}</td>
+                                
+                                <td class="text-center"><span class="text-success">{{ number_format($value->price, 0) }} VNĐ</span>
+                                </td>
+                                <td class="text-center">{{ optional($value->category)->name }}</td>
+                                <td class="text-center">
+                                    <?php
+                                        if($value->status == 1){
+                                            echo "<span class='text-success'>Active</span>";
+                                        } else {
+                                            echo "<span class='text-danger'>Disable</span>";
+                                        }  
+                                    ?>
+                                </td>
+                                <td colspan="1" class="text-center" style="width:15%">
+                                    <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
+                        </tr>
+                    @endif
                     
                 </tbody>
-                               
             </table>
+            <div class="d-flex justify-content-center">
+                {!! $data->links() !!}
+            </div>
         </div>
         <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
@@ -123,64 +157,64 @@
 
 
 <script type="text/javascript" >  
-    $(document).ready(function(){
+    // $(document).ready(function(){
         var category_name = '';
         let imagesPath = '';
-        function clear_icon(){
-            $('#id_icon').html('');
-            $('#post_title_icon').html('');
-        }
-        function fetch_data(page, sort_type, sort_by, query){
-            $.ajax({
-                url: "/admin/products/show/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
-                success:function(data){
-                    $('tbody').html('');
-                    $('#table_data tbody').html(data)
-                }
-            });
-        }
-        $(document).on('click', '.pagination a', function(event){
-            event.preventDefault();
-            var page = $(this).attr('href').split('page=')[1];
-            $('#hidden_page').val(page);
-            var column_name = $('#hidden_column_name').val();
-            var sort_type = $('#hidden_sort_type').val();
-            var query = $('#search').val();
-            $('li').removeClass('active');
-            $(this).parent().addClass('active');
-            fetch_data(page, sort_type, column_name, query);
+        // function clear_icon(){
+        //     $('#id_icon').html('');
+        //     $('#post_title_icon').html('');
+        // }
+        // function fetch_data(page, sort_type, sort_by, query){
+        //     $.ajax({
+        //         url: "/admin/products/show/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
+        //         success:function(data){
+        //             $('tbody').html('');
+        //             $('#table_data tbody').html(data)
+        //         }
+        //     });
+        // }
+        // $(document).on('click', '.pagination a', function(event){
+        //     event.preventDefault();
+        //     var page = $(this).attr('href').split('page=')[1];
+        //     $('#hidden_page').val(page);
+        //     var column_name = $('#hidden_column_name').val();
+        //     var sort_type = $('#hidden_sort_type').val();
+        //     var query = $('#search').val();
+        //     $('li').removeClass('active');
+        //     $(this).parent().addClass('active');
+        //     fetch_data(page, sort_type, column_name, query);
 
-        });
-        $(document).on('click', '.sorting', function(){
-            var column_name = $(this).data('column_name');
-            var order_type = $(this).data('sorting_type');
-            var reverse_order = '';
-            if(order_type == 'asc'){
-                $(this).data('sorting_type', 'desc');
-                reverse_order = 'desc';
-                clear_icon();
-                $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
-            }
-            if(order_type == 'desc'){
-                $(this).data('sorting_type', 'asc');
-                reverse_order = 'asc';
-                clear_icon
-                $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
-            }
-            $('#hidden_column_name').val(column_name);
-            $('#hidden_sort_type').val(reverse_order);
-            var page = $('#hidden_page').val();
-            var query  = $('#search').val();
-            fetch_data(page, reverse_order, column_name, query );
-        });
+        // });
+        // $(document).on('click', '.sorting', function(){
+        //     var column_name = $(this).data('column_name');
+        //     var order_type = $(this).data('sorting_type');
+        //     var reverse_order = '';
+        //     if(order_type == 'asc'){
+        //         $(this).data('sorting_type', 'desc');
+        //         reverse_order = 'desc';
+        //         clear_icon();
+        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
+        //     }
+        //     if(order_type == 'desc'){
+        //         $(this).data('sorting_type', 'asc');
+        //         reverse_order = 'asc';
+        //         clear_icon
+        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
+        //     }
+        //     $('#hidden_column_name').val(column_name);
+        //     $('#hidden_sort_type').val(reverse_order);
+        //     var page = $('#hidden_page').val();
+        //     var query  = $('#search').val();
+        //     fetch_data(page, reverse_order, column_name, query );
+        // });
 
-        $(document).on('keyup', '#search', function(){
-            var query  = $('#search').val();
-            var column_name = $('#hidden_column_name').val();
-            var sort_type = $('#hidden_sort_type').val();
-            var page = $('#hidden_page').val();
-            fetch_data(page, sort_type, column_name, query);
-        });
+        // $(document).on('keyup', '#search', function(){
+        //     var query  = $('#search').val();
+        //     var column_name = $('#hidden_column_name').val();
+        //     var sort_type = $('#hidden_sort_type').val();
+        //     var page = $('#hidden_page').val();
+        //     fetch_data(page, sort_type, column_name, query);
+        // });
 
         
         function getCategory(id){
@@ -245,7 +279,9 @@
                                 </div>
                                 <div class="details_col">
                                     <h4 class="text-center text-capitalize">${product.name}</h4>
-                                    <div class="mt-1">${product.price}</div>
+                                    <div class="mt-1">
+                                        <p class="mb-0"><span> Price: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${formatter.format(product.price)}</span></p>
+                                    </div>
                                     <div class="mt-1">
                                         <p class="mb-0"><span> Category: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${category_name}</span></p>
                                     </div>
@@ -273,7 +309,7 @@
             });
         }
 
-    });
+    // });
 
 </script>
 
