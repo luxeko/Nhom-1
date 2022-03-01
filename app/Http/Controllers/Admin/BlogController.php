@@ -19,7 +19,7 @@ class BlogController extends Controller
         $this->blog = $blog;
     }
     public function index(){
-        $data = $this->blog->paginate(5);
+        $data = $this->blog->latest()->paginate(5);
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
@@ -53,7 +53,7 @@ class BlogController extends Controller
                 $dataBlogCreate = [
                     'title'         => $request->title,
                     'content_post'  => $request->content_post,
-                    'author'         => $request->author,
+                    'author'        => $request->author,
                     'status'        => $request->status,
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'background', 'blog');
@@ -78,8 +78,20 @@ class BlogController extends Controller
     public function update(){
 
     }
-    public function delete(){
-
+    public function delete($id){
+        try {
+            $this->blog->find($id)->delete();
+            return response()->json([
+                'code'      => 200,
+                'message'   => 'success'
+            ], 200);
+        } catch (\Exception $exc) {
+            Log::error("Message: " . $exc . " Line: " . $exc->getLine());
+            return response()->json([
+                'code'      => 500,
+                'message'   => 'fail'
+            ], 500);
+        }
     }
     public function details_blog(Request $request){
         return Blog::findOrFail($request->id);

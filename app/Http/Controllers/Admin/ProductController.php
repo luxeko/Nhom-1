@@ -44,7 +44,7 @@ class ProductController extends Controller
     
     public function show(){
         $htmlOption = $this->getCategory($parentId = '');
-        $data = $this->product->paginate(5);
+        $data = $this->product->latest()->paginate(5);
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
@@ -108,7 +108,7 @@ class ProductController extends Controller
                 $dataProductCreate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(',','', $request->product_price) ,
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
@@ -172,7 +172,7 @@ class ProductController extends Controller
                 $dataProductUpdate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(',','', $request->product_price) ,
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),

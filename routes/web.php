@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ComboController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Pages\PublicBlogController;
 use Illuminate\Support\Facades\Route;
@@ -111,6 +112,16 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::post('/update/{id}',[BlogController::class,'update'])->name('blog.update');
         Route::get('/delete/{id}',[BlogController::class,'delete'])->name('blog.delete');
         Route::get('/details',[BlogController::class,'details_blog']);
+    }); 
+    // Xử lý CRUD Combo
+    Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[ComboController::class,'index'])->name('combo.index');
+        Route::get('/create',[ComboController::class,'create'])->name('combo.create');
+        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
+        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit');
+        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
+        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete');
+        Route::get('/details',[ComboController::class,'details_combo']);
     }); 
 
 });

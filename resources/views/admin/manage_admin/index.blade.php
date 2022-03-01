@@ -5,7 +5,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Blogs</title>
+    <title>User</title>
 @endsection
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
@@ -13,14 +13,14 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách Blogs</h2>
+            <h2>Bảng danh sách User</h2>
             <div class="form-inline">
                 <input class="form-control" type="text" id="search" name="search" placeholder="Search">
             </div>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/blogs/create') }} " class="btn btn-primary mb-3">Thêm blog</a>
+                <a href="{{ asset('admin/blogs/create') }} " class="btn btn-primary mb-3">Thêm user</a>
             </div>
             <div> 
                 <form class="form-inline">
@@ -56,11 +56,11 @@
         </div>
         
         @php             
-            $success = Session::get('success_blog');
+            $success = Session::get('success_user');
             if($success){
                 echo "<div class='alert alert-success' role='alert'>";
                     echo $success;
-                    Session::put('success_blog', null);
+                    Session::put('success_user', null);
                 echo "</div>";
             }
         @endphp
@@ -70,9 +70,10 @@
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
                         <th class="text-center">Hình ảnh</th>
-                        <th class="text-center">Tiêu đề</th>
-                        <th class="text-center">Tác giả</th>
-                        <th class="text-center">Status</th>
+                        <th class="text-center">Tên</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Phone</th>
+                        <th class="text-center">Vai trò</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead> 
@@ -81,22 +82,16 @@
                         @foreach ($data as $key => $value)                         
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
-                                <td class='text-center admin_product_img'><img src='{{$value->image}}'></td>
-                                <td class="text-center">{{$value->title}}</td>
-                                <td class="text-center">{{$value->author}}</td>
-                                <td class="text-center">
-                                    <?php
-                                        if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
-                                        } elseif ($value->status == 2) {
-                                            echo "<span class='text-danger'>Disable</span>";
-                                        } 
-                                    ?>
-                                </td>
+                                <td class='text-center admin_product_img'><img src='{{$value->avatar_path}}'></td>
+                                <td class="text-center">{{$value->name}}</td>
+                                <td class="text-center">{{$value->email}}</td>
+                                <td class="text-center">{{$value->phone}}</td>
+                                <td class="text-center">{{$value->vaiTro}}</td>
+                                
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="viewBlogDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailBlog"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('blog.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('blog.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -115,14 +110,14 @@
         
         <section>
             <!-- Modal -->
-            <div class="modal fade" id="modalDetailBlog" tabindex="-1" aria-labelledby="blog-modal-label" aria-hidden="true">
+            <div class="modal fade" id="modalDetailUser" tabindex="-1" aria-labelledby="user-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header border-0">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
                         </div>
                         {{-- code từ đây  --}}
-                        <div class="modal-body border-0" id="modal-blog-detail"></div>
+                        <div class="modal-body border-0" id="modal-user-detail"></div>
                         {{-- end code thông báo  --}}
                         <div class="modal-footer border-0">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -143,7 +138,8 @@
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
 <script type='text/javascript'>
     $(document).ready(function(){
-        $('.active_blogs_sliderbar').addClass('active');
+        $('#collapseUtilities').addClass('show');
+        $('.foundation_active').addClass('active');
     });
 </script>
 
@@ -151,7 +147,7 @@
 <script type="text/javascript" >  
     function viewBlogDetail(id){
         $.ajax({
-            url:'/admin/blogs/details/',
+            url:'/admin/users/details/',
             method:'GET',
             data:{id:id},
             success:(blog)=>{
@@ -196,7 +192,7 @@
                         </div>
                     </div>
                 `
-                $('#modal-blog-detail').html('').append(blogDetails);
+                $('#modal-user-detail').html('').append(blogDetails);
             }
         });
     }

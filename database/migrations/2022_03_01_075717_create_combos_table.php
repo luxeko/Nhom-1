@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlogsTable extends Migration
+class CreateCombosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateBlogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('combos', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('content_post');
-            $table->text('title');
-            $table->string('image',255);
-            $table->string('tag',255)->nullable();
-            $table->string('author',255);
-            $table->integer('status')->default(0);
+            $table->string('name');
+            $table->longText('desc');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +29,6 @@ class CreateBlogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('combos');
     }
 }

@@ -109,13 +109,12 @@
                             <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
                         </tr>
                     @endif
-                    <tr>
-                        <td colspan="12" class="">
-                            {!! $data->links() !!}
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {!! $data->links() !!}
+            </div>
         </div>
         <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
