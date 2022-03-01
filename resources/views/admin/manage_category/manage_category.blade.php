@@ -14,14 +14,49 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-        <h2>Bảng danh sách danh mục</h2>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
-        </form>
+            <h2>Bảng danh sách danh mục</h2>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
         </div>            
-        <!-- button to add admin  -->
-        <a href="{{ asset('admin/categories/create') }} " class="btn btn-primary mb-3">Thêm danh mục</a>
+        <div class="d-flex justify-content-between">    
+            <div>
+                <a href="{{ asset('admin/categories/create') }} " class="btn btn-primary mb-3">Thêm danh mục</a>
+            </div>
+            <div> 
+                <form class="form-inline">
+                    <div class="d-flex flex-row form-group mr-sm-4">
+                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
+                    </div>
+                    <div class="d-flex flex-row form-group mr-sm-4">
+                    
+                        <select  class="form-control input-xs"  name="" >
+                            <option value="">Giá tiền</option>
+                            <option value="">Thấp đến cao</option>
+                            <option value="">Cao đến thấp</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-row mr-sm-4">
+                  
+                        <select name="category_filter" class="form-control input-xs">
+                            <option value=""> Danh mục </option>
+                            {{-- {!! $htmlOption !!} --}}
+                        </select>
+                    </div>
+                    <div class="d-flex flex-row">
+                
+                        <select  class="form-control input-xs"  name="" >
+                            <option value="">Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Disable</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+           
+        </div>
+
         @php             
             $success = Session::get('success_category');
             if($success){

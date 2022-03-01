@@ -52,11 +52,10 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Combo PC:</h6>
-                <a class="collapse-item admin_active" href="">Foundation PC</a>
-                <a class="collapse-item category_active" href="">Creator PC</a>
-                <a class="collapse-item" href="">Streaming PC</a>
-                <a class="collapse-item" href="">Start PC </a>
-                <a class="collapse-item" href="">Other</a>
+                <a class="collapse-item foundation_active" href="{{asset('admin/combos/foundation')}}">Foundation PC</a>
+                <a class="collapse-item creatorPC_active" href="">Creator PC</a>
+                <a class="collapse-item streaming_active" href="">Streaming PC</a>
+                <a class="collapse-item startPc_active" href="">Start PC </a>
             </div>
         </div>
     </li>
@@ -86,15 +85,9 @@
         Giao diện
     </div>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="{{ route('discount.index') }}">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Discounts</span>
-        </a>
-    </li>
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
+
+    <li class="nav-item active_blogs_sliderbar">
+        <a class="nav-link" href="{{asset('admin/blogs/index')}}">
             <i class="fas fa-fw fa-table"></i>
             <span>Blogs</span>
         </a>

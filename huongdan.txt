@@ -1,0 +1,24 @@
+1 : git clone https://github.com/luxeko/Nhom-1.git
+
+2: git checkout dev
+
+3: git checkout -b "name"
+
+4: composer install + composer update + copy file .env ở thư mục NZXT
+
+5: php artisan key:generate 
+
+6: php artisan migrate
+
+7:  php artisan db:seed --class=CategoryTableSeeder
+    php artisan db:seed --class=UserTableSeeder
+
+8: php artisan storage:link
+
+9: composer require bumbummen99/shoppingcart
+
+10: composer require livewire/livewire
+
+11: code công việc của mình
+
+12: git push -u origin "name" và đợi quản lý source pull request
