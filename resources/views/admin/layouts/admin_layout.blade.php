@@ -73,6 +73,6 @@
                 $('#preloader').hide(0).delay(1200).show(0);
             });
         </script>
-
+        @livewireScripts
     </body>
 </html>

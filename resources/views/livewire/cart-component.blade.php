@@ -1,6 +1,11 @@
 <div>
   <section class="cart_area padding_top">
     <div class="container">
+      @if(Session::has('success_message'))
+        <div class="alert alert-success">
+          <strong>Success</strong> {{Session::get('success_message')}}
+        </div>
+      @endif
       <div class="cart_inner">
         <div class="table-responsive">
           @if(Cart::count() > 0)
@@ -20,30 +25,36 @@
                   <td colspan=1 style="width: 20%">
                     <div class="media d-flex flex-column">
                       <div class="">
-                        <img src="{{$item->model->feature_image_path }}" alt="{{$item->model->name}}" style="width: 100%"/>
+                        <a href="{{route('product.details', ['slug'=>$item->model->slug])}}">
+                          <img src="{{ $item->model->feature_image_path }}" alt="{{$item->model->name}}" style="width: 100%"/>
+                        </a>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div class="text-center">
-                      <a href=""><p>{{$item->model->name}}</p></a>
+                      <a href="{{route('product.details', ['slug'=>$item->model->slug])}}"><p>{{$item->model->name}}</p></a>
                     </div>
                   </td>
                   <td >
-                    <h5>${{$item->model->price}}</h5>
+                    <h5>${{number_format($item->price)}}</h5>
                   </td>
                   <td>
                   <div class="quantity">
                     <div class="product_count">
-                      
-                      <span class="input-number-increment"><a class="ti-angle-up"wire:click.prevent="increaseQuantity('{{$item->rowId}}')"></a></span>                                            
+                      <input name="input-number" type="text" value="{{$item->qty}}" data-max="120" pattern="[0-9]*">
+                      <span class="input-number-increment"><a class="ti-angle-up" wire:click.prevent="increaseQuantity('{{$item->rowId}}')"></a></span>
                       <span class="input-number-decrement"><a class="ti-angle-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"></a></span>
-                      <input class="input-number" type="text" value="{{$item->qty}}" data-max="120" pattern="[0-9]*">
                     </div>
                   </div>
                   </td>
                   <td>
                     <h5>${{$item->subtotal()}}</h5>
+                  </td>
+                  <td> 
+                    <a href="" wire:click.prevent="destroy('{{$item->rowId}}')" style="color: #2a2a2a;">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
                   </td>
                 </tr>
                 @endforeach

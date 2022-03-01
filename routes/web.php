@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
 use App\Http\Controllers\Pages\PublicProductController;
 
+//livewire controller
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\CartComponent;
+use App\Http\Livewire\AllProductComponent;
+use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\user\UserDashboardComponent;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +58,24 @@ use App\Http\Livewire\CheckoutComponent;
 // Livewire route
 
 Route::get('/', HomeComponent::class);
-Route::get('/cart',CartComponent::class);
-Route::get('/checkout',CheckoutComponent::class);
+Route::get('/shop',AllProductComponent::class);
+Route::get('/cart',CartComponent::class)->name('product.cart');
+Route::get('/checkout', CheckoutComponent::class)->name('checkout');
+Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
+Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
+Route::middleware(['auth:sanctum','verified'])->group(function(){ 
+    Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
+});
+
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
+Route::get('/mailable', function () {
+    $order = App\Models\Order::find(1);
+    
+    return new App\Mail\Ordermail($order);
+});
+
 
 
 // Admin route
@@ -59,13 +83,13 @@ Route::group(['namespace'=>'Admin'], function(){
 
     // xử lý đến trang login
     Route::get('admin',[LoginController::class,'goLogin']);
-    Route::group(['prefix'=>'admin','middleware'=>'CheckLogedIn'], function(){
-        Route::get('login',[LoginController::class,'getlogin']);
-        Route::post('login',[LoginController::class,'postlogin']);
+    Route::group(['middleware'=>'CheckLogedIn'], function(){
+        Route::get('admin/login',[LoginController::class,'getlogin']);
+        Route::post('admin/login',[LoginController::class,'postlogin']);
     });
 
     // xử lý khi đăng nhập thành công
-    Route::get('logout',[HomeController::class,'getLogout']);
+    Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout');
     Route::group(['prefix'=>'admin/home','middleware'=>'CheckLogedOut'], function(){
         Route::get('/',[HomeController::class,'showDashboard']);
         Route::get('error',[HomeController::class,'showErr']);
@@ -114,3 +138,7 @@ Route::group(['namespace'=>'Admin'], function(){
     }); 
 
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

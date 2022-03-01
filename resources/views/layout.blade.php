@@ -30,6 +30,7 @@
     <!-- css trang checkout -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} " >
     @livewireStyles
 </head>
 
@@ -41,7 +42,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="/"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -61,21 +62,19 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="category.html"> Combo </a>
                                         <a class="dropdown-item" href="single-product.html">New product</a>
-                                        
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/shop" >
+                                    <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="login.html"> cases</a>
-                                        <a class="dropdown-item" href="tracking.html">cooling</a>
-                                        <a class="dropdown-item" href="checkout.html">components</a>
-                                        <a class="dropdown-item" href="cart.html">Audio</a>
-                                        <a class="dropdown-item" href="confirmation.html">CAM</a>
-                                        <a class="dropdown-item" href="elements.html">accessories</a>
+                                        <a class="dropdown-item" href="/case"> cases</a>
+                                        <a class="dropdown-item" href="/cooling">cooling</a>
+                                        <a class="dropdown-item" href="/component">components</a>
+                                        <a class="dropdown-item" href="/audio">Audio</a>
+                                        <a class="dropdown-item" href="/cam">CAM</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -94,17 +93,7 @@
                         </div>
                         <div class="hearer_icon d-flex">
                             <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
-                            <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
-                                <a class="navbar__icon">
-                                    <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" title="My Account" href="#" style="color:#fefefe">Login</a>
-                                    <a class="dropdown-item" title="My Account" href="#" style="color:#fefefe">Register</a>
-                                </div>
-                            </div>
-
-                            <!-- @auth
+                            @auth
                                 @if(Auth::user()->utype === "USR")
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
@@ -123,9 +112,18 @@
                                     </div>
                                 @endif
                             @else
-                                
-                            @endif -->
-                            <a class="navbar__icon" href="/cart" ><ion-icon name="cart-outline"></ion-icon></a>
+                                <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                    <a class="navbar__icon">
+                                        <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                        <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @livewire('cart-count-component')
                         </div>
                     </nav>
                 </div>
@@ -272,7 +270,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/masonry.pkgd.js'); }}"></script>
     <!-- particles js -->
     <script src="{{ URL::asset('/frontend/js/owl.carousel.min.js'); }}"></script>
-    <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script> -->
     <!-- slick js -->
     <script src="{{ URL::asset('/frontend/js/slick.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.counterup.min.js'); }}"></script>

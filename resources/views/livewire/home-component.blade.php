@@ -69,9 +69,9 @@
                                 @foreach($products->take(8) as $item)
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="single_product_item">
-                                        <a href="detail/{{$item['id']}}"><img src="{{$item['feature_image_path']}}" alt=""></a>
+                                        <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                                         <div class="single_product_text">
-                                            <h4>{{$item['name']}}</h4>
+                                        <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
                                             <h3>{{number_format($item['price'],0,',','.')}}</h3>
                                             <a href="#" class="add_cart" wire:click.prevent="store( {{$item->id}}, '{{$item->name}}', {{$item->price}} )">+ add to cart</a>
                                         </div>

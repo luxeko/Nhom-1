@@ -8,9 +8,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
 use App\Models\Transaction;
-use App\Mail\OrderMailMarkdown;
+use App\Mail\OrderMail;
 use App\Models\City;
-use App\Models\District;
 use Illuminate\Support\Facades\Auth;
 use Cart;
 use Stripe;
@@ -28,9 +27,6 @@ class CheckoutComponent extends Component
     public $line1;
     public $line2;
     public $city;
-//     public $province;
-//     public $country;
-//     public $zipcode;
     
     public $s_firstname;
     public $s_lastname;
@@ -39,9 +35,6 @@ class CheckoutComponent extends Component
     public $s_line1;
     public $s_line2;
     public $s_city;
-//     public $s_province;
-//     public $s_country;
-//     public $s_zipcode;
     
     public $paymentmode;
     public $thankyou;
@@ -52,8 +45,6 @@ class CheckoutComponent extends Component
     public $cvc;
     
     public $cities;
-    public $city_id;
-    public $districts;
     
     public function updated($fields)
     {
@@ -65,9 +56,6 @@ class CheckoutComponent extends Component
             'line1' => 'required',
             'line2' => 'required',
             'city' => 'required',
-//             'province' => 'required',
-//             'country' => 'required',
-//             'zipcode' => 'required',
             'paymentmode' => 'required'
         ]);
         
@@ -80,10 +68,7 @@ class CheckoutComponent extends Component
                 's_mobile' => 'required|numeric',
                 's_line1' => 'required',
                 's_line2' => 'required',
-                's_city' => 'required',
-//                 's_province' => 'required',
-//                 's_country' => 'required',
-//                 's_zipcode' => 'required'
+                's_city' => 'required'
             ]);
         }
         
@@ -108,9 +93,6 @@ class CheckoutComponent extends Component
             'line1' => 'required',
             'line2' => 'required',
             'city' => 'required',
-//             'province' => 'required',
-//             'country' => 'required',
-//             'zipcode' => 'required',
             'paymentmode' => 'required'
         ]);
         
@@ -136,9 +118,6 @@ class CheckoutComponent extends Component
         $order->line1 = $this->line1; 
         $order->line2 = $this->line2; 
         $order->city = $this->city;  
-//         $order->province = $this->province;
-//         $order->country = $this->country;
-//         $order->zipcode = $this->zipcode;
         $order->status = 'ordered';
         $order->is_shipping_different = $this->ship_to_different ? 1:0;
         $order->save();
@@ -163,9 +142,6 @@ class CheckoutComponent extends Component
                 's_line1' => 'required',
                 's_line2' => 'required',
                 's_city' => 'required',
-//                 's_province' => 'required',
-//                 's_country' => 'required',
-//                 's_zipcode' => 'required'
             ]);
             
             $shipping = new Shipping();
@@ -177,9 +153,6 @@ class CheckoutComponent extends Component
             $shipping->line1 = $this->s_line1;
             $shipping->line2 = $this->s_line2;
             $shipping->city = $this->s_city;
-//             $shipping->province = $this->s_province;
-//             $shipping->country = $this->s_country;
-//             $shipping->zipcode = $this->s_zipcode;
             $shipping->save();            
         }
         
@@ -214,21 +187,13 @@ class CheckoutComponent extends Component
                     'phone' => $this->mobile,
                     'address' => [
                         'line1' => $this->line1,
-                        //'line2' => $this->line2,
-//                         'postal_code' => $this->zipcode,
-                        'city' => $this->city,
-//                         'state' => $this->province,
-//                         'country' => $this->country
+                        'city' => $this->city
                     ],
                     'shipping' => [
                         'name' => $this->firstname . ' ' . $this->lastname,
                         'address' => [
                             'line1' => $this->line1,
-                            //'line2' => $this->line2,
-//                             'postal_code' => $this->zipcode,
-                            'city' => $this->city,
-//                             'state' => $this->province,
-//                             'country' => $this->country
+                            'city' => $this->city
                         ],
                     ],
                     'source' => $token['id']
@@ -280,7 +245,7 @@ class CheckoutComponent extends Component
     
     public function sendOrderConfirmationMail($order)
     {
-        Mail::to($order->email)->send(new OrderMailMarkdown($order));
+        Mail::to($order->email)->send(new OrderMail($order));
     }
     
     public function verifyForCheckout()

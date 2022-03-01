@@ -14,7 +14,7 @@ class HomeComponent extends Component
         session()->flash('success_message', 'Item has been added to Cart');
         return;
     }
-
+    
     public function render()
     {
         $products = Product::paginate(10);
