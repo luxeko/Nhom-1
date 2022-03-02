@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Pages\PublicBlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
@@ -72,8 +73,9 @@ Route::group(['namespace'=>'Admin'], function(){
     }); 
 
     // xử lý phân quyền
-    Route::group(['prefix'=>'admin/users', 'middleware'=>'CheckLogedOut'], function(){
+    Route::group(['prefix'=>'admin/users','middleware'=>'CheckLogedOut'], function(){
         Route::get('/',[AdminUserController::class,'index'])->name('users.index');
+        
     });
 
     // xử lý CRUD Category
@@ -113,6 +115,18 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/delete/{id}',[BlogController::class,'delete'])->name('blog.delete');
         Route::get('/details',[BlogController::class,'details_blog']);
     }); 
+
+    // Xử lý CRUD Roles
+    Route::group(['prefix'=>'admin/roles','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[RoleController::class,'index'])->name('role.index');
+        Route::get('/create',[RoleController::class,'create'])->name('role.create');
+        Route::post('/store',[RoleController::class,'store'])->name('role.store');
+        Route::get('/edit/{id}',[RoleController::class,'edit'])->name('role.edit');
+        Route::post('/update/{id}',[RoleController::class,'update'])->name('role.update');
+        Route::get('/delete/{id}',[RoleController::class,'delete'])->name('role.delete');
+    }); 
+
+
     // Xử lý CRUD Combo
     Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
         Route::get('/index',[ComboController::class,'index'])->name('combo.index');
@@ -122,6 +136,20 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
         Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete');
         Route::get('/details',[ComboController::class,'details_combo']);
+    }); 
+
+    // Xử lý CRUD User
+    Route::group(['prefix'=>'admin/users','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[AdminUserController::class,'index'])->name('user.index');
+        Route::get('/create',[AdminUserController::class,'create'])->name('user.create');
+        Route::post('/store',[AdminUserController::class,'store'])->name('user.store');
+        Route::get('/edit/{id}',[AdminUserController::class,'edit'])->name('user.edit');
+        Route::post('/update/{id}',[AdminUserController::class,'update'])->name('user.update');
+        Route::get('/delete/{id}',[AdminUserController::class,'delete'])->name('user.delete');
+        Route::get('/details',[AdminUserController::class,'details']);
+        Route::get('/getRoleName/{id}',[AdminUserController::class,'getRoles'])->name('user.test');
+        Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
+        Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
     }); 
 
 });

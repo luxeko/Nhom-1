@@ -15,12 +15,12 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Chỉnh sửa Blogs</h2>
-        <form action="{{ route('blog.update', ['id'=>$blog->id]) }}" method="post">
+        <form action="{{ route('blog.update', ['id'=>$blog->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" style="width:100%">
-                        <input type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="title" style="width: 100%;" placeholder="Tiêu đề" value="{{ old('title') }}" />
+                        <input type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="title" style="width: 100%;" placeholder="Tiêu đề" value="{{ $blog->title }}" />
                     </div>
                     @php         
                         $err_title = Session::get('title_null');
@@ -33,7 +33,7 @@
                     @endphp
                     
                     <div class="form-group" style="width:100%">
-                        <input type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="author" style="width: 100%;" placeholder="Tác giả" value="{{old('author')}}" />
+                        <input type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="author" style="width: 100%;" placeholder="Tác giả" value="{{ $blog->author }}" />
                     </div>
                     @php         
                         $err_author = Session::get('author_null');
@@ -48,6 +48,11 @@
                     <div class="form-group">
                         <label for="background">Chọn ảnh bìa</label>
                         <input class="form-control-file" type="file" id="background" name="background">
+                        <div class="col-md-12">
+                            <div class="row rounded border border-secondary p-2" style="width:120px; height:120px">
+                                <img src="{{ $blog->image }}" style="width:100%">
+                            </div>
+                        </div>
                     </div>
                     @php         
                         $image_null = Session::get('image_null');
@@ -78,7 +83,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group" >
-                        <textarea id="mytextarea" name="content_post" placeholder="Nội dung">{{old('content_post')}}</textarea>
+                        <textarea id="mytextarea" name="content_post" placeholder="Nội dung">{{ $blog->content_post }}</textarea>
                         
                     </div>
                     @php         
@@ -94,7 +99,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Thêm Blog</button>
+                        <button class="btn btn-primary">Cập nhật sản phẩm Blog</button>
                         <a href="{{ asset('admin/blogs/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>

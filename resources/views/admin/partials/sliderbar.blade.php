@@ -69,9 +69,8 @@
         <div id="collapsePermission" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">List:</h6>
-                <a class="collapse-item " href="">Quản lý user</a>
-                <a class="collapse-item " href="">Quản lý admin</a>
-                <a class="collapse-item" href="">Danh sách vai trò</a>
+                <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">Quản lý user</a>
+                <a class="collapse-item role_active" href="{{ asset('admin/roles/index') }}" >Danh sách vai trò</a>
                 <a class="collapse-item" href="">Logs </a>
             </div>
         </div>
