@@ -92,7 +92,7 @@
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
-                            <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
+                            @livewire('header-search-component')
                             @auth
                                 @if(Auth::user()->utype === "USR")
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
@@ -100,8 +100,9 @@
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account({{Auth::user()->name}})</a>
+                                            <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
                                             <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                            <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"
                                             onclick="event.preventDefault() document.getElementById('logout-form').submit()";>Logout</a>
@@ -287,26 +288,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
-$(document).ready(function(){
+        $(document).ready(function(){
 
- $(document).on('click', '.pagination a', function(event){
-  event.preventDefault(); 
-  var page = $(this).attr('href').split('page=')[1];
-  fetch_data(page);
- });
+        $(document).on('click', '.pagination a', function(event){
+        event.preventDefault(); 
+        var page = $(this).attr('href').split('page=')[1];
+        fetch_data(page);
+        });
 
- function fetch_data(page)
- {
-  $.ajax({
-   url:"/all_product/fetch_data?page="+page,
-   success:function(data)
-   {
-    $('#table_data').html(data);
-   }
-  });
- }
- 
-});
+        function fetch_data(page)
+        {
+        $.ajax({
+        url:"/all_product/fetch_data?page="+page,
+        success:function(data)
+        {
+            $('#table_data').html(data);
+        }
+        });
+        }
+        
+        });
 </script>
 </body>
 

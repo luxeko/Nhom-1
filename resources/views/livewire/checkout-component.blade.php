@@ -20,12 +20,12 @@
             					<h3 class="box-title">Billing Address</h3>
             					<div class="billing-address">
             						<p class="row-in-form">
-            							<label for="fname">first name<span>*</span></label>
+            							<label for="fname">first name<span>*</span>:</label>
             							<input type="text" name="fname" value="" placeholder="Your name" wire:model="firstname">
             							@error('firstname') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
             						<p class="row-in-form">
-            							<label for="lname">last name<span>*</span></label>
+            							<label for="lname">last name<span>*</span>:</label>
             							<input type="text" name="lname" value="" placeholder="Your last name" wire:model="lastname">
             							@error('lastname') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
@@ -35,22 +35,22 @@
             							@error('email') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
             						<p class="row-in-form">
-            							<label for="phone">Phone number<span>*</span></label>
+            							<label for="phone">Phone number<span>*</span>:</label>
             							<input type="text" name="phone" value="" placeholder="10 digits format"wire:model="mobile"
             							oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
             							@error('mobile') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
             						<p class="row-in-form">
-            							<label for="add">Line 1:</label>
+            							<label for="add">Address:</label>
             							<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line1">
             							@error('line1') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
-        							<p class="row-in-form">
+        							<!-- <p class="row-in-form">
             							<label for="add">Line 2:</label>
             							<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line2">
-            						</p>
+            						</p> -->
             						<p class="row-in-form">
-										<label for="city">Town / City<span>*</span></label>
+										<label for="city">Town / City<span>*</span>:</label>
             							<!-- <input type="text" name="city" value="" placeholder="City name" wire:model="city"> -->
             							<select class="form-control" name="" id="" wire:model="city">
             								<option value="">Select city</option>
@@ -78,12 +78,12 @@
                 					<h3 class="box-title">Shipping Address</h3>
 									<div class="billing-address">
 										<p class="row-in-form">
-											<label for="fname">first name<span>*</span></label>
+											<label for="fname">first name<span>*</span>:</label>
 											<input type="text" name="fname" value="" placeholder="Your name" wire:model="s_firstname">
 											@error('s_firstname') <span class="text-danger">{{$message}}</span> @enderror
 										</p>
 										<p class="row-in-form">
-											<label for="lname">last name<span>*</span></label>
+											<label for="lname">last name<span>*</span>:</label>
 											<input type="text" name="lname" value="" placeholder="Your last name" wire:model="s_lastname">
 											@error('s_lastname') <span class="text-danger">{{$message}}</span> @enderror
 										</p>
@@ -93,22 +93,22 @@
 											@error('s_email') <span class="text-danger">{{$message}}</span> @enderror
 										</p>
 										<p class="row-in-form">
-											<label for="phone">Phone number<span>*</span></label>
+											<label for="phone">Phone number<span>*</span>:</label>
 											<input type="text" name="phone" value="" placeholder="10 digits format"wire:model="s_mobile"
 											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
 											@error('s_mobile') <span class="text-danger">{{$message}}</span> @enderror
 										</p>
 										<p class="row-in-form">
-											<label for="add">Line 1:</label>
+											<label for="add">Address:</label>
 											<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="s_line1">
 											@error('s_line1') <span class="text-danger">{{$message}}</span> @enderror
 										</p>
-										<p class="row-in-form">
+										<!-- <p class="row-in-form">
 											<label for="add">Line 2:</label>
 											<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="s_line2">
-										</p>
+										</p> -->
 										<p class="row-in-form">
-											<label for="city">Town / City<span>*</span></label>
+											<label for="city">Town / City<span>*</span>:</label>
 											<!-- <input type="text" name="city" value="" placeholder="City name" wire:model="s_city"> -->
 											<select class="form-control" name="" id="" wire:model="s_city">
 												<option value="">Select city</option>

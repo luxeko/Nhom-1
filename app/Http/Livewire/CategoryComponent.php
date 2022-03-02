@@ -8,10 +8,11 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
 
-class AllProductComponent extends Component
+class CategoryComponent extends Component
 {
     public $sorting;
     public $pagesize;
+    public $category_slug;
     protected $paginationTheme = 'bootstrap';
     
     public function store($id, $name, $price)
@@ -21,37 +22,40 @@ class AllProductComponent extends Component
         return;
     }
 
-    public function mount()
+    public function mount($category_slug)
     {
         $this->sorting = "default"; 
         $this->pagesize = 9;
+        $this->category_slug = $category_slug;
     }
 
     use WithPagination;
     public function render()
     {
+        $category = Category::where('slug', $this->category_slug)->first();
+        $category_id = $category->id;
+        $category_name = $category->name;
         if($this->sorting == "date")   
         {
-            $products = Product::orderBy('created_at','DESC')->paginate($this->pagesize);  
+            $products = Product::where('category_id',$category_id)->orderBy('created_at','DESC')->paginate($this->pagesize);  
         }
         else if($this->sorting == "price")
         {
-            $products = Product::orderBy('price','ASC')->paginate($this->pagesize); 
+            $products = Product::where('category_id',$category_id)->orderBy('price','ASC')->paginate($this->pagesize); 
         }
         else if($this->sorting == "price-desc")
         {
-            $products = Product::orderBy('price','DESC')->paginate($this->pagesize); 
+            $products = Product::where('category_id',$category_id)->orderBy('price','DESC')->paginate($this->pagesize); 
         }
         else{
-            $products = Product::paginate($this->pagesize);  
+            $products = Product::where('category_id',$category_id)->paginate($this->pagesize);  
         }
 
-        $all_products = Product::all();
         $categories = Category::all();
-        return view('livewire.all-product-component', [
+        return view('livewire.category-component', [
             'products'=> $products, 
             'categories'=>$categories, 
-            'all_products'=>$all_products
+            'category_name'=>$category_name
             ])
             ->layout('layout');
     }

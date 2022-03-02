@@ -60,9 +60,9 @@
                                     </li>
                                 </ul>
                             </div>
-                        </aside> -->
+                        </aside>
 
-                        <!-- <aside class="left_widgets p_filter_widgets">
+                        <aside class="left_widgets p_filter_widgets">
                             <div class="l_w_title">
                                 <h3>Color Filter</h3>
                             </div>
@@ -115,7 +115,7 @@
                         <div class="col-lg-12">
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu">
-                                    <p><span>All Products</span></p>
+                                    <p><span>{{$category_name}}</span></p>
                                 </div>
                                 <div class="single_product_menu d-flex">
                                     <h5>sort by: </h5>
