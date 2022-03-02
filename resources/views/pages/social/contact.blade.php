@@ -139,8 +139,8 @@
   <section class="contact-section padding_top">
     <div class="container">
       <div class="d-none d-sm-block mb-5 pb-4">
-        <div id="map" style="height: 480px;"></div>
-        <script>
+        <div id="map" style="height: 480px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.0964841656846!2d105.78010801533206!3d21.02882509315103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab86cece9ac1%3A0xa9bc04e04602dd85!2zRlBUIEFwdGVjaCBIw6AgTuG7mWkgLSBI4buHIFRo4buRbmcgxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6puIFF14buRYyBU4bq_IChTaW5jZSAxOTk5KQ!5e0!3m2!1svi!2s!4v1646216209564!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+        {{-- <script>
           function initMap() {
             var uluru = {
               lat: -25.363,
@@ -176,7 +176,7 @@
         </script>
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap">
-        </script>
+        </script> --}}
 
       </div>
 
@@ -225,8 +225,8 @@
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-home"></i></span>
             <div class="media-body">
-              <h3>Buttonwood, California.</h3>
-              <p>Rosemead, CA 91770</p>
+              <h3>8 Tôn Thất Thuyết</h3>
+              <p>Mỹ Đình, Hà Nội</p>
             </div>
           </div>
           <div class="media contact-info">
@@ -239,7 +239,7 @@
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3>support@colorlib.com</h3>
+              <h3>eprojecttestmail@gmail.com</h3>
               <p>Send us your query anytime!</p>
             </div>
           </div>
@@ -320,7 +320,7 @@
           <div class="col-lg-8">
             <div class="copyright_text">
               <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Hope you will have the best experience with our products <i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/maibica00" target="_blank">team 1</a>
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/maibica00" target="_blank">team 1</a>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
             </div>
           </div>

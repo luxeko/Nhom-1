@@ -58,7 +58,7 @@
         @php             
             $success = Session::get('success_product');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='product_alert' role='alert'>";
                     echo $success;
                     Session::put('success_product', null);
                 echo "</div>";
@@ -152,6 +152,8 @@
     $(document).ready(function(){
         $('#collapseOne').addClass('show');
         $('.product_active').addClass('active');
+        $("#product_alert").show().delay(5000).fadeOut();
+
     });
 </script>
 

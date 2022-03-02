@@ -14,7 +14,7 @@
         <link href="{{ URL::asset ('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
         <link href="{{ URL::asset('backend/vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-        <link rel="icon" href="{{ URL::asset('/frontend/img/favicon.png'); }}">
+        <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
     </head>
     <body id="page-top">
         {{-- message khi đăng nhập thành công  --}}

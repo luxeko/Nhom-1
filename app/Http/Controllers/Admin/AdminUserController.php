@@ -71,7 +71,7 @@ class AdminUserController extends Controller
                 return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
-                $path_dafault = "backend/img/avatar.png";
+                $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
                     'user_name'        => $request->user_name,
                     'full_name'        => $request->full_name,
@@ -138,6 +138,7 @@ class AdminUserController extends Controller
     }
     public function update_profile(Request $request, $id){
         try {
+            $err = [];
             if($request->full_name == null){
                 $err['fullname_null'] = 'Vui lòng nhập tên người dùng';
             }
@@ -150,9 +151,9 @@ class AdminUserController extends Controller
             if($request->password != $request->re_password && $request->password != null){
                 $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
             }
+         
             if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
-                dd($err);
             } else{
                 DB::beginTransaction();
                 $dataUserCreate = [
@@ -165,13 +166,12 @@ class AdminUserController extends Controller
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
                 }
-                dd($dataUserCreate);
                 $user = $this->user->find($id)->update($dataUserCreate);
 
                 DB::commit();
                 if($user){
                     $request->session()->put('success_user', 'Cập nhật thành công');
-                    return Redirect::to('admin/users/index');
+                    return Redirect::to("admin/users/profile/".$id);
                 }
             }
         } catch (\Exception $exc) {
@@ -201,7 +201,7 @@ class AdminUserController extends Controller
                 return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
-                $path_dafault = "backend/img/avatar.png";
+                $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'email'            => $request->email,

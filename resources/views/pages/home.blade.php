@@ -23,7 +23,7 @@
                         <p>Premium Quality</p>
                         <h3>Latest microphone</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
-                        <img src="{{ URL::asset('/frontend/img/index/8.png'); }}" alt="" width="270px" height="280px">
+                        <img src="{{ URL::asset('/frontend/img/index/8.png'); }}"  width="270px" height="280px">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">

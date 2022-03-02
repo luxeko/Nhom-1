@@ -17,7 +17,7 @@
         @php             
         $success = Session::get('success_user');
         if($success){
-            echo "<div class='alert alert-success' role='alert'>";
+            echo "<div class='alert alert-success ' id='profile_alert' role='alert'>";
                 echo $success;
                 Session::put('success_user', null);
             echo "</div>";
@@ -28,8 +28,8 @@
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4" >
-                        <div class="img-circle text-center mb-3">
-                            <img class="img-profile rounded-circle" src="{{URL::asset($user->avatar_img_path)}}" >
+                        <div class="img-circle text-center mb-3" >
+                            <img style="width:100px; height 100px"  src="{{URL::asset($user->avatar_img_path)}}" >
                         </div>
                         <h4 class="text-center">{{$user->user_name}}</h4>
                     </div>
@@ -251,6 +251,15 @@
         $(".profile_update").hide();    
         $(".avatar_profile").hide();    
         $(".profile_cancel").hide();
+        // $("#profile_alert").show().delay(3000).queue(function(n) {
+        //     $(this).hide(); n();
+        // });
+        
+        // $("#profile_alert").show();
+        // setTimeout(function() { $("#profile_alert").hide(); }, 5000);
+        
+        $("#profile_alert").show().delay(5000).fadeOut();
+
         $(".profile_edit").click(function() {
             $(".profile_update").show(300);
             $(".profile_cancel").show(200);

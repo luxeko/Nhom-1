@@ -45,6 +45,11 @@ Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data
 Route::get('/contact',[PublicHomeController::class,'contactUs']);
 
 
+
+
+
+
+
 // Public route (Đức Anh)
 Route::group(['namespace'=>'Public'], function(){
     // Xử lý CRUD Blogs
@@ -52,6 +57,9 @@ Route::group(['namespace'=>'Public'], function(){
         Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
         Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
         Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
+    }); 
+    Route::group(['prefix'=>'public/'], function(){
+        Route::get('/index', [PublicProductController::class, 'index']);
     }); 
 });
 
