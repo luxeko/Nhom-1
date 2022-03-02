@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Computer Store</title>
+    <title>Mativina</title>
     <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
