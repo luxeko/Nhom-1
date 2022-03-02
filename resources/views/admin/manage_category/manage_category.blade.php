@@ -20,9 +20,11 @@
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
             </form>
         </div>            
-        <div class="d-flex justify-content-between">    
+        <div class="d-flex justify-content-between mb-2">    
             <div>
-                <a href="{{ asset('admin/categories/create') }} " class="btn btn-primary mb-3">Thêm danh mục</a>
+                @can('category-add')
+                    <a href="{{ asset('admin/categories/create') }} " class="btn btn-primary mb-3">Thêm danh mục</a>
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -95,9 +97,12 @@
                                 </td>
                                 <td class="text-center">{{date('d-m-Y', strtotime($value->created_at))}}</td>
                                 <td class="text-center">
-                                    <a href="{{ Route('category.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    {{-- <a onclick="return confirm('Bạn có chắc muốn xoá bản ghi không?')" href="{{ Route('category.delete', ['id'=>$value->id])}}" class="btn btn-danger">Xoá</a> --}}
-                                    <a class="btn btn-danger action_delete" data-url="{{Route('category.delete', ['id'=>$value->id])}}"><i class="fas fa-trash-alt"></i></a>
+                                    @can('category-edit')
+                                        <a href="{{ Route('category.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('category-delete')
+                                        <a class="btn btn-danger action_delete" data-url="{{Route('category.delete', ['id'=>$value->id])}}"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -121,10 +126,4 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.category_active').addClass('active');
-        $("#category_alert").show().delay(5000).fadeOut();
-    });
-</script>
+<script type='text/javascript' src="{{URL::asset('backend/js/category/main.js')}}"></script>

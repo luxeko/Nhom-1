@@ -82,8 +82,8 @@
                                 <td class="text-center">{{$value->name}}</td>
                                 <td class="text-center">{{$value->desc_name}}</td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a href="{{ Route('blog.edit', ['id'=>$value->id]) }}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('blog.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="{{ Route('role.edit', ['id'=>$value->id]) }}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    <a data-url="{{Route('role.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -109,13 +109,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.role_active').addClass('active');
-        $("#role_alert").show().delay(5000).fadeOut();
-    });
-</script>
+<script src="{{URL::asset('backend/js/role/main.js')}}"></script>
+
 
 
 

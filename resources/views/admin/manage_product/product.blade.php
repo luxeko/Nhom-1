@@ -147,15 +147,9 @@
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('backend/js/product/main.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.product_active').addClass('active');
-        $("#product_alert").show().delay(5000).fadeOut();
 
-    });
-</script>
 
 
 <script type="text/javascript" >  

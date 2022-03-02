@@ -67,7 +67,7 @@ class AdminUserController extends Controller
             if($getPhone){
                 $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
             }
-            if(count($err)>0){
+            if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();

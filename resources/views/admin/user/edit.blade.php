@@ -128,20 +128,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/tags.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.user_active').addClass('active');
-        $('.address_form').hide();
-        $(".form-check-input").click(function() {
-            if($(this).is(":checked")) {
-                $(".address_form").show(300);
-            } else {
-                $(".address_form").hide(200);
-            }
-        });
-    });
-</script>
+<script src="{{URL::asset('backend/js/user/main.js')}}"></script>
+
 
 
 

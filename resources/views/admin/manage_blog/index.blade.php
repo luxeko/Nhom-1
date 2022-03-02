@@ -141,13 +141,7 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('.active_blogs_sliderbar').addClass('active');
-        $("#blog_alert").show().delay(5000).fadeOut();
-    });
-</script>
-
+<script type='text/javascript' src="{{URL::asset('backend/js/blog/main.js')}}"></script>
 
 <script type="text/javascript" >  
     function viewBlogDetail(id){

@@ -12,6 +12,7 @@
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
     <!-- code database bắt đầu từ đây  -->
+    @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Chỉnh sửa sản phẩm</h2>
         <form action="{{ route('product.update', ['id'=>$product->id]) }}" method="post" enctype="multipart/form-data">
@@ -139,49 +140,4 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({ selector: '#mytextarea'});</script>
 <script src="{{URL::asset('backend/js/tags.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.product_active').addClass('active');
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('input.numberformat').keyup(function(event) {
-            // skip for arrow keys
-            if(event.which >= 37 && event.which <= 40) return;
-    
-            // format number
-            $(this).val(function(index, value) {
-            return value
-            .replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            ;
-            });
-        });
-    
-    })
-    </script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#thumbnail').change(function(){
-            var err = '';
-            var file = $('#thumbnail')[0].files;
-            if(file.length > 5){
-                err += '<p>Bạn chỉ được phép chọn tối đa 5 ảnh</p>'
-            } else if(file.size > 2000000){
-                err += '<p>File ảnh không được quá 2MB</p>'
-            } else if(file.length < 3){
-                err += '<p>Bạn không được chọn dưới 3 ảnh</p>'
-            }
-
-            if(err == ''){
-
-            } else {
-                $('#thumbnail').val('');
-                $('#err_thumbnail').html(`<span class="text-danger">${err}</span>`)
-                return false
-            } 
-        })
-    });
-</script>
+<script src="{{URL::asset('backend/js/product/main.js')}}"></script>

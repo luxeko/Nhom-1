@@ -73,9 +73,4 @@
     <!-- kết thúc code ở đây  -->
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.category_active').addClass('active');
-    });
-</script>
+<script type='text/javascript' src="{{URL::asset('backend/js/category/main.js')}}"></script>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Pages\PublicBlogController;
@@ -65,7 +66,6 @@ Route::group(['namespace'=>'Public'], function(){
 
 // Admin route
 Route::group(['namespace'=>'Admin'], function(){
-
     // xử lý đến trang login
     Route::get('admin',[LoginController::class,'goLogin']);
     Route::group(['prefix'=>'admin','middleware'=>'CheckLogedIn'], function(){
@@ -74,26 +74,21 @@ Route::group(['namespace'=>'Admin'], function(){
     });
 
     // xử lý khi đăng nhập thành công
-    Route::get('logout',[HomeController::class,'getLogout']);
-    Route::group(['prefix'=>'admin/home','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/',[HomeController::class,'showDashboard']);
+    Route::get('logout',[HomeController::class,'getLogout']); // xử lý khi đăng xuất
+    Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/home',[HomeController::class,'showDashboard']);
         Route::get('error',[HomeController::class,'showErr']);
     }); 
 
-    // xử lý phân quyền
-    Route::group(['prefix'=>'admin/users','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/',[AdminUserController::class,'index'])->name('users.index');
-        
-    });
 
     // xử lý CRUD Category
     Route::group(['prefix'=>'admin/categories','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/show',[CategoryController::class,'show'])->name('category.index');
-        Route::get('/create',[CategoryController::class,'create']);
+        Route::get('/show',[CategoryController::class,'show'])->name('category.index')->middleware('can:category-list');
+        Route::get('/create',[CategoryController::class,'create'])->middleware('can:category-add');
         Route::post('/store',[CategoryController::class,'store'])->name('category.store');
-        Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+        Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit')->middleware('can:category-edit');
         Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-        Route::get('/delete/{id}',[CategoryController::class,'delete'])->name('category.delete');
+        Route::get('/delete/{id}',[CategoryController::class,'delete'])->name('category.delete')->middleware('can:category-delete');
         Route::get('/search',[ProductController::class,'search'])->name('product.search');
     }); 
 
@@ -134,6 +129,12 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/delete/{id}',[RoleController::class,'delete'])->name('role.delete');
     }); 
 
+    // Xử lý CRUD Permission
+    Route::group(['prefix'=>'admin/permissions','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/create',[PermissionController::class,'create'])->name('permission.create');
+        Route::post('/store',[PermissionController::class,'store'])->name('permission.store');
+    }); 
+
 
     // Xử lý CRUD Combo
     Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
@@ -159,5 +160,4 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
         Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
     }); 
-
 });
