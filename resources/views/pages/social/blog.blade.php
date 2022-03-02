@@ -5,8 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Computer Store</title>
-    <link rel="icon" href="{{ URL::asset('/frontend/img/favicon.png'); }}">
+    <title>Mativina</title>
+    <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
     <!-- animate CSS -->
@@ -36,7 +36,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -111,14 +111,14 @@
     </header>
     <!-- Header part end-->
     <!-- breadcrumb start-->
-    <section class="breadcrumb breadcrumb_bg">
+    <section class="breadcrumb breadcrumb_bg1">
         <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-            <div class="breadcrumb_iner">
+                <div class="breadcrumb_iner">
                 <div class="breadcrumb_iner_item">
-                <h2>Blog</h2>
-                <p>Monster computer</p>
+                <h1 style="color:#fff;text-align:center;margin-top: 35%;" >Blog</h1>
+                <p style="color:#fff;text-align:center">Monster computer</p>
                 </div>
             </div>
             </div>
@@ -157,32 +157,17 @@
                                     </ul>
                                 </div>
                             </article>
-
-
-                            <nav class="blog-pagination justify-content-center d-flex">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="Previous">
-                                            <i class="ti-angle-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="Next">
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
                         @endforeach
                     </div>
+                    <div class="d-flex justify-content-center">
+                        {!! $blogs->links() !!}
+                    </div>
                 </div>
-
+            <style>
+            .w-5{
+                display: none;
+            }
+            </style>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
