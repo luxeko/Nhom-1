@@ -6,7 +6,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Thêm sản phẩm</title>
+    <title>Thêm Blog</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
@@ -14,8 +14,8 @@
     <!-- code database bắt đầu từ đây  -->
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
-        <h2 class="form-title">Thêm sản phẩm</h2>
-        <form action="{{ URL::to('admin/blogs/store') }}" method="post">
+        <h2 class="form-title">Thêm Blog</h2>
+        <form action="{{ URL::to('admin/blogs/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">

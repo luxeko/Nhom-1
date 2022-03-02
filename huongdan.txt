@@ -10,8 +10,11 @@
 
 6: php artisan migrate
 
-7:  php artisan db:seed --class=CategoryTableSeeder
+7:  Chạy dữ liệu có sẵn: 
+    php artisan db:seed --class=CategoryTableSeeder
     php artisan db:seed --class=UserTableSeeder
+    php artisan db:seed --class=CreateRoleSeeder
+    php artisan db:seed --class=PermissionSeeder
 
 8: php artisan storage:link
 

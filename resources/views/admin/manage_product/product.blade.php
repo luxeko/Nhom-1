@@ -235,9 +235,10 @@
                     let getUrlToFileImg = '';
                     for (let i = 0; i < getArrayThumbnail.length; i++) {
                         names = getArrayThumbnail.map(function(i) {
-                            getUrlToFileImg =   `<div class="small-img-col rounded border border-secondary">
-                                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
-                                                </div>`;
+                            getUrlToFileImg = `
+                                <div class="small-img-col rounded border border-secondary">
+                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
+                                </div>`;
                             imagesPath += getUrlToFileImg;
                         });
                         break;
