@@ -60,7 +60,7 @@
         @php             
             $success = Session::get('success_category');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='category_alert' role='alert'>";
                     echo $success;
                     Session::put('success_category', null);
                 echo "</div>";
@@ -125,5 +125,6 @@
     $(document).ready(function(){
         $('#collapseOne').addClass('show');
         $('.category_active').addClass('active');
+        $("#category_alert").show().delay(5000).fadeOut();
     });
 </script>

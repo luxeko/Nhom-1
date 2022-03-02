@@ -58,7 +58,7 @@
         @php             
             $success = Session::get('success_blog');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='blog_alert' role='alert'>";
                     echo $success;
                     Session::put('success_blog', null);
                 echo "</div>";
@@ -144,6 +144,7 @@
 <script type='text/javascript'>
     $(document).ready(function(){
         $('.active_blogs_sliderbar').addClass('active');
+        $("#blog_alert").show().delay(5000).fadeOut();
     });
 </script>
 

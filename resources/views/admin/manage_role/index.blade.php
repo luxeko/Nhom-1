@@ -58,7 +58,7 @@
         @php             
             $success = Session::get('success_role');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='role_alert' role='alert'>";
                     echo $success;
                     Session::put('success_role', null);
                 echo "</div>";
@@ -113,6 +113,7 @@
     $(document).ready(function(){
         $('#collapsePermission').addClass('show');
         $('.role_active').addClass('active');
+        $("#role_alert").show().delay(5000).fadeOut();
     });
 </script>
 

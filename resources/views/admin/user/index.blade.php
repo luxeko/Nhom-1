@@ -54,11 +54,10 @@
             </div>
            
         </div>
-        
         @php             
             $success = Session::get('success_user');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='user_alert' role='alert'>";
                     echo $success;
                     Session::put('success_user', null);
                 echo "</div>";
@@ -137,11 +136,13 @@
     $(document).ready(function(){
         $('#collapsePermission').addClass('show');
         $('.user_active').addClass('active');
+        $("#user_alert").show().delay(5000).fadeOut();
     });
 </script>
 
 <script type="text/javascript" >  
     function viewUserDetail(id){
+        let path = 'http://127.0.0.1:8000'
         $.ajax({
             url:'/admin/users/details/',
             method:'GET',
@@ -153,7 +154,7 @@
                         <div class="details_row">
                             <div class="details_col">
                                 <div class="main-img-row position-relative rounded border border-secondary">
-                                    <img src="{{ '${user.avatar_img_path}' }}" id="productImg"/>
+                                    <img src="{{'${path}${user.avatar_img_path}' }}" id="productImg"/>
                                 </div>
                             </div>
                             <div class="details_col">

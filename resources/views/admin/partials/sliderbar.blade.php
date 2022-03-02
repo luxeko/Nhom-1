@@ -2,10 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">NZXT</div>
+        <img src="{{ URL::asset('/frontend/img/new2.png')}}" >
     </a>
 
     <!-- Divider -->
@@ -101,6 +98,12 @@
         <a class="nav-link" href="">
             <i class="fas fa-fw fa-table"></i>
             <span>Voucher</span>
+        </a>
+    </li>
+    <li class="nav-item active_discount_sliderbar">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Image</span>
         </a>
     </li>
 

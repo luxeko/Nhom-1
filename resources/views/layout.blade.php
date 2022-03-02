@@ -37,7 +37,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="{{ asset('/public/index') }}"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{URL::to('/home')}}">Home</a>
+                                    <a class="nav-link" href="{{ asset('/public/index') }}"">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
@@ -190,7 +190,7 @@
                     <div class="col-lg-8">
                         <div class="copyright_text">
                             <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Hope you will have the best experience with our products <i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/maibica00" target="_blank">team 1</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved&nbsp;<i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/luxeko/Nhom-1.git" target="_blank" class="text-primary">team 1</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
                         </div>
                     </div>
