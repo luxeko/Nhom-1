@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {{-- Các bước để tạo khung trang Dashboard --}}
 
 {{-- Bước 1: @extends('admin/layouts.admin_layout') --}}
@@ -17,12 +16,13 @@
         @php             
         $success = Session::get('success_user');
         if($success){
-            echo "<div class='alert alert-success ' id='profile_alert' role='alert'>";
+            echo "<div class='alert alert-success' id='profile_alert'>";
                 echo $success;
                 Session::put('success_user', null);
             echo "</div>";
         }
         @endphp
+    
         <form action="{{ route('user.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
@@ -144,31 +144,32 @@
                     </div>
                     <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                         <h3 class="mb-4">Thay đổi mật khẩu</h3>
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mật khẩu mới</label>
-                                    <input type="password" class="form-control" name="password">
+                                    <input type="password" class="form-control" id="new_password" name="password">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" name="re_password">
+                                    <input type="password" class="form-control" id="confirm_password" name="re_password">
                                 </div>
-                                @php         
-                                    $confirm_password_notEqual = Session::get('confirm_password_notEqual');
-                                    if($email_null){
-                                        echo "<div class='alert alert-danger'>";
+                                <div class="" id="message"></div>
+                                {{-- @php         
+                                $confirm_password_notEqual = Session::get('confirm_password_notEqual');
+                                    if($confirm_password_notEqual){
+                                        echo "<div class='alert alert-danger' id='password_alert'>";
                                             echo $confirm_password_notEqual;
                                         echo "</div>";
                                         Session::put('confirm_password_notEqual', null);
                                     }
-                                @endphp
+                                @endphp --}}
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-primary profile_update">Cập nhật</button>
+                            <button id="update_password" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
@@ -243,7 +244,24 @@
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('backend/js/profile/main.js')}}"></script>
+<script src="{{URL::asset('backend/js/profile/main.js')}}"></script>
+<script>
+    function isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+    }
+    $(document).ready(function(){
+        $('#new_password, #confirm_password').on('keyup', function () {
+            if ($('#new_password').val() == $('#confirm_password').val() ) {
+                $('#message').html('Mật khẩu khớp').addClass("alert-success").addClass("alert").removeClass("alert-danger");
+            } else {
+                $('#message').html('Mật khẩu không khớp').addClass("alert-danger").addClass("alert").removeClass("alert-success");
+            }
+            if( isEmpty($('#new_password').val()) || isEmpty($('#confirm_password').val())) {
+                $('#message').html('').removeClass("alert-danger").removeClass("alert").removeClass("alert-success");
+            }
+        });
+    })
+</script>
 
 
 

@@ -43,7 +43,7 @@
                 <h6 class="collapse-header">List:</h6>
                 <a class="collapse-item category_active" href="{{asset('admin/categories/show')}}">Danh mục</a>
                 <a class="collapse-item product_active" href="{{asset('admin/products/show')}}">Sản phẩm</a>
-                <a class="collapse-item combo_active" href="{{asset('admin/products/show')}}">Combos</a>
+                <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combos</a>
             </div>
         </div>
     </li>
@@ -60,7 +60,9 @@
                 <h6 class="collapse-header">List:</h6>
                 <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">User</a>
                 <a class="collapse-item role_active" href="{{ asset('admin/roles/index') }}" >Vai trò</a>
-                <a class="collapse-item permission_active" href="{{ asset('admin/permissions/create') }}" >Tạo phân quyền</a>
+                @can('permission-add')
+                    <a class="collapse-item permission_active" href="{{ asset('admin/permissions/create') }}" >Tạo phân quyền</a>
+                @endcan
                 <a class="collapse-item" href="">Logs </a>
             </div>
         </div>

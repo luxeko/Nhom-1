@@ -27,9 +27,10 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.list-user'));
+        
     }
 
     /**
@@ -40,7 +41,8 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.add-user'));
+        
     }
 
     /**
@@ -50,9 +52,10 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.edit-user'));
+        
     }
 
     /**
@@ -62,9 +65,10 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.delete-user'));
+        
     }
 
     /**
@@ -74,7 +78,7 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user)
     {
         //
     }
@@ -86,7 +90,7 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user)
     {
         //
     }

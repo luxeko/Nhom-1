@@ -28,5 +28,7 @@ class PermissionController extends Controller
             ]);
             
         }
+        $request->session()->put('success_permission', 'Tạo thành công');
+        return view('admin.permission.add');
     }
 }

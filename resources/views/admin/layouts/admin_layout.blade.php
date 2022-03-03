@@ -11,7 +11,6 @@
         <!-- Custom styles for this template-->
         <link href="{{ URL::asset ('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset ('backend/css/admin.css')}}" rel="stylesheet">
-        <link href="{{ URL::asset ('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
         <link href="{{ URL::asset('backend/vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
@@ -57,12 +56,6 @@
         <script src="{{URL::asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
         <!-- Custom scripts for all pages-->
         <script src="{{URL::asset('backend/js/sb-admin-2.min.js')}}"></script>
-    
-        <!-- Page level plugins -->
-        <script src="{{URL::asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{URL::asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>   
-        <script src="{{URL::asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>   
      
-
     </body>
 </html>

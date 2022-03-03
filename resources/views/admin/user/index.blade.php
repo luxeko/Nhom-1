@@ -57,7 +57,7 @@
         @php             
             $success = Session::get('success_user');
             if($success){
-                echo "<div class='alert alert-success' id='user_alert' role='alert'>";
+                echo "<div class='alert alert-success' id='user_alert'>";
                     echo $success;
                     Session::put('success_user', null);
                 echo "</div>";

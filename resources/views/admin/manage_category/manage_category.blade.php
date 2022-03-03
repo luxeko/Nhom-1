@@ -62,7 +62,7 @@
         @php             
             $success = Session::get('success_category');
             if($success){
-                echo "<div class='alert alert-success' id='category_alert' role='alert'>";
+                echo "<div class='alert alert-success' id='category_alert'>";
                     echo $success;
                     Session::put('success_category', null);
                 echo "</div>";
@@ -81,31 +81,31 @@
             </thead> 
             <tbody> 
                 @if(!empty($all_category) && $all_category->count() > 0)
-                        @foreach ($all_category as $key => $value)
-                            <tr>
-                                <td colspan="1" class="text-center" style="width:5%">{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</td>
-                                <td class="text-center">{{$value->name}}</td>
-                                <td class="text-center">{{$value->desc_name}}</td>
-                                <td class="text-center">
-                                    <?php
-                                        if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
-                                        } else {
-                                            echo "<span class='text-danger'>Disable</span>";
-                                        }   
-                                    ?>
-                                </td>
-                                <td class="text-center">{{date('d-m-Y', strtotime($value->created_at))}}</td>
-                                <td class="text-center">
-                                    @can('category-edit')
-                                        <a href="{{ Route('category.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    @endcan
-                                    @can('category-delete')
-                                        <a class="btn btn-danger action_delete" data-url="{{Route('category.delete', ['id'=>$value->id])}}"><i class="fas fa-trash-alt"></i></a>
-                                    @endcan
-                                </td>
-                            </tr>
-                        @endforeach
+                    @foreach ($all_category as $key => $value)
+                        <tr>
+                            <td colspan="1" class="text-center" style="width:5%">{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</td>
+                            <td class="text-center">{{$value->name}}</td>
+                            <td class="text-center">{{$value->desc_name}}</td>
+                            <td class="text-center">
+                                <?php
+                                    if($value->status == 1){
+                                        echo "<span class='text-success'>Active</span>";
+                                    } else {
+                                        echo "<span class='text-danger'>Disable</span>";
+                                    }   
+                                ?>
+                            </td>
+                            <td class="text-center">{{date('d-m-Y', strtotime($value->created_at))}}</td>
+                            <td class="text-center">
+                                @can('category-edit')
+                                    <a href="{{ Route('category.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                @endcan
+                                @can('category-delete')
+                                    <a class="btn btn-danger action_delete" data-url="{{Route('category.delete', ['id'=>$value->id])}}"><i class="fas fa-trash-alt"></i></a>
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
                     <tr>
                         <td class="text-center text-danger" colspan="10">Chưa có dữ liệu</td>

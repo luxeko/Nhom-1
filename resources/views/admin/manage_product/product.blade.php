@@ -20,7 +20,9 @@
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                @can('product-add')
+                    <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -58,7 +60,7 @@
         @php             
             $success = Session::get('success_product');
             if($success){
-                echo "<div class='alert alert-success' id='product_alert' role='alert'>";
+                echo "<div class='alert alert-success' id='product_alert'>";
                     echo $success;
                     Session::put('success_product', null);
                 echo "</div>";
@@ -98,9 +100,13 @@
                                     ?>
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('product-edit')
+                                        <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('product-delete')
+                                        <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

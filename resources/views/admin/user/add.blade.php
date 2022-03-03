@@ -15,6 +15,7 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm User</h2>
+        <hr>
         <form action="{{ URL::to('admin/users/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">

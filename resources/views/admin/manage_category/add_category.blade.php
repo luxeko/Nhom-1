@@ -17,6 +17,7 @@
             <form action="{{ route('category.store') }}" method="post" style="width:50%">
                 @csrf
                 <h2 class="form-title">Thêm danh mục</h2>
+                <hr>
                 <div class="form-group" style="width:100%">
                     <input  type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="category_name" style="width: 100%;" placeholder="Tên danh mục" value="{{old('category_name')}}" />
                 </div>

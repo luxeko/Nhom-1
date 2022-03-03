@@ -6,6 +6,7 @@ $(function(){
         $(".profile_update").hide();    
         $(".avatar_profile").hide();    
         $(".profile_cancel").hide();
+
         // $("#profile_alert").show().delay(3000).queue(function(n) {
         //     $(this).hide(); n();
         // });
@@ -14,6 +15,7 @@ $(function(){
         // setTimeout(function() { $("#profile_alert").hide(); }, 5000);
         
         $("#profile_alert").show().delay(5000).fadeOut();
+        $("#password_alert").show().delay(5000).fadeOut();
 
         $(".profile_edit").click(function() {
             $(".profile_update").show(300);

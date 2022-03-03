@@ -16,5 +16,6 @@ $(function(){
     $(document).ready(function(){
         $('#collapsePermission').addClass('show');
         $('.role_active').addClass('active');
+        $("#role_alert").show().delay(5000).fadeOut();
     });
 })

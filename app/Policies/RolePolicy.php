@@ -28,9 +28,10 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Role $role)
+    public function view(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.list-role'));
+        
     }
 
     /**
@@ -41,7 +42,8 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.add-role'));
+        
     }
 
     /**
@@ -51,9 +53,10 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Role $role)
+    public function update(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.edit-role'));
+        
     }
 
     /**
@@ -63,9 +66,10 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Role $role)
+    public function delete(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.delete-role'));
+        
     }
 
     /**
@@ -75,7 +79,7 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Role $role)
+    public function restore(User $user)
     {
         //
     }
@@ -87,7 +91,7 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Role $role)
+    public function forceDelete(User $user)
     {
         //
     }

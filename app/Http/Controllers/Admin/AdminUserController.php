@@ -147,11 +147,7 @@ class AdminUserController extends Controller
             }
             if($request->email == null){
                 $err['email_null'] = 'Vui lòng nhập email';
-            }
-            if($request->password != $request->re_password && $request->password != null){
-                $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
-            }
-         
+            }     
             if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
             } else{
@@ -171,7 +167,7 @@ class AdminUserController extends Controller
                 DB::commit();
                 if($user){
                     $request->session()->put('success_user', 'Cập nhật thành công');
-                    return Redirect::to("admin/users/profile/".$id);
+                    return Redirect::to("admin/profile/".$id);
                 }
             }
         } catch (\Exception $exc) {

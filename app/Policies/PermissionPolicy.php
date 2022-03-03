@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Combo;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ComboPolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
@@ -25,13 +25,12 @@ class ComboPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Combo  $combo
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user, Permission $permission)
     {
-        return $user->checkPermissionAccess(config('permissions.access.list-combo'));
-        
+        //
     }
 
     /**
@@ -42,44 +41,41 @@ class ComboPolicy
      */
     public function create(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.add-combo'));
-        
+        return $user->checkPermissionAccess(config('permissions.access.add-permission'));
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Combo  $combo
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.edit-combo'));
-        
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Combo  $combo
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.delete-combo'));
-        
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Combo  $combo
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Combo $combo)
+    public function restore(User $user, Permission $permission)
     {
         //
     }
@@ -88,10 +84,10 @@ class ComboPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Combo  $combo
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Combo $combo)
+    public function forceDelete(User $user, Permission $permission)
     {
         //
     }

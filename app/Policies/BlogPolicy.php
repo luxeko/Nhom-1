@@ -28,9 +28,9 @@ class BlogPolicy
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Blog $blog)
+    public function view(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.list-blog'));
     }
 
     /**
@@ -41,7 +41,8 @@ class BlogPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.add-blog'));
+        
     }
 
     /**
@@ -51,9 +52,10 @@ class BlogPolicy
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Blog $blog)
+    public function update(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.edit-blog'));
+        
     }
 
     /**
@@ -63,9 +65,10 @@ class BlogPolicy
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Blog $blog)
+    public function delete(User $user)
     {
-        //
+        return $user->checkPermissionAccess(config('permissions.access.delete-blog'));
+        
     }
 
     /**

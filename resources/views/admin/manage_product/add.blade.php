@@ -15,6 +15,7 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm sản phẩm</h2>
+        <hr>
         <form action="{{ URL::to('admin/products/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -36,7 +37,6 @@
                     </div>
                     @php         
                         $price_null = Session::get('price_null');
-                        $price_not_int = Session::get('price_not_int');
                         if($price_null){
                             echo "<div class='alert alert-danger'>";
                                 echo $price_null;
