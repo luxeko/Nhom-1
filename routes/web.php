@@ -42,26 +42,6 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 */
 
 
-// // Route for Home
-// // Route::get('/',[PublicHomeController::class,'index']);
-// Route::get('/home',[PublicHomeController::class,'index']);
-// Route::get('/layout',[PublicHomeController::class,'layoutMaster']);
-// Route::get('/product_detail',[PublicHomeController::class,'productDetails']);
-// Route::get('/all_product',[PublicHomeController::class,'showAllProduct']);
-// Route::get('/checkout',[PublicHomeController::class,'checkOut']);
-// Route::get('/cart',[PublicHomeController::class,'cart']);
-// Route::get('/blog',[PublicHomeController::class,'blog']);
-// Route::get('/single_blog',[PublicHomeController::class,'singleBlog']);
-
-
-// // 3 cái router dưới này không sửa nhé ae
-// Route::get('/',[PublicProductController::class,'index']);
-// Route::get('detail/{id}',[PublicProductController::class,'productDetail']);
-// Route::get('products/list',[PublicProductController::class,'productList']);
-// Route::get('/all_product', [PublicProductController::class,'allProduct']);
-// Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data']);
-// // Route for social
-// Route::get('/contact',[PublicHomeController::class,'contactUs']);
 
 // Livewire route
 
@@ -122,7 +102,7 @@ Route::group(['namespace'=>'Admin'], function(){
     // xử lý khi đăng nhập thành công
     Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
     Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/home',[HomeController::class,'showDashboard']);
+        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.home');
         Route::get('error',[HomeController::class,'showErr']);
         Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
         Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');

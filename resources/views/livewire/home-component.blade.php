@@ -1,49 +1,49 @@
 <div>
-<section class="feature_part padding_top">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section_tittle text-center">
-                        <h2>Featured Category</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-7 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_1.png'); }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_2.png'); }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_3.png'); }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-7 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_4.png'); }}" alt="">
-                    </div>
+<<section class="feature_part padding_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section_tittle text-center">
+                    <h2>Featured Category</h2>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="row align-items-center justify-content-between">
+            <div class="col-lg-7 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Premium Quality</p>
+                    <h3>Latest CPUs</h3>
+                    <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                    <img src="{{ URL::asset('/frontend/img/index/4.png'); }}" alt="" width="350px">
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Premium Quality</p>
+                    <h3>Latest microphone</h3>
+                    <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                    <img src="{{ URL::asset('/frontend/img/index/8.png'); }}"  width="270px">
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Premium Quality</p>
+                    <h3>Latest headphones</h3>
+                    <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                    <img src="{{ URL::asset('/frontend/img/index/11.png'); }}" alt="" width="270px">
+                </div>
+            </div>
+            <div class="col-lg-7 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Premium Quality</p>
+                    <h3>Latest cooling</h3>
+                    <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                    <img src="{{ URL::asset('/frontend/img/index/9.png'); }}" alt="" width="440px">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- upcoming_event part start-->
 
     <!-- product_list start-->

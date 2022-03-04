@@ -1,4 +1,20 @@
 <div>
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                        <div class="breadcrumb_iner_item">
+                        <h2>Category</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->  
     <section class="cat_product_area section_padding">
         <div class="container">
             <div class="row">

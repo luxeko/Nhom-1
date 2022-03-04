@@ -25,7 +25,6 @@ class CheckoutComponent extends Component
     public $email;
     public $mobile;
     public $line1;
-    public $line2;
     public $city;
     
     public $s_firstname;
@@ -33,7 +32,6 @@ class CheckoutComponent extends Component
     public $s_email;
     public $s_mobile;
     public $s_line1;
-    public $s_line2;
     public $s_city;
     
     public $paymentmode;
@@ -54,7 +52,6 @@ class CheckoutComponent extends Component
             'email' => 'required|email',
             'mobile' => 'required|numeric',
             'line1' => 'required',
-            'line2' => 'required',
             'city' => 'required',
             'paymentmode' => 'required'
         ]);
@@ -67,7 +64,6 @@ class CheckoutComponent extends Component
                 's_email' => 'required|email',
                 's_mobile' => 'required|numeric',
                 's_line1' => 'required',
-                's_line2' => 'required',
                 's_city' => 'required'
             ]);
         }
@@ -91,7 +87,6 @@ class CheckoutComponent extends Component
             'email' => 'required|email',
             'mobile' => 'required|numeric',
             'line1' => 'required',
-            'line2' => 'required',
             'city' => 'required',
             'paymentmode' => 'required'
         ]);
@@ -116,7 +111,6 @@ class CheckoutComponent extends Component
         $order->email = $this->email; 
         $order->mobile = $this->mobile;
         $order->line1 = $this->line1; 
-        $order->line2 = $this->line2; 
         $order->city = $this->city;  
         $order->status = 'ordered';
         $order->is_shipping_different = $this->ship_to_different ? 1:0;
@@ -140,7 +134,6 @@ class CheckoutComponent extends Component
                 's_email' => 'required|email',
                 's_mobile' => 'required|numeric',
                 's_line1' => 'required',
-                's_line2' => 'required',
                 's_city' => 'required',
             ]);
             
@@ -151,7 +144,6 @@ class CheckoutComponent extends Component
             $shipping->email = $this->s_email;
             $shipping->mobile = $this->s_mobile;
             $shipping->line1 = $this->s_line1;
-            $shipping->line2 = $this->s_line2;
             $shipping->city = $this->s_city;
             $shipping->save();            
         }

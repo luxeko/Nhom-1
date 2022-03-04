@@ -64,9 +64,9 @@ class AdminUserController extends Controller
             if($getEmail){
                 $err['duplicate_email'] = 'Email đã tồn tại';
             }
-            if($getPhone){
-                $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
-            }
+            // if($getPhone){
+            //     $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
+            // }
             if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
             } else{
