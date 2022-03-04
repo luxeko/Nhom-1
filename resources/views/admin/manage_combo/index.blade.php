@@ -73,7 +73,7 @@
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
                         <th class="text-center">Hình ảnh</th>
                         <th class="text-center sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer">Tên</th>
-                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="price" style="cursor: pointer">Giá</th>
+                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="price" style="cursor: pointer">Giá <span class="text-success">(-20%)</span></th>
                         <th class="text-center">Mô tả</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Thao tác</th>
@@ -86,10 +86,16 @@
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->image_combo_path}}'></td>
                                 <td class="text-center">{{$value->name}}</td>
-                                <td class="text-center"><span class="text-success">{{ number_format($value->price, 0) }} VNĐ</span>
+                                <td class="text-center"><span class="text-danger">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center">{{ optional($value->desc) }}</td>
-                                <td class="text-center"> {{ $value->status }} </td>
+                                <td class="text-center"> @php echo  $value->desc @endphp</td>
+                                <td class="text-center"> 
+                                    @if ($value->status == "Active")
+                                        <span class='text-success'>{{$value->status}}</span>
+                                    @else
+                                        <span class='text-danger'>{{$value->status}}</span>
+                                    @endif 
+                                </td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('combo-edit')
                                         <a class="btn btn-primary" href="#" onclick="viewComboDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailCombo"><i class="fas fa-eye"></i></a>
@@ -113,14 +119,14 @@
                 {!! $data->links() !!}
             </div>
         </div>
-        
         <section>
             <!-- Modal -->
             <div class="modal fade" id="modalDetailCombo" tabindex="-1" aria-labelledby="combo-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header border-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        <div class="modal-header bg-dark ">
+                            <span class="text-white modal-title" id="myModalLabel150">List sản phẩm</span>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">x</button>
                         </div>
                         {{-- code từ đây  --}}
                         <div class="modal-body border-0" id="modal-combo-detail"></div>
@@ -148,68 +154,45 @@
     // $(document).ready(function(){
         var category_name = '';
         let imagesPath = '';
-
         function viewComboDetail(id){
-            let formatter = new Intl.NumberFormat('vn-VN', {
-                style: 'currency',
-                currency: 'VND',
+           
+            $.ajax({
+                url:'/admin/combos/details/',
+                method:'GET',
+                data:{id:id},
+                success:(combo)=>{
+                    console.log(combo);
+                    let stt = 1;
+                    let detailProduct = '';
+                    combo.forEach(e => {
+                        let single_product = `<tr>
+                                        <th colspan='1' class='text-center' style='width:5%'>${stt++}</th>
+                                        <td class='text-center admin_product_img'><img src='${e.feature_image_path}'></td>
+                                        <td class="text-center">${e.name}</td>
+                                        <td class="text-center"><span class="text-success">${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span>
+                                        </td>
+                                    </tr> `
+                        detailProduct += single_product;
+                    });
+                    let comboDetails = `
+                        <table class="table table-lg table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="thead-primary ">
+                                <tr>
+                                    <th colspan="1" class="text-center" style="width:5%">STT</th>
+                                    <th class="text-center">Hình ảnh</th>
+                                    <th class="text-center">Tên </th>
+                                    <th class="text-center">Giá </th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                    ${detailProduct}  
+                            </tbody>
+                        </table>
+                    `
+                    $('#modal-combo-detail').html('').append(comboDetails);
+                    detailProduct = ``
+                }
             });
-            // $.ajax({
-            //     url:'/admin/products/details/',
-            //     method:'GET',
-            //     data:{id:id},
-            //     success:(product)=>{
-            //         console.log(product);
-            //         var statusProduct = '';
-            //         if (product.status == 1) {
-            //             statusProduct = '<p class="mb-0"><span> Status: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">Active</span></p>';
-            //         } else {
-            //             statusProduct = '<p class="mb-0"><span> Status: </span><span class="ml-2 text-danger font-italic" style="font-size: 15px">Disable</span></p>';
-            //         }
-                  
-            //         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            //         let productDetails = `
-            //             <div class="single-product small-container">
-            //                 <div class="details_row">
-            //                     <div class="details_col">
-            //                         <div class="main-img-row position-relative rounded border border-secondary">
-            //                             <img src="{{ '${product.feature_image_path}' }}" id="productImg"/>
-            //                             <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${product.name}</span></p>
-            //                         </div>
-            //                         <div class="small-img-row">
-            //                             ${imagesPath}
-            //                         </div>
-            //                     </div>
-            //                     <div class="details_col">
-            //                         <h4 class="text-center text-capitalize">${product.name}</h4>
-            //                         <div class="mt-1">
-            //                             <p class="mb-0"><span> Price: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${formatter.format(product.price)}</span></p>
-            //                         </div>
-            //                         <div class="mt-1">
-            //                             <p class="mb-0"><span> Category: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${category_name}</span></p>
-            //                         </div>
-            //                         <div class="mt-1">${statusProduct}</div>
-            //                         <div class="mt-1">
-            //                             <p class="mb-0"><span> Created_at: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${new Date(product.created_at).toLocaleDateString("en-US",options)}</span></p>
-            //                         </div>
-            //                         <div class="mt-1">
-            //                             <p class="mb-0"><span> Updated_at: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${new Date(product.updated_at).toLocaleDateString("en-US",options)}</span></p>
-            //                         </div>
-            //                         <hr style="background:#999">
-            //                         <div class="product-detail-content mt-1">
-            //                             <h6 class="mb-2">Content: </h6>
-            //                             <div class="font-italic">
-            //                                 ${product.content}
-            //                             </div>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         `
-            //         $('#modal-product-detail').html('').append(productDetails);
-            //         imagesPath = '';
-                // }
-            // });
         }
 
     // });

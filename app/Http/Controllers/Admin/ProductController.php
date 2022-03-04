@@ -76,7 +76,6 @@ class ProductController extends Controller
         $thumbnail = ProductImage::where('product_id',"=", $product_id)->get('image_path');
         return $thumbnail;
     }
-
     public function store(Request $request){
         try {
             $err = [];
@@ -237,7 +236,7 @@ class ProductController extends Controller
                 // $cout = ( $currentPage - 1 ) * $perPage + 1 ;
                 foreach ($data as $key => $row){
                     $output = '<tr class="">';
-                    $output .= '<th class="text-center">'..'</th>';
+                    $output .= '<th class="text-center">'.$row->id.'</th>';
                     $output .= '<td class="text-center admin_product_img">'.'<img src='.$row->feature_image_path.'>'.'</td>';
                     $output .= '<td class="text-center">'.$row->name.'</td>';
                     $output .= '<td class="text-center">'.$row->price.'</td>';

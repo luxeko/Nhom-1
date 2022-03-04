@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
+    private $user;
+    private $role;
+    public function __construct(User $user, Role $role){
+        $this->user = $user;
+        $this->role = $role;
+    }
     public function getlogin(){
         return view('admin.admin_login');
     }
@@ -20,8 +27,7 @@ class LoginController extends Controller
     public function postlogin(Request $request){
         $result = ['email'=>$request->admin_email, 
                     'password'=> $request->admin_password
-                ];
-        
+        ];
         if($request->remember = 'Remember me'){
             $remember = true;
         } else {

@@ -16,8 +16,8 @@
                 <!-- 403 Error Text -->
                 <div class="text-center">
                         <div class="error mx-auto" data-text="403">403</div>
-                        <p class="lead text-gray-800 ">Lỗi phân quyền</p>
-                        <p style="max-width:22%" class="border border-warning shadow-lg p-3 mb-5 rounded container  bg-danger text-white mb-2">Bạn không được cấp quyền truy cập</p>
+                        <p class="lead text-gray-800 ">Lỗi truy cập</p>
+                        <p style="max-width:22%" class="border border-warning shadow-lg p-3 rounded container bg-danger text-white mb-3">Bạn không được phép xem trang này.</p>
                         <a href="{{asset('admin/home')}}">&larr; Quay trở lại Dashboard</a>
                 </div>           
             <!-- kết thúc code ở đây  -->

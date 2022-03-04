@@ -18,7 +18,7 @@ class CheckLogedIn
     {
         if(Auth::check()){
             return redirect()->intended('admin/home');
-        }
+        } 
         return $next($request);
     }
 }

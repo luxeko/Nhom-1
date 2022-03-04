@@ -51,6 +51,9 @@
                 @can('combo-list')
                     <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combos</a>
                 @endcan
+                {{-- @can('combo-list') --}}
+                    <a class="collapse-item order_active" href="">Đơn hàng</a>
+                {{-- @endcan --}}
             </div>
         </div>
     </li>
@@ -68,6 +71,9 @@
                 @can('user-list')
                     <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">User</a>  
                 @endcan
+                {{-- @can('guess-list') --}}
+                    <a class="collapse-item user_active" href="">Khách hàng</a>  
+                {{-- @endcan --}}
                 @can('role-list')
                     <a class="collapse-item role_active" href="{{ asset('admin/roles/index') }}">Vai trò</a>
                 @endcan

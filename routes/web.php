@@ -134,7 +134,17 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
         Route::get('/search', [ProductController::class,'searchProduct'])->name('product.search');
         // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
+    }); 
 
+     // Xử lý CRUD Combo
+     Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
+        Route::get('/create',[ComboController::class,'create'])->name('combo.create')->middleware('can:combo-add');
+        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
+        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit')->middleware('can:combo-edit');
+        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
+        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
+        Route::get('/details',[ComboController::class,'details_combo'])->name('combo.detail');
     }); 
 
     // Xử lý CRUD Blogs
@@ -162,18 +172,6 @@ Route::group(['namespace'=>'Admin'], function(){
     Route::group(['prefix'=>'admin/permissions','middleware'=>'CheckLogedOut'], function(){
         Route::get('/create',[PermissionController::class,'create'])->name('permission.create')->middleware('can:permission-add');
         Route::post('/store',[PermissionController::class,'store'])->name('permission.store');
-    }); 
-
-
-    // Xử lý CRUD Combo
-    Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
-        Route::get('/create',[ComboController::class,'create'])->name('combo.create')->middleware('can:combo-add');
-        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
-        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit')->middleware('can:combo-edit');
-        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
-        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
-        Route::get('/details',[ComboController::class,'details_combo']);
     }); 
 
     // Xử lý CRUD User

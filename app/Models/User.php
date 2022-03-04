@@ -59,9 +59,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
     public function checkPermissionAccess($permissionCheck){
-        // user login có quyền thêm, sửa, xoá và xem
+        // user login có các quyền thêm, sửa, xoá và xem
         // b1: lấy tất cả các quyền của user đang login hệ thống
         $roles = auth()->user()->roles;
+        // dd($roles);
         foreach($roles as $role){
             $permissions = $role->permissions;
             

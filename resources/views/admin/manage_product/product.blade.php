@@ -93,7 +93,13 @@
                                 </td>
                                 <td class="text-center">{{ optional($value->category)->name }}</td>
                                 <td class="text-center">
-                                   
+                                    <?php
+                                        if($value->status == 1){
+                                            echo "<span class='text-success'>Active</span>";
+                                        } else {
+                                            echo "<span class='text-danger'>Disable</span>";
+                                        }  
+                                    ?>
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('product-edit')
@@ -129,8 +135,9 @@
             <div class="modal fade" id="modalDetailProduct" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header border-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        <div class="modal-header bg-dark">
+                            <span class="text-white modal-title" id="myModalLabel150">Chi tiết sản phẩm</span>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">x</button>
                         </div>
                         {{-- code từ đây  --}}
                         <div class="modal-body border-0" id="modal-product-detail"></div>

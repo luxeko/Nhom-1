@@ -16,4 +16,8 @@ class Combo extends Model
     protected $table = 'combos';
     protected $guarded = [];
     protected $fillable = [];
+
+    public function list_product_combos(){
+        return $this->belongsToMany(Product::class, 'list__product__combos', 'combo_id', 'product_id');
+    }
 }
