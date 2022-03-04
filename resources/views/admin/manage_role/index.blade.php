@@ -20,7 +20,9 @@
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/roles/create') }} " class="btn btn-primary mb-3">Thêm vai trò</a>
+                @can('role-add')
+                    <a href="{{ asset('admin/roles/create') }} " class="btn btn-primary mb-3">Thêm vai trò</a>
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -58,7 +60,7 @@
         @php             
             $success = Session::get('success_role');
             if($success){
-                echo "<div class='alert alert-success' id='role_alert' role='alert'>";
+                echo "<div class='alert alert-success' id='role_alert' >";
                     echo $success;
                     Session::put('success_role', null);
                 echo "</div>";
@@ -82,8 +84,12 @@
                                 <td class="text-center">{{$value->name}}</td>
                                 <td class="text-center">{{$value->desc_name}}</td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a href="{{ Route('blog.edit', ['id'=>$value->id]) }}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('blog.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('role-edit')
+                                        <a href="{{ Route('role.edit', ['id'=>$value->id]) }}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('role-delete')
+                                        <a data-url="{{Route('role.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -109,13 +115,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.role_active').addClass('active');
-        $("#role_alert").show().delay(5000).fadeOut();
-    });
-</script>
+<script src="{{URL::asset('backend/js/role/main.js')}}"></script>
+
 
 
 

@@ -15,6 +15,7 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm vai trò</h2>
+        <hr>
         <form action="{{ URL::to('admin/roles/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -33,7 +34,7 @@
                     @endphp
                     
                     <div class="form-group" style="width:100%">
-                        <textarea class="form-control" name="desc_name" style="resize: none; height: 140px;" placeholder="Miêu tả"></textarea>
+                        <textarea class="form-control" name="desc_name" style="resize: none; height: 140px;" placeholder="Mô tả vai trò"></textarea>
                     </div>
                     @php         
                         $err_desc = Session::get('err_desc');
@@ -47,35 +48,41 @@
                 
                 </div>
                 <div class="col-md-12">
+                    <div class="form-check">
+                        <input type="checkbox" class="checked_all form-check-input" >
+                        <label class="form-check-label">Check All</label>
+                    </div>
                     <div class="row">
-                        <div class="card border-primary mb-3 md-3 col-md-12">
-                            <div class="card-header">
+                        @foreach($permissionParent as  $permissionItem)
+                        <div class="card mb-3 md-3 m-2 col-md-12">
+                            <div class=" card-header bg-secondary text-white ">
                                 <label >
-                                    <input type="checkbox" value="">
+                                    <input type="checkbox" class="checkbox_wrapper " value="">
                                 </label>
-                                Module sản phẩm
+                                Module {{ $permissionItem->name }}
                             </div>
                             <div class="row">
-                                @for($i = 1; $i <= 4; $i++)
+                                @foreach($permissionItem->permissionChildrent as $permissionChildrent)
                                 <div class="card-body text-primary col-md-3"  >
                                     <h5 class="card-title">
                                         <label >
-                                            <input type="checkbox" value="">
+                                            <input type="checkbox" name="permission_id[]" class="checkbox_childrent " value="{{ $permissionChildrent->id }}">
                                         </label>
-                                        Thêm sản phẩm
+                                        {{ $permissionChildrent->name }}
                                     </h5>
                                 </div>
-                                @endfor
+                                @endforeach
 
                             </div>
                         </div>
+                        @endforeach()
 
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <button class="btn btn-primary">Thêm vai trò</button>
-                        <a href="{{ asset('admin/blogs/index')}}" class="btn btn-secondary">Huỷ</a>
+                        <a href="{{ asset('admin/roles/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>
             </div>
@@ -84,12 +91,31 @@
     <!-- kết thúc code ở đây  -->
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type='text/javascript'>
+<script src="{{URL::asset('backend/js/role/main.js')}}"></script>
+
+{{-- <script type='text/javascript'>
     $(document).ready(function(){
         $('#collapsePermission').addClass('show');
         $('.role_active').addClass('active');
     });
 </script>
+<script type='text/javascript'>
+$(document).ready(function(){
+    $('.checkbox_wrapper').on('click', function (){
+        $(this).parents('.card').find('.checkbox_childrent').prop('checked', $(this).prop('checked'))
+    })
+    $('.checked_all').on('click', function (){
+        // $(this).parents('.card').find('.checkbox_childrent').prop('checked', $(this).prop('checked'))
+        if($(this).is(":checked")) {
+            $(".checkbox_wrapper").prop('checked', true);
+            $(".checkbox_childrent").prop('checked', true);
+        } else {
+            $(".checkbox_wrapper").prop('checked', false);
+            $(".checkbox_childrent").prop('checked', false);
+        }
+    })
+});
+</script> --}}
 
 
 

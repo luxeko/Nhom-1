@@ -15,4 +15,5 @@ class Combo extends Model
         SoftDeletes;
     protected $table = 'combos';
     protected $guarded = [];
+    protected $fillable = [];
 }

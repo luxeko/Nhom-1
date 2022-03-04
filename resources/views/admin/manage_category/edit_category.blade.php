@@ -11,7 +11,8 @@
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
     <!-- code database bắt đầu từ đây  -->
-    <div class="container-fluid ">
+    @include('admin/partials.preloader')
+    <div class="container-fluid" id="preloader">
         <div class="">
             <form action="{{ route('category.update', ['id'=>$category->id]) }}" method="post" style="width:50%">
                 @csrf
@@ -72,9 +73,5 @@
     <!-- kết thúc code ở đây  -->
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.category_active').addClass('active');
-    });
-</script>
+<script type='text/javascript' src="{{URL::asset('backend/js/category/main.js')}}"></script>
+

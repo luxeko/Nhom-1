@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {{-- Các bước để tạo khung trang Dashboard --}}
 
 {{-- Bước 1: @extends('admin/layouts.admin_layout') --}}
@@ -17,21 +16,22 @@
         @php             
         $success = Session::get('success_user');
         if($success){
-            echo "<div class='alert alert-success ' id='profile_alert' role='alert'>";
+            echo "<div class='alert alert-success' id='profile_alert'>";
                 echo $success;
                 Session::put('success_user', null);
             echo "</div>";
         }
         @endphp
+    
         <form action="{{ route('user.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-                <div class="profile-tab-nav border-right">
+                <div class="profile-tab-nav border-right px-3 py-4">
                     <div class="p-4" >
-                        <div class="img-circle text-center mb-3" >
+                        <div class="img-circle text-center " style="width: 150px; height:150px">
                             <img style="width:100px; height 100px"  src="{{URL::asset($user->avatar_img_path)}}" >
                         </div>
-                        <h4 class="text-center">{{$user->user_name}}</h4>
+                        <h6 class="text-center">{{$user->email}}</h6>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -89,21 +89,6 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" name="email" value="{{ $user->email}}">
-                                </div>
-                                @php         
-                                    $email_null = Session::get('email_null');
-                                    if($email_null){
-                                        echo "<div class='alert alert-danger'>";
-                                            echo $email_null;
-                                        echo "</div>";
-                                        Session::put('email_null', null);
-                                    }
-                                @endphp
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label label>Địa chỉ</label>
                                     <input type="text" class="form-control " name="address_line" style="width: 100%;" value="{{old('address_line')}}" />
                                 </div>
@@ -144,31 +129,32 @@
                     </div>
                     <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                         <h3 class="mb-4">Thay đổi mật khẩu</h3>
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mật khẩu mới</label>
-                                    <input type="password" class="form-control" name="password">
+                                    <input type="password" class="form-control" id="new_password" name="password">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" name="re_password">
+                                    <input type="password" class="form-control" id="confirm_password" name="re_password">
                                 </div>
-                                @php         
-                                    $confirm_password_notEqual = Session::get('confirm_password_notEqual');
-                                    if($email_null){
-                                        echo "<div class='alert alert-danger'>";
+                                <div class="" id="message"></div>
+                                {{-- @php         
+                                $confirm_password_notEqual = Session::get('confirm_password_notEqual');
+                                    if($confirm_password_notEqual){
+                                        echo "<div class='alert alert-danger' id='password_alert'>";
                                             echo $confirm_password_notEqual;
                                         echo "</div>";
                                         Session::put('confirm_password_notEqual', null);
                                     }
-                                @endphp
+                                @endphp --}}
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-primary profile_update">Cập nhật</button>
+                            <button id="update_password" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
@@ -243,43 +229,25 @@
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('backend/js/profile/main.js')}}"></script>
 <script>
+    function isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+    }
     $(document).ready(function(){
-        $('input').attr('readonly', true);
-        $('textarea').attr('readonly', true);
-        $('select').attr('disabled', true);
-        $(".profile_update").hide();    
-        $(".avatar_profile").hide();    
-        $(".profile_cancel").hide();
-        // $("#profile_alert").show().delay(3000).queue(function(n) {
-        //     $(this).hide(); n();
-        // });
-        
-        // $("#profile_alert").show();
-        // setTimeout(function() { $("#profile_alert").hide(); }, 5000);
-        
-        $("#profile_alert").show().delay(5000).fadeOut();
-
-        $(".profile_edit").click(function() {
-            $(".profile_update").show(300);
-            $(".profile_cancel").show(200);
-            $(".avatar_profile").show(200);  
-            $(".profile_edit").hide(300);
-            $('input').attr('readonly', false);
-            $('textarea').attr('readonly', false);
-            $('select').attr('disabled', false);
-        });
-        $(".profile_cancel").click(function() {
-            $(".profile_update").hide(300);
-            $(".profile_cancel").hide(200);
-            $(".profile_edit").show(300);
-            $(".avatar_profile").hide(200);  
-            $('input').attr('readonly', true);
-            $('select').attr('disabled', true);
-            $('textarea').attr('readonly', true);
+        $('#new_password, #confirm_password').on('keyup', function () {
+            if ($('#new_password').val() == $('#confirm_password').val() ) {
+                $('#message').html('Mật khẩu khớp').addClass("alert-success").addClass("alert").removeClass("alert-danger");
+            } else {
+                $('#message').html('Mật khẩu không khớp').addClass("alert-danger").addClass("alert").removeClass("alert-success");
+            }
+            if( isEmpty($('#new_password').val()) || isEmpty($('#confirm_password').val())) {
+                $('#message').html('').removeClass("alert-danger").removeClass("alert").removeClass("alert-success");
+            }
         });
     })
 </script>
+
 
 
 

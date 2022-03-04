@@ -15,6 +15,7 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm sản phẩm</h2>
+        <hr>
         <form action="{{ URL::to('admin/blogs/store') }}" method="post" enctype="multipart/form-data"> 
             @csrf
             <div class="row">
@@ -107,11 +108,8 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({ selector: '#mytextarea'});</script>
 {{-- <script src="{{URL::asset('backend/js/tags.js')}}"></script> --}}
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('.active_blogs_sliderbar').addClass('active');
-    });
-</script>
+<script type='text/javascript' src="{{URL::asset('backend/js/blog/main.js')}}"></script>
+
 
 
 

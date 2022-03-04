@@ -6,7 +6,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Sửa User</title>
+    <title>Cập nhật user</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
@@ -14,26 +14,29 @@
     <!-- code database bắt đầu từ đây  -->
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
-        <h2 class="form-title">Sửa User</h2>
+        <h2 class="form-title">Cập nhật user</h2>
+        <hr>
         <form action="{{ route('user.update', ['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 ">
-                    <div class="form-group mb-3" style="width:100%">
-                        <input type="text" class="form-control " name="full_name" style="width: 100%;" placeholder="Full name" value="{{$user->full_name}}" />
-                    </div>
-                    @php         
-                        $err_fullname = Session::get('fullname_null');
-                        if($err_fullname){
-                            echo "<div class='alert alert-danger'>";
-                                echo $err_fullname;
-                            echo "</div>";
-                            Session::put('fullname_null', null);
-                        }
-                    @endphp
                     <div class="form-group d-flex justify-content-between mb-1" style="width:100%">
+                        <div class="form-group mb-3" style="width:49%">
+                            <label for="">Full Name</label>
+                            <input type="text" class="form-control " name="full_name" style="width: 100%;" placeholder="Full name" value="{{$user->full_name}}" />
+                        </div>
+                        @php         
+                            $err_fullname = Session::get('fullname_null');
+                            if($err_fullname){
+                                echo "<div class='alert alert-danger'>";
+                                    echo $err_fullname;
+                                echo "</div>";
+                                Session::put('fullname_null', null);
+                            }
+                        @endphp
                         <div style="width:49%">
                             <div class="form-group" style="width:100%">
+                                <label for="">Phone Number</label>
                                 <input type="text" class="form-control " name="telephone" style="width: 100%;" placeholder="Telephone" value="{{ $user->telephone }}"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                             </div>
                             @php         
@@ -53,30 +56,10 @@
                                 }
                             @endphp
                         </div>
-                        <div style="width:49%">
-                            <div class="form-group" style="width:100%">
-                                <input type="email" class="form-control " name="email" style="width: 100%;" placeholder="Email" value="{{ $user->email }}" />
-                            </div>
-                            @php         
-                                $err_email = Session::get('err_email');
-                                $duplicate_email = Session::get('duplicate_email');
-                                if($err_email){
-                                    echo "<div class='alert alert-danger'>";
-                                        echo $err_email;
-                                    echo "</div>";
-                                    Session::put('err_email', null);
-                                } 
-                                if($duplicate_email){
-                                    echo "<div class='alert alert-danger'>";
-                                        echo $duplicate_email;
-                                    echo "</div>";
-                                    Session::put('duplicate_email', null);
-                                }
-                            @endphp
-                        </div>
                     </div>
                   
                     <div class="form-group">
+                        <label for="">Vai trò</label>
                         <select name="role_id[]" class="form-control role_select2 tags_select_choose" style="width:100%" multiple="multiple">
                             <option value=""></option>
                             @foreach ($roles as $role)
@@ -117,7 +100,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Sửa User</button>
+                        <button class="btn btn-primary">Cập nhật user</button>
                         <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>
@@ -128,20 +111,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/tags.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.user_active').addClass('active');
-        $('.address_form').hide();
-        $(".form-check-input").click(function() {
-            if($(this).is(":checked")) {
-                $(".address_form").show(300);
-            } else {
-                $(".address_form").hide(200);
-            }
-        });
-    });
-</script>
+<script src="{{URL::asset('backend/js/user/main.js')}}"></script>
+
 
 
 

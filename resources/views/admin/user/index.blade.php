@@ -57,7 +57,7 @@
         @php             
             $success = Session::get('success_user');
             if($success){
-                echo "<div class='alert alert-success' id='user_alert' role='alert'>";
+                echo "<div class='alert alert-success' id='user_alert'>";
                     echo $success;
                     Session::put('success_user', null);
                 echo "</div>";
@@ -132,13 +132,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.user_active').addClass('active');
-        $("#user_alert").show().delay(5000).fadeOut();
-    });
-</script>
+
+<script src="{{URL::asset('backend/js/user/main.js')}}"></script>
 
 <script type="text/javascript" >  
     function viewUserDetail(id){
@@ -177,7 +172,5 @@
             }
         });
     }
-
-
 </script>
 

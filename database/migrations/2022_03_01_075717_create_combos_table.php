@@ -17,6 +17,10 @@ class CreateCombosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('desc');
+            $table->string('price');
+            $table->float('discount')->nullable();
+            $table->string('image_combo_path');
+            $table->enum('status',['Active', 'Disable']);
             $table->softDeletes();
             $table->timestamps();
         });

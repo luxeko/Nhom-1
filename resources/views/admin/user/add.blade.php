@@ -15,6 +15,7 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm User</h2>
+        <hr>
         <form action="{{ URL::to('admin/users/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -76,25 +77,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group mb-3" style="width:100%">
-                        <input type="text" class="form-control" name="user_name" style="width: 100%;" placeholder="User name" value="{{ old('user_name') }}" />
-                    </div>
-                    @php         
-                        $err_username = Session::get('username_null');
-                        $duplicate_username = Session::get('duplicate_username');
-                        if($err_username){
-                            echo "<div class='alert alert-danger'>";
-                                echo $err_username;
-                            echo "</div>";
-                            Session::put('username_null', null);
-                        }
-                        if($duplicate_username){
-                            echo "<div class='alert alert-danger'>";
-                                echo $duplicate_username;
-                            echo "</div>";
-                            Session::put('duplicate_username', null);
-                        }
-                    @endphp
                    
                     <div class="form-group d-flex justify-content-between mb-1" style="width:100%">
                         <div style="width:49%">
@@ -177,19 +159,10 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/tags.js')}}"></script>
+<script src="{{URL::asset('backend/js/user/main.js')}}"></script>
+
 <script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapsePermission').addClass('show');
-        $('.user_active').addClass('active');
-        $('.address_form').hide();
-        $(".form-check-input").click(function() {
-            if($(this).is(":checked")) {
-                $(".address_form").show(300);
-            } else {
-                $(".address_form").hide(200);
-            }
-        });
-    });
+   
 </script>
 
 
