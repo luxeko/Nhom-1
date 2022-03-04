@@ -18,7 +18,7 @@ class LoginController extends Controller
         return redirect()->intended('admin/login');
     }
     public function postlogin(Request $request){
-        $result = ['user_name'=>$request->admin_username, 
+        $result = ['email'=>$request->admin_email, 
                     'password'=> $request->admin_password
                 ];
         
@@ -35,7 +35,7 @@ class LoginController extends Controller
         } 
         if(Auth::attempt($result, $remember)){          
             $request->session()->put('check_login', 'Đăng nhập thành công');
-            return redirect()->intended('admin/home');
+            return redirect()->route('admin.home');
         } else {
             return back()->withInput()->with('login_faild','Tài khoản hoặc mật khẩu chưa đúng');
         }

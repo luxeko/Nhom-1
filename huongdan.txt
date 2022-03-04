@@ -25,3 +25,11 @@
 11: code công việc của mình
 
 12: git push -u origin "name" và đợi quản lý source pull request
+
+13: composer require laravel/Jetstream
+
+14: npm install -> npm run dev
+
+15: kiểm tra file composer.json phần require có 
+"cartalyst/stripe-laravel": "^13.0" chưa thì thêm vào rồi chạy composer update
+

@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
 use App\Http\Controllers\Pages\PublicProductController;
 
+//livewire controller
+use App\Http\Livewire\HomeComponent;
+use App\Http\Livewire\CartComponent;
+use App\Http\Livewire\AllProductComponent;
+use App\Http\Livewire\DetailsComponent;
+use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\CategoryComponent;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\user\UserDashboardComponent;
+use App\Http\Livewire\user\UserOrdersComponent;
+use App\Http\Livewire\user\UserOrderDetailsComponent;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,25 +42,35 @@ use App\Http\Controllers\Pages\PublicProductController;
 */
 
 
-// Route for Home
-// Route::get('/',[PublicHomeController::class,'index']);
-Route::get('/home',[PublicHomeController::class,'index']);
-Route::get('/layout',[PublicHomeController::class,'layoutMaster']);
-Route::get('/product_detail',[PublicHomeController::class,'productDetails']);
-Route::get('/all_product',[PublicHomeController::class,'showAllProduct']);
-Route::get('/checkout',[PublicHomeController::class,'checkOut']);
-Route::get('/cart',[PublicHomeController::class,'cart']);
-Route::get('/blog',[PublicHomeController::class,'blog']);
-Route::get('/single_blog',[PublicHomeController::class,'singleBlog']);
-// 3 cái router dưới này không sửa nhé ae
-Route::get('/',[PublicProductController::class,'index']);
-Route::get('detail/{id}',[PublicProductController::class,'productDetail']);
-Route::get('products/list',[PublicProductController::class,'productList']);
-Route::get('/all_product', [PublicProductController::class,'allProduct']);
-Route::get('all_product/fetch_data', [PublicProductController::class,'fetch_data']);
-// Route for social
-Route::get('/contact',[PublicHomeController::class,'contactUs']);
 
+// Livewire route
+
+Route::get('/', HomeComponent::class);
+Route::get('/shop',AllProductComponent::class);
+Route::get('/cart',CartComponent::class)->name('product.cart');
+Route::get('/checkout', CheckoutComponent::class)->name('checkout');
+Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
+Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
+Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
+Route::get('/search',SearchComponent::class)->name('products.search'); 
+Route::middleware(['auth:sanctum','verified'])->group(function(){ 
+    Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
+    Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');
+    Route::get('/user/orders/{order_id}',UserOrderDetailsComponent::class)->name('user.orderdetails');
+});
+
+
+
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
+
+//Xem trước mail
+Route::get('/mailable', function () {
+    $order = App\Models\Order::find(1);
+    
+    return new App\Mail\Ordermail($order);
+});
 
 
 
@@ -59,24 +85,24 @@ Route::group(['namespace'=>'Public'], function(){
         Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
         Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
     }); 
-    Route::group(['prefix'=>'public/'], function(){
-        Route::get('/index', [PublicProductController::class, 'index']);
-    }); 
+    //Route::group(['prefix'=>'public/'], function(){
+    //    Route::get('/index', [PublicProductController::class, 'index']);
+     //}); 
 });
 
 // Admin route
 Route::group(['namespace'=>'Admin'], function(){
     // xử lý đến trang login
     Route::get('admin',[LoginController::class,'goLogin']);
-    Route::group(['prefix'=>'admin','middleware'=>'CheckLogedIn'], function(){
-        Route::get('login',[LoginController::class,'getlogin']);
-        Route::post('login',[LoginController::class,'postlogin']);
+    Route::group(['middleware'=>'CheckLogedIn'], function(){
+        Route::get('admin/login',[LoginController::class,'getlogin']);
+        Route::post('admin/login',[LoginController::class,'postlogin']);
     });
 
     // xử lý khi đăng nhập thành công
-    Route::get('logout',[HomeController::class,'getLogout']); // xử lý khi đăng xuất
+    Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
     Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/home',[HomeController::class,'showDashboard']);
+        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.home');
         Route::get('error',[HomeController::class,'showErr']);
         Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
         Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
@@ -160,3 +186,7 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/details',[AdminUserController::class,'details']);
     }); 
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

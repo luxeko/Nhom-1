@@ -24,9 +24,16 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/magnific-popup.css'); }}">
     <!-- swiper CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/slick.css'); }}">
-    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/price_rangs.css'); }}">
+    <!-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/price_rangs.css'); }}"> -->
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css'); }}">
+    <!-- css trang checkout -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} " >
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    @livewireStyles
 </head>
 
 <body>
@@ -37,7 +44,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="{{ asset('/public/index') }}"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="/"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +54,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('/public/index') }}"">Home</a>
+                                    <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
@@ -55,22 +62,21 @@
                                         Special
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Combo </a>
-                                        <a class="dropdown-item" href="single-product.html">New product</a>
-                                        
+                                        <a class="dropdown-item" href=""> Combo </a>
+                                        <a class="dropdown-item" href="">New product</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/shop" >
+                                    <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="login.html"> cases</a>
-                                        <a class="dropdown-item" href="tracking.html">cooling</a>
-                                        <a class="dropdown-item" href="checkout.html">components</a>
-                                        <a class="dropdown-item" href="cart.html">Audio</a>
-                                        <a class="dropdown-item" href="confirmation.html">CAM</a>
+                                        <a class="dropdown-item" href=""> cases</a>
+                                        <a class="dropdown-item" href="">cooling</a>
+                                        <a class="dropdown-item" href="">components</a>
+                                        <a class="dropdown-item" href="">Audio</a>
+                                        <a class="dropdown-item" href="">CAM</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -88,36 +94,52 @@
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
-                            <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
-                            <a class="navbar__icon" href=""><ion-icon name="person-circle-outline"></ion-icon></i></a>
-                                <a class="navbar__icon" class="dropdown-toggle navbar__icon" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <ion-icon name="cart-outline"></ion-icon>
-                                </a>
+                            <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
+                            </div>
+                            @auth
+                                @if(Auth::user()->utype === "USR")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
+                                            <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                            <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
+                                        <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"
+                                            onclick="event.preventDefault() document.getElementById('logout-form').submit()";>Logout</a>
+                                        </div>
+                                        <form id="logout-form" method="POST" action="{{route('logout')}}">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                    <a class="navbar__icon">
+                                        <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                        <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @livewire('cart-count-component')
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
-                    <span class="ti-close" id="close_search" title="Close Search"></span>
-                </form>
-            </div>
-        </div>
+        @livewire('header-search-component')
     </header>
     <!-- Header part end-->
     <!--================Home Banner Area =================-->
-    @yield('all_products')
-    @yield('detail')
-    @yield('audio')
-    @yield('cam')
-    @yield('cases')
-    @yield('components')
-    @yield('cooling')
+	
+    {{$slot}}
 
     <!--::footer_part start::-->
     <footer class="footer_part">
@@ -211,6 +233,7 @@
     <!--::footer_part end::-->
 
     <!-- jquery plugins here-->
+    @livewireScripts
     <script src="{{ URL::asset('/frontend/js/jquery-1.12.1.min.js'); }}"></script>
     <!-- popper js -->
     <script src="{{ URL::asset('/frontend/js/popper.min.js'); }}"></script>
@@ -224,7 +247,7 @@
     <script src="{{ URL::asset('/frontend/js/masonry.pkgd.js'); }}"></script>
     <!-- particles js -->
     <script src="{{ URL::asset('/frontend/js/owl.carousel.min.js'); }}"></script>
-    <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script> -->
     <!-- slick js -->
     <script src="{{ URL::asset('/frontend/js/slick.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.counterup.min.js'); }}"></script>
@@ -235,33 +258,13 @@
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/stellar.js'); }}"></script>
-    <script src="{{ URL::asset('/frontend/js/price_rangs.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/price_rangs.js'); }}"></script> -->
+    <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script>
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script>
-$(document).ready(function(){
-
- $(document).on('click', '.pagination a', function(event){
-  event.preventDefault(); 
-  var page = $(this).attr('href').split('page=')[1];
-  fetch_data(page);
- });
-
- function fetch_data(page)
- {
-  $.ajax({
-   url:"/all_product/fetch_data?page="+page,
-   success:function(data)
-   {
-    $('#table_data').html(data);
-   }
-  });
- }
- 
-});
-</script>
 </body>
 
 </html>

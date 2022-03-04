@@ -14,7 +14,7 @@
             <div class="modal-body">Chọn <span style="color:#dc3545">"Đăng xuất"</span> nếu bạn muốn muốn kết thúc phiên làm việc.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
-                <a class="btn btn-primary" href="{{asset('/logout')}}">Đăng xuất</a>
+                <a class="btn btn-primary" href="{{route('admin.logout')}}">Đăng xuất</a>
             </div>
         </div>
     </div>

@@ -56,6 +56,22 @@
         <script src="{{URL::asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
         <!-- Custom scripts for all pages-->
         <script src="{{URL::asset('backend/js/sb-admin-2.min.js')}}"></script>
-     
+        <!-- Page level plugins -->
+        <script src="{{URL::asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{URL::asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>   
+        <script>
+            $(document).ready(function(){
+                var showMes = $('.cancel_btn').click(function(){
+                    $('.confirm_form').hide()
+                    $('.confirm_container').hide()
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+                $('#preloader').hide(0).delay(1200).show(0);
+            });
+        </script>
+        @livewireScripts
     </body>
 </html>

@@ -26,12 +26,12 @@
         <form action="{{ route('user.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-                <div class="profile-tab-nav border-right">
+                <div class="profile-tab-nav border-right px-3 py-4">
                     <div class="p-4" >
-                        <div class="img-circle text-center mb-3" >
+                        <div class="img-circle text-center " style="width: 150px; height:150px">
                             <img style="width:100px; height 100px"  src="{{URL::asset($user->avatar_img_path)}}" >
                         </div>
-                        <h4 class="text-center">{{$user->user_name}}</h4>
+                        <h6 class="text-center">{{$user->email}}</h6>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -84,21 +84,6 @@
                                             echo $telephone_null;
                                         echo "</div>";
                                         Session::put('telephone_null', null);
-                                    }
-                                @endphp
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" name="email" value="{{ $user->email}}">
-                                </div>
-                                @php         
-                                    $email_null = Session::get('email_null');
-                                    if($email_null){
-                                        echo "<div class='alert alert-danger'>";
-                                            echo $email_null;
-                                        echo "</div>";
-                                        Session::put('email_null', null);
                                     }
                                 @endphp
                             </div>
