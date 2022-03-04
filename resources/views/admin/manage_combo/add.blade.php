@@ -32,9 +32,7 @@
                             Session::put('combo_name_null', null);
                         }
                     @endphp
-                    <div class="form-group">
-                        <input type="text" class="numberformat form-control form-control-sm py-4 px-3 mb-1" name="price" placeholder="Giá combo (min: 1)" value="{{old('price')}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    </div>
+                  
                     @php         
                         $price_null = Session::get('price_null');
                         if($price_null){
@@ -93,26 +91,17 @@
             <h3>Sản phẩm trong combo</h3>
             <hr>
             
-           
             <div id="firstproduct"></div>
-        
+            
             <button type="button"  class="addProduct btn btn-success">Add Product</i></button>
 
             <div class="col-md-6" style="width:100%">
                 <hr>
                 <div class="form-group d-flex justify-content-end" >
-                    <div style="width:12%" class="mr-4">
-                        <label for="">Discount</label>
-                        <select class="form-control input-xs" name="discount" id="discount">
-                            <option value="0">0 %</option>
-                            @php
-                                $stt = 0;
-                            @endphp
-                            @for($i = 1; $i <= 10; $i++)
-                                {{$stt++}}
-                                <option class="form-control" value="{{ $stt*10 }}">{{ $stt*10 }} %</option>
-                            @endfor
-                        </select>
+                    <div style="width:21%" class="mr-4">
+                        <label for="">Discount % (0->100)</label>
+                        <input type="text" class="form-control input-xs" name="discount" id="discount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        <div class="mt-2" id="message"></div>
                     </div>
                     <div style="width:30%" >
                         <label for="">Tổng</label>
@@ -140,18 +129,15 @@
 <script src="{{URL::asset('backend/js/combo/main.js')}}"></script>
 <script>
     $(document).ready(function(){
-        $('.removeProduct').click(function(){
-            $('.productdiv').last().remove();
-        })
+        // $('.removeProduct').click(function(){
+        //     $('.productdiv').last().remove();
+        // })
         $('.addProduct').click(function(){
             genderSelect();
             // $('#firstproduct .productdiv').clone().find('select').val('').end().appendTo('#moreproduct');
         })
         let products = {!! json_encode($products) !!};
-        genderSelect();
-        function remove(index){
-
-        }
+        genderSelect();  
         function genderSelect(){
             let container = $("#firstproduct");
             let selectOption ='';
@@ -193,10 +179,12 @@
                     </div>    
                 </div>
             </div>   
-            `
+            `              
             container.append(item);
             document.querySelectorAll('.selectProduct').forEach(item =>{
+                
                 item.addEventListener('change',function(){
+                    
                     let parent = item.parentNode.parentNode.parentNode;
                     let input = parent.querySelector("input");
                     let value = item.value;
@@ -208,20 +196,38 @@
                     }else{
                         input.value = ""; 
                     }
-                    
                     handlerTotalPrice();
                 })
             })
+        
             function handlerTotalPrice(){
-                let total  = 0;
+                let price = 0;
+                let subtotal  = 0;
                 document.querySelectorAll(".price-product-input").forEach(item=>{
                     const itemElemt = item.value == "" ? 0 : item.value;
-                    total += parseInt(itemElemt);
+                    subtotal += parseInt(itemElemt);
+                    $(document).on("change keyup blur", "#discount", function() {
+                        let discount =  ($("#discount").val()/100).toFixed(2);
+                        price = subtotal - subtotal*discount
+                        $("#total_price").val(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                    }) 
+                    console.log(subtotal);
                 })
-                    let finishPrice = (100 - $("#discount").val())/100;
-                    total = total*finishPrice
-                $("#total_price").val(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
             }
+           
+
+            $(document).on('click', '.removeProduct', function () {
+                $(this).closest('.productdiv').remove();
+            });
         }
+    })
+    $(document).ready(function(){
+        $('#discount').on('keyup', function () {
+            if ($('#discount').val() > 100 ) {
+                $('#message').html('Max 100% !!!').addClass("alert-danger").addClass("alert")
+            } else {
+                $('#message').html('').removeClass("alert-danger").removeClass("alert");
+            }
+        });
     })
 </script>
