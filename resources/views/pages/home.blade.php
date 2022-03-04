@@ -13,33 +13,33 @@
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_1.png'); }}" alt="">
+                        <h3>Latest CPUs</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                        <img src="{{ URL::asset('/frontend/img/index/4.png'); }}" alt="" width="370px" height="370px">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_2.png'); }}" alt="">
+                        <h3>Latest microphone</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                        <img src="{{ URL::asset('/frontend/img/index/8.png'); }}"  width="270px" height="280px">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_3.png'); }}" alt="">
+                        <h3>Latest headphones</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                        <img src="{{ URL::asset('/frontend/img/index/11.png'); }}" alt="" width="270px" height="260px">
                     </div>
                 </div>
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{ URL::asset('/frontend/img/feature/feature_4.png'); }}" alt="">
+                        <h3>Latest cooling</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <ion-icon name="cart-outline"></ion-icon></a>
+                        <img src="{{ URL::asset('/frontend/img/index/9.png'); }}" alt="" width="440px" height="380px">
                     </div>
                 </div>
             </div>
@@ -89,13 +89,13 @@
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_img">
-                        <img src="{{ URL::asset('/frontend/img/offer_img.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/index/5.png'); }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
                         <h2>Weekly Sale on
-                            60% Off All Products</h2>
+                            30% Off All Combo</h2>
                         <div class="date_countdown">
                             <div id="timer">
                                 <div id="days" class="date"></div>
@@ -176,7 +176,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_1.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/3.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_2.png'); }}" alt="">
@@ -191,19 +191,19 @@
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_5.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_3.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/4.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_1.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/2.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_2.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_3.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/7.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_4.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/5.png'); }}" alt="">
                     </div>
                 </div>
             </div>

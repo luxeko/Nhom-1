@@ -18,6 +18,7 @@ class CreateTablePermissionRole extends Migration
             $table->integer('role_id');
             $table->integer('permission_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

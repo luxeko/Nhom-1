@@ -5,8 +5,8 @@
    <!-- Required meta tags -->
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title>Computer Store</title>
-   <link rel="icon" href="{{ URL::asset('/frontend/img/favicon.png'); }}">
+   <title>Mativina</title>
+   <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
    <!-- animate CSS -->
@@ -33,7 +33,7 @@
           <div class="row align-items-center">
               <div class="col-lg-12">
                   <nav class="navbar navbar-expand-lg navbar-light">
-                      <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
+                      <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
                       <button class="navbar-toggler" type="button" data-toggle="collapse"
                           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                           aria-expanded="false" aria-label="Toggle navigation">
@@ -550,52 +550,47 @@
          <div class="row justify-content-around">
             <div class="col-sm-6 col-lg-2">
                <div class="single_footer_part">
-                  <h4>Top Products</h4>
-                  <ul class="list-unstyled">
-                     <li><a href="">Managed Website</a></li>
-                     <li><a href="">Manage Reputation</a></li>
-                     <li><a href="">Power Tools</a></li>
-                     <li><a href="">Marketing Service</a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-sm-6 col-lg-2">
-               <div class="single_footer_part">
-                  <h4>Quick Links</h4>
-                  <ul class="list-unstyled">
-                     <li><a href="">Jobs</a></li>
-                     <li><a href="">Brand Assets</a></li>
-                     <li><a href="">Investor Relations</a></li>
-                     <li><a href="">Terms of Service</a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-sm-6 col-lg-2">
-               <div class="single_footer_part">
-                  <h4>Features</h4>
-                  <ul class="list-unstyled">
-                     <li><a href="">Jobs</a></li>
-                     <li><a href="">Brand Assets</a></li>
-                     <li><a href="">Investor Relations</a></li>
-                     <li><a href="">Terms of Service</a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-sm-6 col-lg-2">
-               <div class="single_footer_part">
-                  <h4>Resources</h4>
-                  <ul class="list-unstyled">
-                     <li><a href="">Guides</a></li>
-                     <li><a href="">Research</a></li>
-                     <li><a href="">Experts</a></li>
-                     <li><a href="">Agencies</a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-               <div class="single_footer_part">
-                  <h4>Newsletter</h4>
-                  <p>Heaven fruitful doesn't over lesser in days. Appear creeping
+               <h4>Contact</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="">Company</a></li>
+                            <li><a href="">Custom support</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2">
+                    <div class="single_footer_part">
+                        <h4>About us</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="">Q & A</a></li>
+                            <li><a href="">Careers</a></li>
+                            <li><a href="">Customer review</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2">
+                    <div class="single_footer_part">
+                        <h4>Features</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="">Jobs</a></li>
+                            <li><a href="">Brand Assets</a></li>
+                            <li><a href="">Investor Relations</a></li>
+                            <li><a href="">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2">
+                    <div class="single_footer_part">
+                        <h4>Community</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="">Our discord</a></li>
+                            <li><a href="">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="single_footer_part">
+                        <h4>Notification</h4>
+                        <p>Please to back information if as you want to accept the new message of us, I want to receive our latest notifications
                   </p>
                   <div id="mc_embed_signup">
                      <form target="_blank"
@@ -620,8 +615,8 @@
                <div class="col-lg-8">
                   <div class="copyright_text">
                      <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
+                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Hope you will have the best experience with our products <i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/maibica00" target="_blank">team 1</a>
+                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
                   </div>
                </div>
                <div class="col-lg-4">

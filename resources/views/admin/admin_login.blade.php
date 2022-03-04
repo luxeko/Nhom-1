@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/64d58efce2.js"></script>
     <link rel="stylesheet" href="{{ URL::asset('/backend/css/admin.css'); }}">
     <link rel="stylesheet" href="{{ URL::asset('/backend/css/admin.css'); }}">
+    <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
 </head>
 <body>
     <div class="admin_container">
@@ -53,7 +54,7 @@
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
-                    <h3>NZXT - Computer</h3>
+                    <img src="{{ URL::asset('/frontend/img/new2.png')}}">
                     <p>
                        <i>"Dao có mài mới sắc, người có học mới nên. Dốt đến đâu học lâu cũng biết."</i> 
                     </p>

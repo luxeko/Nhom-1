@@ -44,8 +44,10 @@
                 <span>Display: 3 inches</span>
                 <span>|</span>
                 <span>Color: Black</span>
-            </div> <p>
-            {{$product_detail['content']}}</p>
+            </div>
+            @php
+                echo $product_detail['content']
+            @endphp
         </div>
         <div style="margin-top:20px"><button class="btn">Add To Cart</button></div>
     </div>

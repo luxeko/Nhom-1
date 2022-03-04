@@ -12,5 +12,6 @@
             <li>Multiple file produt (Xong)</li>
         </ul>
     </div>
-    
 @endsection
+<script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('backend/js/dashboard/main.js')}}"></script>

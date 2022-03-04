@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
@@ -18,8 +19,9 @@ class LoginController extends Controller
     }
     public function postlogin(Request $request){
         $result = ['user_name'=>$request->admin_username, 
-                    'password'=>$request->admin_password
+                    'password'=> $request->admin_password
                 ];
+        
         if($request->remember = 'Remember me'){
             $remember = true;
         } else {

@@ -39,32 +39,32 @@ class ProductController extends Controller
     }
     public function create(){
         $htmlOption = $this->getCategory($parentId = '');
-        $discountOption = $this->discount->all();
-        return view('admin.manage_product.add', compact('htmlOption','discountOption'));
+        return view('admin.manage_product.add', compact('htmlOption'));
     }
     
     public function show(){
-        $data = $this->product->paginate(5);
+        $htmlOption = $this->getCategory($parentId = '');
+        $data = $this->product->latest()->paginate(5);
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
-        return view('admin.manage_product.product', compact('data', 'currentPage', 'perPage', 'total'));
+        return view('admin.manage_product.product', compact('data', 'currentPage', 'perPage', 'total', 'htmlOption'));
     }
-    public function fetch_data(Request $request){
-        if($request->ajax())
-        {
-            $sort_by = $request->get('sortby');
-            $sort_type = $request->get('sorttype');
-            $search = $request->get('search');
-            $search = str_replace(" ", "%", $search);
-            $data = $this->product
-                            ->where('name', 'LIKE', '%'.$search.'%')
-                            ->orWhere('price', 'LIKE', '%'.$search.'%')
-                            ->orderBy($sort_by, $sort_type)
-                            ->paginate(5);
-            return view('admin.manage_product.data', compact('data'))->render();
-        }
-    }
+    // public function fetch_data(Request $request){
+    //     if($request->ajax())
+    //     {
+    //         $sort_by = $request->get('sortby');
+    //         $sort_type = $request->get('sorttype');
+    //         $search = $request->get('search');
+    //         $search = str_replace(" ", "%", $search);
+    //         $data = $this->product
+    //                         ->where('name', 'LIKE', '%'.$search.'%')
+    //                         ->orWhere('price', 'LIKE', '%'.$search.'%')
+    //                         ->orderBy($sort_by, $sort_type)
+    //                         ->paginate(5);
+    //         return view('admin.manage_product.data', compact('data'))->render();
+    //     }
+    // }
     public function details_product(Request $request){
         return Product::findOrFail($request->id);
     }   
@@ -76,10 +76,10 @@ class ProductController extends Controller
         $thumbnail = ProductImage::where('product_id',"=", $product_id)->get('image_path');
         return $thumbnail;
     }
-    public function get_discount($discount_id){
-        $discount = $this->discount->find($discount_id);
-        return $discount;
-    } 
+    // public function get_discount($discount_id){
+    //     $discount = $this->discount->find($discount_id);
+    //     return $discount;
+    // } 
     public function store(Request $request){
         try {
             $err = [];
@@ -102,16 +102,15 @@ class ProductController extends Controller
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
             }
             if(count($err)>0){
-                return Redirect::back()->with($err);
+                return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
                 $dataProductCreate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => str_replace(",", "", $request->product_price),
+                    'price'         => str_replace(',','', $request->product_price),
                     'status'        => $request->status,
                     'category_id'   => $request->category,
-                    'discount_id'   => $request->discount_id,
                     'user_id'       => auth()->id(),
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
@@ -146,8 +145,7 @@ class ProductController extends Controller
     public function edit($id){
         $product = $this->product->find($id);
         $htmlOption = $this->getCategory($product->category_id);
-        $discountOption = $this->discount->all();
-        return view('admin/manage_product.edit', compact('product', 'htmlOption', 'discountOption'));
+        return view('admin/manage_product.edit', compact('product', 'htmlOption'));
     }
     public function update(Request $request, $id){
         try {
@@ -168,16 +166,15 @@ class ProductController extends Controller
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
             }
             if(count($err)>0){
-                return Redirect::back()->with($err);
+                return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
                 $dataProductUpdate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(',','', $request->product_price) ,
                     'status'        => $request->status,
                     'category_id'   => $request->category,
-                    'discount_id'   => $request->discount_id,
                     'user_id'       => auth()->id(),
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');

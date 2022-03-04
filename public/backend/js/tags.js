@@ -3,4 +3,7 @@ $(document).ready(function(){
         tags: true,
         tokenSeparators: [',', ' ']
     })
+    $('.role_select2').select2({
+        'placeholder': 'Chọn vai trò'
+    })
 });

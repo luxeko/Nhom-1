@@ -228,7 +228,7 @@
     //------- makeTimer js --------//
     function makeTimer() {
         //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
-        var endTime = new Date("27 Sep 2019 12:56:00 GMT+01:00");
+        var endTime = new Date("12 March 2022 12:00:00 GMT+01:00");
         endTime = Date.parse(endTime) / 1000;
 
         var now = new Date();
@@ -388,6 +388,9 @@ function scrollFunction() {
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
 }
+

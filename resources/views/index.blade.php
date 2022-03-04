@@ -5,8 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Computer Store</title>
-    <link rel="icon" href="{{ URL::asset('/frontend/img/favicon.png'); }}">
+    <title>Mativina</title>
+    <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
     <!-- animate CSS -->
@@ -42,7 +42,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="/"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
+
+                        <a class="navbar-brand" href="/"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
+						
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +57,13 @@
                                     <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                    <a class="nav-link dropdown-toggle" href="{{URL::to('/home')}}" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Special
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Combo </a>
-                                        <a class="dropdown-item" href="single-product.html">New product</a>
+                                        <a class="dropdown-item" href="#"> Combo </a>
+                                        <a class="dropdown-item" href="#">New product</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -70,7 +72,7 @@
                                         Product
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="/case"> cases</a>
+                                        <a class="dropdown-item" href="/case">cases</a>
                                         <a class="dropdown-item" href="/cooling">cooling</a>
                                         <a class="dropdown-item" href="/component">components</a>
                                         <a class="dropdown-item" href="/audio">Audio</a>
@@ -78,7 +80,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="blog.html" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -87,7 +89,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="{{URL::to('/contact')}}">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -138,7 +140,7 @@
 
     <!-- banner part start-->
     <div class="bg-video-wrap">
-    <video src="{{ URL::asset('/frontend/img/New H-Series Case Overview & Comparison.mp4'); }}" loop muted autoplay>
+    <video src="{{ URL::asset('/frontend/img/background.mp4'); }}" loop muted autoplay>
     </video>
     <div class="overlay">
     </div>
@@ -158,23 +160,20 @@
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Top Products</h4>
+                        <h4>Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Managed Website</a></li>
-                            <li><a href="">Manage Reputation</a></li>
-                            <li><a href="">Power Tools</a></li>
-                            <li><a href="">Marketing Service</a></li>
+                            <li><a href="">Company</a></li>
+                            <li><a href="">Custom support</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Quick Links</h4>
+                        <h4>About us</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Jobs</a></li>
-                            <li><a href="">Brand Assets</a></li>
-                            <li><a href="">Investor Relations</a></li>
-                            <li><a href="">Terms of Service</a></li>
+                            <li><a href="">Q & A</a></li>
+                            <li><a href="">Careers</a></li>
+                            <li><a href="">Customer review</a></li>
                         </ul>
                     </div>
                 </div>
@@ -191,19 +190,17 @@
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Resources</h4>
+                        <h4>Community</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Guides</a></li>
-                            <li><a href="">Research</a></li>
-                            <li><a href="">Experts</a></li>
-                            <li><a href="">Agencies</a></li>
+                            <li><a href="">Our discord</a></li>
+                            <li><a href="">Blog</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="single_footer_part">
-                        <h4>Newsletter</h4>
-                        <p>Heaven fruitful doesn't over lesser in days. Appear creeping
+                        <h4>Notification</h4>
+                        <p>Please to back information if as you want to accept the new message of us, I want to receive our latest notifications
                         </p>
                         <div id="mc_embed_signup">
                             <form target="_blank"
@@ -228,7 +225,7 @@
                     <div class="col-lg-8">
                         <div class="copyright_text">
                             <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved&nbsp;<i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/luxeko/Nhom-1.git" target="_blank" class="text-primary">team 1</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
                         </div>
                     </div>
