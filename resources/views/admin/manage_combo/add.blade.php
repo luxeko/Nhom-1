@@ -90,6 +90,20 @@
                     @endphp
                 </div>
             </div>
+
+            <div class="order">
+                <h1>KFCC</h1>
+                <ul id="order-items" class="order-items">
+                   
+                </ul>
+                <a class="btn btn-danger" id="btn-test">Add product</a>
+                <div>
+                    <p>Subtotal <span id="sub-total" class="money"></span></p>
+                    <p>Shippng <span id="shipping" class="money"></span></p>
+                    <p>Total <span id="total" class="money"></span></p>
+                </div>
+            </div>
+
             <h3>Sản phẩm trong combo</h3>
             <hr>
             <div id="firstproduct">
@@ -141,6 +155,64 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({ selector: '#mytextarea'});</script>
 <script src="{{URL::asset('backend/js/combo/main.js')}}"></script>
+
+<script>
+    $(document).ready(function(){
+        const items = [
+            {
+                name: 'Pizza 001', 
+                price: 6},
+            {
+                name: 'Pizza 002', 
+                price: 6},
+            {
+                name: 'Pizza 003', 
+                price: 6},
+        ]
+        const Shipping = 5
+        function render(){
+            let subtotal = 0;
+            items.forEach(item => {
+                subtotal += item.price;
+            })
+
+            const total = subtotal + Shipping;
+            const html = items.map(item => `
+                <li class="order-item">
+                    <span>${item.name}</span>
+
+                    <span class="price">
+                        <span>${item.price.toFixed(2)}</span>
+                        <a style="color:red; border:solid 1px #ccc; cursor:pointer" class"btn-delete">X</a>
+                    </span>
+                </li>`).join('')
+            $('#order-items').html(html)  
+
+            const deleteBtn = [$('.btn-delete')]
+            for(let i = 0; i < deleteBtn.length; i++){
+                deleteBtn[i].on('click', function(){
+                    remove(i);
+                })
+            }
+            $("#sub-total").text(`$${subtotal.toFixed(2)}`)
+            $("#shipping").text(`$${Shipping}`) 
+            $("#total").text(`$${total.toFixed(2)}`) 
+        }
+
+        function add(){
+            items.push({
+                name: `Pizza ${Math.random().toFixed(3)}`,
+                price: Math.random()*10
+            })
+
+            render();
+        }
+        $('#btn-test').on('click', function(){
+            add();
+        })
+        render();
+    })
+</script>
 <script>
     $(document).ready(function(){
         $('.removeProduct').click(function(){

@@ -59,7 +59,7 @@
     
             <div class="form-group">
                 <button class="btn btn-primary">Thêm Permission</button>
-                <a href="{{ asset('admin/categories/show')}}" class="btn btn-secondary">Huỷ</a>
+                <a href="{{ asset('admin/home')}}" class="btn btn-secondary">Huỷ</a>
             </div>
         </form>
     </div>
