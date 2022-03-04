@@ -268,23 +268,27 @@ class CheckoutComponent extends Component
     {
         $this->cities = City::all();
         // $order_info = Order::where('id','2')->first();
-        $order_info = Order::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->first();
-        $this->firstname = $order_info->firstname;
-        $this->lastname = $order_info->lastname;
-        $this->email = $order_info->email;
-        $this->mobile = $order_info->mobile;
-        $this->line1 = $order_info->line1;
-        $this->city = $order_info->city;
-        if($order_info->is_shipping_different == 1)
+        if(Order::where('user_id', Auth::user()->id)->get()->count() > 0)
         {
-            $shipping_info = Shipping::where('order_id',$order_info->id)->first();
-            $this->s_firstname = $shipping_info->firstname;
-            $this->s_lastname = $shipping_info->lastname;
-            $this->s_email = $shipping_info->email;
-            $this->s_mobile = $shipping_info->mobile;
-            $this->s_line1 = $shipping_info->line1;
-            $this->s_city = $shipping_info->city;
+            $order_info = Order::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->first();
+            $this->firstname = $order_info->firstname;
+            $this->lastname = $order_info->lastname;
+            $this->email = $order_info->email;
+            $this->mobile = $order_info->mobile;
+            $this->line1 = $order_info->line1;
+            $this->city = $order_info->city;
+            if($order_info->is_shipping_different == 1)
+            {
+                $shipping_info = Shipping::where('order_id',$order_info->id)->first();
+                $this->s_firstname = $shipping_info->firstname;
+                $this->s_lastname = $shipping_info->lastname;
+                $this->s_email = $shipping_info->email;
+                $this->s_mobile = $shipping_info->mobile;
+                $this->s_line1 = $shipping_info->line1;
+                $this->s_city = $shipping_info->city;
+            }
         }
+        
     }
     
     public function render()
