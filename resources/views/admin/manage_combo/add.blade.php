@@ -92,9 +92,12 @@
             </div>
             <h3>Sản phẩm trong combo</h3>
             <hr>
-            <div id="firstproduct">
-                
-            </div>
+            
+           
+            <div id="firstproduct"></div>
+        
+            <button type="button"  class="addProduct btn btn-success">Add Product</i></button>
+
             <div class="col-md-6" style="width:100%">
                 <hr>
                 <div class="form-group d-flex justify-content-end" >
@@ -120,12 +123,6 @@
 
             {{-- more product  --}}
             <div id="moreproduct"></div>         
-            <div class="">
-                <div class="form-group">
-                    <button type="button"  class="addProduct btn btn-success"><i class="fas fa-plus-circle"></i></button>
-                    <button type="button"  class="removeProduct btn btn-danger"><i class="fas fa-minus-circle"></i></button>
-                </div>
-            </div>
             <hr>
             <div class="">
                 <div class="form-group">
@@ -152,7 +149,9 @@
         })
         let products = {!! json_encode($products) !!};
         genderSelect();
+        function remove(index){
 
+        }
         function genderSelect(){
             let container = $("#firstproduct");
             let selectOption ='';
@@ -162,27 +161,38 @@
             let item = `
             <div class="productdiv">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class=" form-group d-flex justify-content-between " style="width:100%" >
-                            <div style="width:67%">
-                                <div class="form-group " >
-                                    <label >Sản phẩm</label>
-                                    <select type="text" name="product_name[]" class="form-control selectProduct">
-                                        <option value="">Chọn sản phẩm</option>
-                                        ${selectOption}
-                                        </select>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class=" form-group d-flex justify-content-between" >
+                                    <div style="width:67%">
+                                        <div class="form-group">
+                                            <label>Sản phẩm</label>
+                                            <select type="text" name="product_name[]" class="form-control selectProduct">
+                                                <option value="">Chọn sản phẩm</option>
+                                                ${selectOption}
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style="width:30%">
-                                    <div class="form-group">
-                                        <label>Giá sản phẩm</label>
-                                        <input id="price-product-input" readonly type="text" name="product_price[]" class="form-control price-product-input">
+                                    <div style="width:30%">
+                                        <div class="form-group">
+                                            <label>Giá sản phẩm</label>
+                                            <input id="price-product-input" readonly type="text" name="product_price[]" class="form-control price-product-input">
+                                        </div>
                                     </div>
+                                </div> 
+                            </div>  
+                            
+                            <div class="col-md-6 d-flex align-items-center ">
+                                <div>
+                                    <button type="button"  class="removeProduct btn btn-danger"><i class="fas fa-minus-circle"></i></button>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                    </div>      
-                </div>   
+
+                    </div>    
+                </div>
+            </div>   
             `
             container.append(item);
             document.querySelectorAll('.selectProduct').forEach(item =>{

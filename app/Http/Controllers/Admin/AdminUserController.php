@@ -37,12 +37,8 @@ class AdminUserController extends Controller
     public function store(Request $request){
         try {
             $err = [];
-            $getUserName = $this->user->where('user_name', $request->full_name)->first();
-            $getEmail = $this->user->where('email', $request->email)->first();
-            $getPhone = $this->user->where('telephone', $request->phone)->first();
-            if($request->user_name == null){
-                $err['username_null'] = 'Vui lòng nhập tên tài khoản';
-            }
+            $getEmail = $this->user->where('email', $request->email)->exists();
+            $getPhone = $this->user->where('telephone', $request->telephone)->exists();
             if($request->full_name == null){
                 $err['fullname_null'] = 'Vui lòng nhập tên người dùng';
             }
@@ -58,10 +54,10 @@ class AdminUserController extends Controller
             if($request->password != $request->re_password){
                 $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
             }
-            if( $getUserName){
-                $err['duplicate_username'] = 'Tên tài khoản đã tồn tại';
-            }
-            if($getEmail){
+            if($getPhone == true){
+                $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
+            } 
+            if($getEmail == true){
                 $err['duplicate_email'] = 'Email đã tồn tại';
             }
             // if($getPhone){
@@ -73,7 +69,6 @@ class AdminUserController extends Controller
                 DB::beginTransaction();
                 $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
-                    'user_name'        => $request->user_name,
                     'full_name'        => $request->full_name,
                     'email'            => $request->email,
                     'avatar_img_path'  => $request->avatar_img_path,
@@ -144,17 +139,13 @@ class AdminUserController extends Controller
             }
             if($request->telephone == null){
                 $err['telephone_null'] = 'Vui lòng nhập số điện thoại';
-            }
-            if($request->email == null){
-                $err['email_null'] = 'Vui lòng nhập email';
-            }     
+            }   
             if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
-                    'email'            => $request->email,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password) 
                 ];
@@ -184,23 +175,28 @@ class AdminUserController extends Controller
     public function update(Request $request, $id){
         try {
             $err = [];
+            $getCurrentPhone = $this->user->where('id', $id)->firstOrFail()->telephone;
+            $getPhone = $this->user->where('telephone', $request->telephone)->exists();
+            // dd($getPhone);
             if($request->full_name == null){
                 $err['fullname_null'] = 'Vui lòng nhập tên người dùng';
             }
-            if($request->telephone == null){
+            if(trim($request->telephone) == null){
                 $err['telephone_null'] = 'Vui lòng nhập số điện thoại';
             }
-            if($request->email == null){
-                $err['err_email'] = 'Vui lòng nhập email';
+            if($request->telephone != $getCurrentPhone){
+                if($getPhone == true){
+                    $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
+                } 
             }
-            if(count($err)>0){
+
+            if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
-            } else{
+            } else {
                 DB::beginTransaction();
                 $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
-                    'email'            => $request->email,
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                 ];
