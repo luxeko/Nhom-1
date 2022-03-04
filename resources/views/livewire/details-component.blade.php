@@ -1,56 +1,85 @@
 <div>
-    @if(Session::has('success_message'))
-      <div class="alert alert-success">
-        <strong>Success</strong> {{Session::get('success_message')}}
+  
+  <div class="content-container">
+    <div class="left-container">
+      @if(Session::has('success_message'))
+        <div class="alert alert-success" style="width: 40%;">
+          <strong>Success</strong> {{Session::get('success_message')}}
+        </div>
+      @endif
+      <div class="product-image-container">
+        <img class="product-image-featured" id="featured" src="{{$product->feature_image_path}}" alt="Canon Image">
+        <ul class="product-image-list">
+            <!-- <li class="item-selected">
+                <img src="{{$product->feature_image_path}}" class="product-image-item"
+                alt="Canon Image">
+            </li>
+            <li class="item-selected">
+                <img src="{{$product->feature_image_path}}" class="product-image-item"
+                alt="Canon Image">
+            </li>
+            <li class="item-selected">
+                <img src="{{$product->feature_image_path}}" class="product-image-item"
+                alt="Canon Image">
+            </li> -->
+
+          @foreach($product_image_detail as $item)
+            <li class="item-selected">
+                <img src="{{$item->image_path}}" class="product-image-item"
+                alt="Canon Image">
+            </li>
+          @endforeach
+        </ul>
       </div>
-    @endif
-    <div class="content-container">
-        <div class="left-container">
-            <div class="product-image-container">
-                <img class="product-image-featured" 
-                  id="featured" src="{{$product->feature_image_path}}"
-                  alt="Canon Image">
-                <ul class="product-image-list">
-                  @foreach($product_image_detail as $item)
-                    <li class="item-selected">
-                        <img src="{{$item->image_path}}" class="product-image-item"
-                        alt="Canon Image">
-                    </li>
-                  @endforeach
-                </ul>
-            </div>
-        </div>
-        <div class="right-container">
-            <div>
-                <h1 class="title">{{$product->name}}</h1>
-                <h2 class="subtitle subtitle-container">
-                    Mirrorless with EF-M 15-45 is STM Lens
-                </h2>
-             <div>
-          </div>
-         </div>
-        <span>
-            <p>Price: <span class="price">${{number_format($product->price,0,',','.')}}</span></p>
-            <div style="display:flex">
-              <label for="quantity" style="padding-top: 3px;margin-right: 10px;">Quantity:</label>
-              <div class="buttons_added">
-                <input class="minus is-form" type="button" value="-">
-                <input aria-label="quantity" class="input-qty" max="100" min="1" name="" type="number" value="1">
-                <input class="plus is-form" type="button" value="+">
-              </div>
-            </div>
-          </span>
-          <div>
-            <h2 class="title">Product Description</h2>
-            <div class="subtitle-container">
-                <span>Display: 3 inches</span>
-                <span>|</span>
-                <span>Color: Black</span>
-            </div> {{$product->content}}
-        </div>
-        <div style="margin-top:20px"><button class="btn" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->price}} )">Add To Cart</button></div>
     </div>
+    <div class="right-container">
+      <div>
+        <h1 class="title">{{$product->name}}</h1>
+        <h2 class="subtitle subtitle-container">
+            Mirrorless with EF-M 15-45 is STM Lens
+        </h2>
+        <div>
+      </div>
     </div>
+    <span>
+      <p>Price: <span class="price">${{number_format($product->price,0,',','.')}}</span></p>
+
+      <div style="display:flex">
+        <label for="quantity" style="padding-top: 3px;margin-right: 10px;">Quantity:</label>
+        <div class="buttons_added">
+          <input class="minus is-form" type="button" value="-" wire:click.prevent="decreaseQuantity">
+          <input aria-label="quantity" value="1" data-max="120" pattern="[0-9]*" name="product-quatity" type="text" value="1" wire:model="qty" 
+          style="    
+          background-color: #fff;
+          height: 1.8rem;
+          width: 40px;
+          text-align: center;
+          font-size: 1rem;
+          display: inline-block;
+          vertical-align: top;
+          margin: 0;
+          border-top: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;
+          border-left: 0;
+          border-right: 0;
+          padding: 0;">
+          <input class="plus is-form" type="button" value="+" wire:click.prevent="increaseQuantity">
+        </div>
+      </div>
+
+    </span>
+
+    <div>
+        <h2 class="title">Product Description</h2>
+        <div class="subtitle-container">
+            <span>Display: 3 inches</span>
+            <span>|</span>
+            <span>Color: Black</span>
+        </div> {{$product->content}}
+    </div>
+    <div style="margin-top:20px"><button class="btn" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->price}} )">Add To Cart</button></div>
+    </div>
+  </div>
   <!--================End Single Product Area =================-->
 
   <!--================Product Description Area =================-->
@@ -77,8 +106,8 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
           <p>
-            Beryl Cook is one of Britain’s most talented and amusing artists
-            .Beryl’s pictures feature women of all shapes and sizes enjoying
+            Beryl Cook is one of Britain's most talented and amusing artists
+            .Beryl's pictures feature women of all shapes and sizes enjoying
             themselves .Born between the two world wars, Beryl Cook eventually
             left Kendrick School in Reading at the age of 15, where she went
             to secretarial school and then into an insurance office. After
@@ -88,11 +117,11 @@
             for a year before John took a job in Southern Rhodesia with a
             motor company. Beryl bought their young son a box of watercolours,
             and when showing him how to use it, she decided that she herself
-            quite enjoyed painting. John subsequently bought her a child’s
+            quite enjoyed painting. John subsequently bought her a child's
             painting set for her birthday and it was with this that she
             produced her first significant work, a half-length portrait of a
             dark-skinned lady with a vacant expression and large drooping
-            breasts. It was aptly named ‘Hangover’ by Beryl’s husband and
+            breasts. It was aptly named 'Hangover' by Beryl's husband and
           </p>
           <p>
             It is often frustrating to attempt to plan meals that are designed
@@ -474,30 +503,30 @@
   <!--================End Product Description Area =================-->
 
   <!-- product_list part start-->
-  <section class="product_list best_seller">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <div class="section_tittle text-center">
-            <h2>Best Sellers <span>shop</span></h2>
-          </div>
-        </div>
-      </div>
-      <div class="row align-items-center justify-content-between">
-        <div class="col-lg-12">
-          <div class="best_product_slider owl-carousel">
-            @foreach($new_product as $item)
-              <div class="single_product_item">
-                <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
-                <div class="single_product_text">
-                <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                  <h3>{{number_format($item['price'],0,',','.')}}</h3>
-                </div>
+  <section class="product_list best_seller section_padding">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-lg-12">
+                  <div class="section_tittle text-center">
+                      <h2>Lastest <span>shop</span></h2>
+                  </div>
               </div>
-            @endforeach
           </div>
-        </div>
+          <div class="row align-items-center justify-content-between">
+              <div class="col-lg-12">
+                  <div class="best_product_slider owl-carousel">
+                      @foreach($lproducts as $item)
+                      <div class="single_product_item">
+                          <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
+                          <div class="single_product_text">
+                              <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
+                              <h3>{{number_format($item->price,0,',','.')}}</h3>
+                          </div>
+                      </div>
+                      @endforeach
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </section>
 </div>

@@ -61,8 +61,6 @@
             							@error('city') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
             						<p class="row-in-form">
-            						</p>
-            						<p class="row-in-form">
             							<label class="f-option5 float-left">
             								<input name="different-add" id="different-add" value="1" type="checkbox" wire:model="ship_to_different">
             								<span style="color:black">Ship to a different address?</span>

@@ -18,6 +18,7 @@ class HomeComponent extends Component
     public function render()
     {
         $products = Product::paginate(10);
-        return view('livewire.home-component',  ['products' => $products])->layout('index');
+        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
+        return view('livewire.home-component',  ['products' => $products, 'lproducts'=>$lproducts])->layout('index');
     }
 }

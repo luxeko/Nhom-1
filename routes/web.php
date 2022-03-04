@@ -68,7 +68,7 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
 Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
 Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
-Route::get('/search',SearchComponent::class)->name('product.search'); 
+Route::get('/search',SearchComponent::class)->name('products.search'); 
 Route::middleware(['auth:sanctum','verified'])->group(function(){ 
     Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
     Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');

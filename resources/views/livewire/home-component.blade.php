@@ -128,19 +128,19 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>Best Sellers <span>shop</span></h2>
+                        <h2>Lastest <span>shop</span></h2>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-12">
                     <div class="best_product_slider owl-carousel">
-                        @foreach($products as $item)
+                        @foreach($lproducts as $item)
                         <div class="single_product_item">
-                            <a href="detail/{{$item['id']}}"><img src="{{$item['feature_image_path']}}" alt=""></a>
+                            <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                             <div class="single_product_text">
-                                <h4>{{$item['name']}}</h4>
-                                <h3>{{number_format($item['price'],0,',','.')}}</h3>
+                                <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
+                                <h3>{{number_format($item->price,0,',','.')}}</h3>
                             </div>
                         </div>
                         @endforeach

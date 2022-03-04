@@ -461,7 +461,7 @@ input,textarea{
 	display: inline-block;
 	border: 2px solid;
 	position: relative;
-	max-width: 522px;
+	/* max-width: 522px; */
 	width: 100%;
 }
 .header.fill-color .center-section .wrap-search-form{

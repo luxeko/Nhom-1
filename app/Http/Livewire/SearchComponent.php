@@ -15,7 +15,8 @@ class SearchComponent extends Component
     public $search;
     public $product_cat;
     public $product_cat_id;
-
+    protected $paginationTheme = 'bootstrap';
+    
     public function mount()
     {
         $this->sorting = "default";
@@ -51,6 +52,6 @@ class SearchComponent extends Component
         
         $categories = Category::all();
         
-        return view('livewire.search-component',['products'=> $products,'categories'=>$categories])->layout("layouts.base");
+        return view('livewire.search-component',['products'=> $products,'categories'=>$categories])->layout("layout");
     }
 }

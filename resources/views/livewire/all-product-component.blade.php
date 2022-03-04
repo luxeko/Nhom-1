@@ -13,98 +13,42 @@
                                     @foreach($categories as $category)
                                     <li>
                                         <a href="{{route('product.category',['category_slug'=>$category->slug])}}">{{$category->name}}</a>
-                                        <!-- <span>(250)</span> -->
                                     </li>
                                     @endforeach
                                 </ul>
                             </div>
                         </aside>
-
-                        <!-- <aside class="left_widgets p_filter_widgets">
-                            <div class="l_w_title">
-                                <h3>Product filters</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <ul class="list">
-                                    <li>
-                                        <a href="#">Apple</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Asus</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#">Gionee</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Micromax</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Samsung</a>
-                                    </li>
-                                </ul>
-                                <ul class="list">
-                                    <li>
-                                        <a href="#">Apple</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Asus</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#">Gionee</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Micromax</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Samsung</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </aside> -->
-
-                        <!-- <aside class="left_widgets p_filter_widgets">
-                            <div class="l_w_title">
-                                <h3>Color Filter</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <ul class="list">
-                                    <li>
-                                        <a href="#">Black</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Black Leather</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#">Black with red</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Gold</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Spacegrey</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </aside> -->
-
                         <aside class="left_widgets p_filter_widgets price_rangs_aside">
-                            <div class="l_w_title">
+                            <div wire:ignore x-data="{ min_price: @entangle('min_price'), max_price: @entangle('max_price') }" x-init="
+                                noUiSlider.create($refs.slider, {
+                                        start: [10000, 50000],
+                                        connect: true,
+                                        range: {
+                                            'min': 10000,
+                                            'max': 50000
+                                        },
+                                        pips:{
+                                            mode:'steps',
+                                            stepped:true,
+                                            density:10
+                                        }
+                                    })
+                                    .on('update',function (value){
+                                        console.log(this.min_price);
+                                        min_price = value[0];
+                                        console.log(this.max_price);
+                                        max_price = value[1];
+                                    });
+                                ">
+                                <div class="l_w_title">
                                 <h3>Price Filter</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <div class="range_item">
-                                    <!-- <div id="slider-range"></div> -->
-                                    <input type="text" class="js-range-slider" value="" />
-                                    <div class="d-flex">
-                                        <div class="price_text">
-                                            <p>Price :</p>
-                                        </div>
-                                        <div class="price_value d-flex justify-content-center">
-                                            <input type="text" class="js-input-from" id="amount" readonly />
-                                            <span>to</span>
-                                            <input type="text" class="js-input-to" id="amount" readonly />
-                                        </div>
-                                    </div>
+                                    <p>
+                                        <span x-text="min_price"></span> - <span x-text="max_price"></span>
+                                    </p>
+                                </div>
+
+                                <div class="widget-content" style="padding:10px 5px 40px 5px;">
+                                    <div x-ref="slider"></div>                       
                                 </div>
                             </div>
                         </aside>
@@ -118,7 +62,7 @@
                                     <p><span>All Products</span></p>
                                 </div>
                                 <div class="single_product_menu d-flex">
-                                    <h5>sort by: </h5>
+                                    <h5 style="margin-right: 5px;">sort by: </h5>
                                     <select name="orderby" class="use-chosen" wire:model="sorting">
                                         <option value="default" selected="selected">Default Sorting</option>
                                         <option value="price">price: low to high</option>
@@ -127,7 +71,7 @@
                                     </select>
                                 </div>
                                 <div class="single_product_menu d-flex">
-                                    <h5>show</h5>
+                                    <h5 style="margin-right: 5px;">show</h5>
                                     <div class="top_pageniation">
                                     <select name="orderby" class="use-chosen" wire:model="pagesize">
                                         <option value="9" selected="selected">9</option>
@@ -135,17 +79,7 @@
                                         <option value="15">15</option>
                                         <option value="18">18</option>
                                     </select>
-                                    <h5 style="float: right;">per page</h5>
-                                    </div>
-                                </div>
-                                <div class="single_product_menu d-flex">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="search"
-                                            aria-describedby="inputGroupPrepend">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
-                                        </div>
+                                    <h5 style="float: right; margin-left: 5px;">per page</h5>
                                     </div>
                                 </div>
                             </div>
@@ -165,118 +99,12 @@
                                 </div>
                             </div>
                         @endforeach
-                        <!-- <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_1.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_2.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_3.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_4.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_5.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_6.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_7.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_8.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_2.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div> -->
-                        
+                                                
                         <div class="col-lg-12">
                             <div class="pageination">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         {{ $products->links() }}
-                                        <!-- <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <i class="ti-angle-double-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <i class="ti-angle-double-right"></i>
-                                            </a>
-                                        </li> -->
                                     </ul>
                                 </nav>
                             </div>

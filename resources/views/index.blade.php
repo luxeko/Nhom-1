@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/animate.css'); }}">
     <!-- owl carousel CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/owl.carousel.min.css'); }}">
+    <!-- nice select CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/nice-select.css'); }}">
     <!-- font awesome CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/all.css'); }}">
     <!-- flaticon CSS -->
@@ -22,8 +24,14 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/magnific-popup.css'); }}">
     <!-- swiper CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/slick.css'); }}">
+    <!-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/price_rangs.css'); }}"> -->
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css'); }}">
+    <!-- css trang checkout -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }}">
     @livewireStyles
 </head>
 
@@ -84,8 +92,9 @@
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
-                            @livewire('header-search-component')
-                            
+                            <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
+                            </div>
                             @auth
                                 @if(Auth::user()->utype === "USR")
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
@@ -122,17 +131,8 @@
                 </div>
             </div>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
-                    <span class="ti-close" id="close_search" title="Close Search"></span>
-                </form>
-            </div>
-        </div>
-
-
+        @livewire('header-search-component')
+        
     </header>
     <!-- Header part end-->
 
@@ -151,7 +151,7 @@
     <!-- banner part start-->
     {{$slot}}
     <!--::subscribe_area part end::-->
-
+    
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="container">
@@ -247,7 +247,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!--::footer_part end::-->
-
+    @livewireScripts
     <!-- jquery plugins here-->
     <script src="{{ URL::asset('/frontend/js/jquery-1.12.1.min.js'); }}"></script>
     <!-- popper js -->
@@ -262,7 +262,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/masonry.pkgd.js'); }}"></script>
     <!-- particles js -->
     <script src="{{ URL::asset('/frontend/js/owl.carousel.min.js'); }}"></script>
-    <!-- <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script> -->
+    
     <!-- slick js -->
     <script src="{{ URL::asset('/frontend/js/slick.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.counterup.min.js'); }}"></script>
@@ -272,11 +272,25 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/jquery.form.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script> -->
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    @livewireScripts
+    <!-- <script>
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            start: [20, 80],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
+    </script> -->
+    
 </body>
 
 </html>
