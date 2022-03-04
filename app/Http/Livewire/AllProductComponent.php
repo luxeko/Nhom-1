@@ -50,12 +50,13 @@ class AllProductComponent extends Component
             $products = Product::whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
         }
 
-        $all_products = Product::all();
+        
         $categories = Category::all();
+        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
         return view('livewire.all-product-component', [
             'products'=> $products, 
-            'categories'=>$categories, 
-            'all_products'=>$all_products
+            'categories'=>$categories,
+            'lproducts'=>$lproducts
             ])
             ->layout('layout');
     }

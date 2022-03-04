@@ -52,10 +52,12 @@ class CategoryComponent extends Component
         }
 
         $categories = Category::all();
+        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
         return view('livewire.category-component', [
             'products'=> $products, 
             'categories'=>$categories, 
-            'category_name'=>$category_name
+            'category_name'=>$category_name,
+            'lproducts'=>$lproducts
             ])
             ->layout('layout');
     }

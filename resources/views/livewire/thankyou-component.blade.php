@@ -7,7 +7,7 @@
  				<div class="col-md-12 text-center">
 					<h2>Thank you for your order</h2>
                     <p>A confirmation email was sent.</p>
-                    <a href="/"><button class="btn btn-submit">Continue Shopping</button></a>
+                    <a href="/shop"><button class="btn btn-submit">Continue Shopping</button></a>
 				</div>
 			</div>
 		</div><!--end container-->

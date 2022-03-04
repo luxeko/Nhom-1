@@ -7,7 +7,7 @@
                     <div class="breadcrumb_iner">
                         <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                         <div class="breadcrumb_iner_item">
-                        <h2>Category</h2>
+                        <h2>All Products</h2>
                         </div>
                     </div>
                 </div>
@@ -98,6 +98,16 @@
                                     <h5 style="float: right; margin-left: 5px;">per page</h5>
                                     </div>
                                 </div>
+                                <!-- <div class="single_product_menu d-flex">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="search"
+                                            aria-describedby="inputGroupPrepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend"><i
+                                                    class="ti-search"></i></span>
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -133,53 +143,27 @@
     <!--================End Category Product Area =================-->
 
     <!-- product_list part start-->
-    <section class="product_list best_seller">
+    <section class="product_list best_seller section_padding">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>Best Sellers <span>shop</span></h2>
+                        <h2>Lastest <span>shop</span></h2>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-12">
                     <div class="best_product_slider owl-carousel">
+                        @foreach($lproducts as $item)
                         <div class="single_product_item">
-                            <img src="{{ URL::asset('/frontend/img/product/product_1.png'); }}" alt="">
+                            <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                             <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
+                                <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
+                                <h3>{{number_format($item->price,0,',','.')}}</h3>
                             </div>
                         </div>
-                        <div class="single_product_item">
-                            <img src="{{ URL::asset('/frontend/img/product/product_2.png'); }}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{ URL::asset('/frontend/img/product/product_3.png'); }}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{ URL::asset('/frontend/img/product/product_4.png'); }}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{ URL::asset('/frontend/img/product/product_5.png'); }}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

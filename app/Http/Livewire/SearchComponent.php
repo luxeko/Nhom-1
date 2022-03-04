@@ -51,7 +51,11 @@ class SearchComponent extends Component
         }   
         
         $categories = Category::all();
-        
-        return view('livewire.search-component',['products'=> $products,'categories'=>$categories])->layout("layout");
+        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
+        return view('livewire.search-component',[
+            'products'=> $products,
+            'categories'=>$categories,
+            'lproducts'=>$lproducts
+            ])->layout("layout");
     }
 }
