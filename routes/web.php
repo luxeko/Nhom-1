@@ -132,6 +132,7 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit')->middleware('can:product-edit');
         Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
+        Route::get('/search', [ProductController::class,'searchProduct'])->name('product.search');
         // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
 
     }); 

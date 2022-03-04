@@ -158,7 +158,7 @@ class AdminUserController extends Controller
                 DB::commit();
                 if($user){
                     $request->session()->put('success_user', 'Cập nhật thành công');
-                    return Redirect::to("admin/profile/".$id);
+                    return redirect()->route('user.profile_update');
                 }
             }
         } catch (\Exception $exc) {
@@ -201,9 +201,7 @@ class AdminUserController extends Controller
                     'telephone'        => $request->telephone,
                 ];
                
-                if($request->avatar_img_path == null){
-                    $dataUserCreate['avatar_img_path'] = $path_dafault;
-                } else {
+                if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
                 }

@@ -27,11 +27,11 @@
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right px-3 py-4">
-                    <div class="p-4" >
-                        <div class="img-circle text-center " style="width: 150px; height:150px">
+                    <div class="mb-5">
+                        <div class="img-circle text-center" >
                             <img style="width:100px; height 100px"  src="{{URL::asset($user->avatar_img_path)}}" >
                         </div>
-                        <h6 class="text-center">{{$user->email}}</h6>
+                        <h6 class="pt-4 text-center">{{$user->email}}</h6>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">

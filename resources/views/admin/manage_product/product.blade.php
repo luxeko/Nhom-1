@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 {{-- Các bước để tạo khung trang Dashboard --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- Bước 1: @extends('admin/layouts.admin_layout') --}}
 @extends('admin/layouts.admin_layout')
@@ -91,13 +93,7 @@
                                 </td>
                                 <td class="text-center">{{ optional($value->category)->name }}</td>
                                 <td class="text-center">
-                                    <?php
-                                        if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
-                                        } else {
-                                            echo "<span class='text-danger'>Disable</span>";
-                                        }  
-                                    ?>
+                                   
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('product-edit')
@@ -117,6 +113,8 @@
                     @endif
                     
                 </tbody>
+                <tbody id="list-product"></tbody>
+                
             </table>
             <div class="d-flex justify-content-center">
                 {!! $data->links() !!}
@@ -154,71 +152,42 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/product/main.js')}}"></script>
-<script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
 
+<script>
+       $(document).ready(function () {
+             
+             $('#search').on('keyup',function() {
+                 var query = $(this).val(); 
+                 $.ajax({
+                    
+                     url:"{{ route('product.search') }}",
+               
+                     type:"GET",
+                    
+                     data:{'search':query},
+                    
+                     success:function (data) {
+                       
+                         $('#list-product').html(data);
+                     }
+                 })
+                 // end of ajax call
+             });
 
+             
+             $(document).on('click', 'li', function(){
+               
+                 var value = $(this).text();
+                 $('#search').val(value);
+                 $('#list-product').html("");
+             });
+         });
+</script>
 
 <script type="text/javascript" >  
     // $(document).ready(function(){
         var category_name = '';
         let imagesPath = '';
-        // function clear_icon(){
-        //     $('#id_icon').html('');
-        //     $('#post_title_icon').html('');
-        // }
-        // function fetch_data(page, sort_type, sort_by, query){
-        //     $.ajax({
-        //         url: "/admin/products/show/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
-        //         success:function(data){
-        //             $('tbody').html('');
-        //             $('#table_data tbody').html(data)
-        //         }
-        //     });
-        // }
-        // $(document).on('click', '.pagination a', function(event){
-        //     event.preventDefault();
-        //     var page = $(this).attr('href').split('page=')[1];
-        //     $('#hidden_page').val(page);
-        //     var column_name = $('#hidden_column_name').val();
-        //     var sort_type = $('#hidden_sort_type').val();
-        //     var query = $('#search').val();
-        //     $('li').removeClass('active');
-        //     $(this).parent().addClass('active');
-        //     fetch_data(page, sort_type, column_name, query);
-
-        // });
-        // $(document).on('click', '.sorting', function(){
-        //     var column_name = $(this).data('column_name');
-        //     var order_type = $(this).data('sorting_type');
-        //     var reverse_order = '';
-        //     if(order_type == 'asc'){
-        //         $(this).data('sorting_type', 'desc');
-        //         reverse_order = 'desc';
-        //         clear_icon();
-        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
-        //     }
-        //     if(order_type == 'desc'){
-        //         $(this).data('sorting_type', 'asc');
-        //         reverse_order = 'asc';
-        //         clear_icon
-        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
-        //     }
-        //     $('#hidden_column_name').val(column_name);
-        //     $('#hidden_sort_type').val(reverse_order);
-        //     var page = $('#hidden_page').val();
-        //     var query  = $('#search').val();
-        //     fetch_data(page, reverse_order, column_name, query );
-        // });
-
-        // $(document).on('keyup', '#search', function(){
-        //     var query  = $('#search').val();
-        //     var column_name = $('#hidden_column_name').val();
-        //     var sort_type = $('#hidden_sort_type').val();
-        //     var page = $('#hidden_page').val();
-        //     fetch_data(page, sort_type, column_name, query);
-        // });
-
-        
         function getCategory(id){
             $.ajax({
                 url:`/admin/products/getCategoryById/${id}`,
@@ -311,7 +280,6 @@
                 }
             });
         }
-
     // });
 
 </script>

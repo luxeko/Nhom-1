@@ -76,10 +76,7 @@ class ProductController extends Controller
         $thumbnail = ProductImage::where('product_id',"=", $product_id)->get('image_path');
         return $thumbnail;
     }
-    // public function get_discount($discount_id){
-    //     $discount = $this->discount->find($discount_id);
-    //     return $discount;
-    // } 
+
     public function store(Request $request){
         try {
             $err = [];
@@ -220,6 +217,43 @@ class ProductController extends Controller
                 'code'      => 500,
                 'message'   => 'fail'
             ], 500);
+        }
+    }
+    public function searchProduct(Request $request)
+    {
+        $data = $this->product->latest()->paginate(10);
+        $currentPage = $data->currentPage();
+        $perPage = $data->perPage();
+        $total = $data->total();
+         
+        if($request->ajax()) {
+          
+            $data = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
+           
+            $output = '';
+           
+            if (count($data) >0 ) {
+                $stt = 1;
+                // $cout = ( $currentPage - 1 ) * $perPage + 1 ;
+                foreach ($data as $key => $row){
+                    $output = '<tr class="">';
+                    $output .= '<th class="text-center">'..'</th>';
+                    $output .= '<td class="text-center admin_product_img">'.'<img src='.$row->feature_image_path.'>'.'</td>';
+                    $output .= '<td class="text-center">'.$row->name.'</td>';
+                    $output .= '<td class="text-center">'.$row->price.'</td>';
+                    $output .= '<td class="text-center">'.$row->category->name.'</td>';
+                    $output .= '<td class="text-center">'.$row->status.'</td>';
+                    $output .= '</tr>';
+                    $stt++;
+                }
+              
+            }
+            else {
+             
+                $output .= '<td class="">'.'No results'.'</td>';
+            }
+           
+            return $output;
         }
     }
     

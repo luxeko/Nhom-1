@@ -27,7 +27,7 @@ class LoginController extends Controller
         } else {
             $remember = false;
         }
-        if($request->admin_username == null){
+        if($request->admin_email == null){
             $request->session()->put('username_null','Tài khoản không được để trống');
         }
         if($request->admin_password == null){
