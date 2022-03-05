@@ -171,7 +171,7 @@
     <!--::subscribe_area part end::-->
 
     <!-- subscribe_area part start-->
-    <section class="client_logo padding_top">
+    <section class="client_logo padding_top padding_bottom ">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">

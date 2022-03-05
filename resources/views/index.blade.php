@@ -124,94 +124,63 @@
     <!--::subscribe_area part end::-->
 
     <!--::footer_part start::-->
-    <footer class="footer_part">
-        <div class="container">
-            <div class="row justify-content-around">
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>Contact</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Company</a></li>
-                            <li><a href="">Custom support</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>About us</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Q & A</a></li>
-                            <li><a href="">Careers</a></li>
-                            <li><a href="">Customer review</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>Features</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Jobs</a></li>
-                            <li><a href="">Brand Assets</a></li>
-                            <li><a href="">Investor Relations</a></li>
-                            <li><a href="">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>Community</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Our discord</a></li>
-                            <li><a href="">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="single_footer_part">
-                        <h4>Notification</h4>
-                        <p>Please to back information if as you want to accept the new message of us, I want to receive our latest notifications
-                        </p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank"
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="subscribe_form relative mail_part">
-                                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
-                                    class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = ' Email Address '">
-                                <button type="submit" name="submit" id="newsletter-submit"
-                                    class="email_icon newsletter-submit button-contactForm">subscribe</button>
-                                <div class="mt-10 info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="copyright_part">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="copyright_text">
-                            <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Hope you will have the best experience with our products <i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/maibica00" target="_blank">team 1</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="footer_icon social_icon">
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-github"></ion-icon></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <footer class="footer-distributed">
+
+			<div class="footer-left">
+
+				<h3>Mativina</h3>
+
+				<p class="footer-links">
+					<a href="#" class="link-1">Home</a>
+					
+					<a href="#">Blog</a>
+				
+					<a href="#">Product</a>
+					
+					<a href="#">Contact</a>
+				</p>
+
+				<p class="footer-company-name">Matavina © 2015</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div style="display:flex;">
+                    <ion-icon class="footer_icon" name="location-outline"></ion-icon>
+					<p style="padding-left: 10px;">Số 8, Tôn Thất Thuyết, Mỹ Đình, Cầu Giấy</p>
+				</div>
+
+				<div style="display:flex;">
+                    <ion-icon class="footer_icon" name="call-outline"></ion-icon>
+					<p style="padding-left: 10px;">+84.987654321</p>
+				</div>
+
+				<div style="display:flex;">
+                    <ion-icon class="footer_icon" name="mail-outline"></ion-icon>
+					<p style="padding-left: 10px;"><a href="mailto:support@company.com">support@company.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>About the company</span>
+					Our company is a place to produce unique computer equipment. Our products have inspired many people to work. Not only that, but we also translate the unique ideas of our customers into our products. products delicately. Hope you find your favorite device and have the best experience!
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+					<a href="#"><ion-icon name="logo-instagram"></ion-icon></i></a>
+					<a href="#"><ion-icon name="logo-linkedin"></ion-icon></i></a>
+					<a href="#"><ion-icon name="logo-github"></ion-icon></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
     <!--::footer_part end::-->
 
     <!-- jquery plugins here-->
