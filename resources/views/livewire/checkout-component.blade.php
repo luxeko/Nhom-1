@@ -45,19 +45,19 @@
             							<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line1">
             							@error('line1') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
-        							{{-- <!-- <p class="row-in-form">
+        							<!-- <p class="row-in-form">
             							<label for="add">Line 2:</label>
             							<input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line2">
-            						</p> --> --}}
+            						</p> -->
             						<p class="row-in-form">
 										<label for="city">Town / City<span>*</span>:</label>
-            							<input type="text" name="city" value="" placeholder="City name" wire:model="city">
-            							{{-- <select class="form-control" name="" id="" wire:model="city">
+            							<!-- <input type="text" name="city" value="" placeholder="City name" wire:model="city"> -->
+            							<select class="form-control" name="" id="" wire:model="city">
             								<option value="">Select city</option>
             								@foreach ($cities as $city)
             									<option value="{{$city->city_id}}">{{$city->en_name}}</option>
             								@endforeach
-            							</select> --}}
+            							</select>
             							@error('city') <span class="text-danger">{{$message}}</span> @enderror
             						</p>
             						<p class="row-in-form">
