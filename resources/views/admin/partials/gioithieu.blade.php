@@ -148,7 +148,6 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/dashboard/main.js')}}"></script>
-<script src="{{URL::asset('backend/js/demo/chart-pie-demo.js')}}"></script>
 <script src="{{URL::asset('backend/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{URL::asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
 

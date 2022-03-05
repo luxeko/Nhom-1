@@ -91,7 +91,7 @@
                                 
                                 <td class="text-center"><span class="text-success">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center">{{ optional($value->getCity)->name }}</td>
+                                <td class="text-center">{{ optional($value->category)->name }}</td>
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
@@ -126,10 +126,7 @@
                 {!! $data->links() !!}
             </div>
         </div>
-        <input type="hidden" name="hidden_page" id="hidden_page" value="1">
-        <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
-        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
-        
+
         <section>
             <!-- Modal -->
             <div class="modal fade" id="modalDetailProduct" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
@@ -182,12 +179,12 @@
              });
 
              
-             $(document).on('click', 'td', function(){
+            //  $(document).on('click', 'td', function(){
                
-                 var value = $(this).text();
-                 $('#search').val(value);
-                 $('#list-product').html("");
-             });
+            //      var value = $(this).text();
+            //      $('#search').val(value);
+            //      $('#list-product').html("");
+            //  });
          });
 </script>
 

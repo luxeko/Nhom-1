@@ -147,7 +147,6 @@ class AdminUserController extends Controller
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
-                    'password'         => Hash::make($request->password) 
                 ];
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');

@@ -28,7 +28,21 @@ class OrderController extends Controller
     }
     public function edit(){}
     public function update(){}
-    public function delete(){}
-    public function details_order(){}
+
+    public function details_order(Request $request){
+        $order = $this->order->find($request->id);
+        return $order;
+    }
+    public function get_Product(Request $request){
+        $order = $this->order->find($request->id);
+        $list_product_in_order = $order->getProduct;
+        
+        return $list_product_in_order;
+    }
+    public function get_Quantity(Request $request){
+        $order = $this->order->find($request->id);
+        $order_item = $order->orderItems;
+        return $order_item;
+    }
     public function searchOrder(){}
 }

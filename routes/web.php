@@ -140,11 +140,10 @@ Route::group(['namespace'=>'Admin'], function(){
     Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
         Route::get('/index',[OrderController::class,'index'])->name('order.index');
         Route::get('/details',[OrderController::class,'details_order']);
-        Route::get('/create',[OrderController::class,'create']);
-        Route::post('/store',[OrderController::class,'store']);
+        Route::get('/product',[OrderController::class,'get_Product']);
+        Route::get('/order_item',[OrderController::class,'get_Quantity']);
         Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
         Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
-        Route::get('/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
         Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
     }); 
 

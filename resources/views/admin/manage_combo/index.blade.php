@@ -152,10 +152,7 @@
 
 <script type="text/javascript" >  
     // $(document).ready(function(){
-        var category_name = '';
-        let imagesPath = '';
         function viewComboDetail(id){
-           
             $.ajax({
                 url:'/admin/combos/details/',
                 method:'GET',

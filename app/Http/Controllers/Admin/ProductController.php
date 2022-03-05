@@ -112,7 +112,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
-                    'slug'          => str_replace(' ','-', $request->product_name)
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -181,7 +181,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
-                    'slug'          => str_replace(' ','-', $request->product_name)
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -252,6 +252,15 @@ class ProductController extends Controller
                     $output .= '<td class="text-center">'.$row->price.'</td>';
                     $output .= '<td class="text-center">'.$row->category->name.'</td>';
                     $output .= '<td class="text-center">'.$row->status.'</td>';
+                    $output .= ' <td colspan="1" class="text-center" style="width:15%">
+
+                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalDetailProduct"  onclick="getCategory('.$row->category_id .') ; getThumbnail('.$row->id.' ) ; viewProductDetail('.$row->id.')"><i class="fas fa-eye"></i></a>
+
+
+
+                                    <a href=" Route("product.edit", ["id"=>'.$row->id.'])" ><i class="fas fa-pencil-alt"></i></a>
+                                    <a data-url="Route("product.delete", ["id"=>'.$row->id.'])"><i class="fas fa-trash-alt"></i></a>
+                                </td>';
                     $output .= '</tr>';
                     $stt++;
                 }

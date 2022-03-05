@@ -49,7 +49,7 @@
                     
                 @endcan
                 @can('combo-list')
-                    <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combos</a>
+                    <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combo</a>
                 @endcan
                 {{-- @can('combo-list') --}}
                     <a class="collapse-item order_active" href="{{ route('order.index') }}">Đơn hàng</a>

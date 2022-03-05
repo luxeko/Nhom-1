@@ -23,7 +23,7 @@
         }
         @endphp
     
-        <form action="{{ route('user.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user.profile_update',['id'=>auth()->user()->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right px-3 py-4">

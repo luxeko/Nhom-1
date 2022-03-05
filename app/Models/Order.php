@@ -31,7 +31,7 @@ class Order extends Model
         return $this->hasOne(Transaction::class);
     }
     public function getProduct(){
-        return $this->hasMany(Product::class, 'order_items', 'order_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'order_items', 'order_id', 'product_id');
     }
     public function getCity(){
         return $this->hasOne(City::class, 'city_id', 'city');

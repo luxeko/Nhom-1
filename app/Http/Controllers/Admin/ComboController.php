@@ -35,7 +35,6 @@ class ComboController extends Controller
     }
     public function create(){
         $products = $this->product->where('status', 1)->get();
-      
         return view('admin.manage_combo.add', compact('products'));
     }
     public function store(Request $request){
@@ -84,6 +83,15 @@ class ComboController extends Controller
             DB::rollBack();
             Log::error("Message: " . $exc->getMessage() . ' Line: ' . $exc->getLine());
         }
+    }
+    public function edit($id){
+        $products = $this->product->where('status', 1)->get();
+        $combo = $this->combo->find($id);
+        return view('admin/manage_combo.edit', compact('combo', 'products'));
+
+    }
+    public function update(){
+
     }
     public function delete($id){
         try {
