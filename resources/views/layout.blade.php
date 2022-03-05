@@ -118,6 +118,7 @@
     @yield('cases')
     @yield('components')
     @yield('cooling')
+    @yield('combo')
 
     <!--::footer_part start::-->
     <footer class="footer-distributed">
