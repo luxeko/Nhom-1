@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -134,6 +135,17 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
         Route::get('/search', [ProductController::class,'searchProduct'])->name('product.search');
         // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
+    }); 
+    // Xử lý CRUD Order
+    Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[OrderController::class,'index'])->name('order.index');
+        Route::get('/details',[OrderController::class,'details_order']);
+        Route::get('/create',[OrderController::class,'create']);
+        Route::post('/store',[OrderController::class,'store']);
+        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
+        Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
+        Route::get('/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
+        Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
     }); 
 
      // Xử lý CRUD Combo

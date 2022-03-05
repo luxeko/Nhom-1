@@ -13,6 +13,7 @@ class Category extends Model
     use Notifiable,
         SoftDeletes;
     protected $table = 'categories';
+    protected $guarded = [];
     protected $fillable = [
         'name', 'desc_name', 'status', 'parent_id', 'slug', 'created_at'
     ];

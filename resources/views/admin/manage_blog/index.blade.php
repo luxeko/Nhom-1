@@ -89,9 +89,9 @@
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
+                                            echo "<span class='badge bg-success text-white'>Active</span>";
                                         } elseif ($value->status == 2) {
-                                            echo "<span class='text-danger'>Disable</span>";
+                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
                                         } 
                                     ?>
                                 </td>
@@ -169,7 +169,7 @@
                     <div class="single-product small-container">
                         <div class="details_row">
                             <div class="details_col">
-                                <div class="main-img-row position-relative rounded border border-secondary">
+                                <div class="main-img-row position-relative ">
                                     <img src="{{ '${blog.image}' }}" id="productImg"/>
                                     <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${blog.author}</span></p>
                                 </div>

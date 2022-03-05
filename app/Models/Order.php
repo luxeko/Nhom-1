@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = "orders";
+    protected $guarded = [];
 
     public function user()
     {
@@ -28,5 +29,11 @@ class Order extends Model
     public function transaction()
     {
         return $this->hasOne(Transaction::class);
+    }
+    public function getProduct(){
+        return $this->hasMany(Product::class, 'order_items', 'order_id', 'product_id');
+    }
+    public function getCity(){
+        return $this->hasOne(City::class, 'city_id', 'city');
     }
 }

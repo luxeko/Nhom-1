@@ -79,6 +79,7 @@ class ProductController extends Controller
     public function store(Request $request){
         try {
             $err = [];
+            $getName = $this->product->where('name', $request->product_name)->exists();
             if($request->category == null){
                 $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
             }
@@ -94,6 +95,9 @@ class ProductController extends Controller
             if($request->contents == null){
                 $err['content_null'] = 'Vui lòng nhập nội dung cho sản phẩm';
             }
+            if($getName == true){
+                $err['duplicate_product'] = 'Sản phẩm đã tồn tại';
+            }
             if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
             }
@@ -108,6 +112,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
+                    'slug'          => str_replace(' ','-', $request->product_name)
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -146,6 +151,7 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         try {
             $err = [];
+            $getName = $this->product->where('name', $request->product_name)->exists();
             if($request->category == null){
                 $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
             }
@@ -157,6 +163,9 @@ class ProductController extends Controller
             }
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
+            }
+            if($getName == true){
+                $err['duplicate_product'] = 'Sản phẩm đã tồn tại';
             }
             if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
@@ -172,6 +181,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
+                    'slug'          => str_replace(' ','-', $request->product_name)
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){

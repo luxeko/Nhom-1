@@ -91,9 +91,9 @@
                                 <td class="text-center"> @php echo  $value->desc @endphp</td>
                                 <td class="text-center"> 
                                     @if ($value->status == "Active")
-                                        <span class='text-success'>{{$value->status}}</span>
+                                        <span class='badge bg-success text-white'>{{$value->status}}</span>
                                     @else
-                                        <span class='text-danger'>{{$value->status}}</span>
+                                        <span class='badge bg-danger text-white'>{{$value->status}}</span>
                                     @endif 
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">

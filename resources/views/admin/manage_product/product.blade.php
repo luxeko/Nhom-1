@@ -91,13 +91,13 @@
                                 
                                 <td class="text-center"><span class="text-success">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center">{{ optional($value->category)->name }}</td>
+                                <td class="text-center">{{ optional($value->getCity)->name }}</td>
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
+                                            echo "<span class='badge bg-success text-white'>Active</span>";
                                         } else {
-                                            echo "<span class='text-danger'>Disable</span>";
+                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
                                         }  
                                     ?>
                                 </td>
@@ -182,7 +182,7 @@
              });
 
              
-             $(document).on('click', 'li', function(){
+             $(document).on('click', 'td', function(){
                
                  var value = $(this).text();
                  $('#search').val(value);
@@ -214,7 +214,7 @@
                     for (let i = 0; i < getArrayThumbnail.length; i++) {
                         names = getArrayThumbnail.map(function(i) {
                             getUrlToFileImg = `
-                                <div class="small-img-col rounded border border-secondary">
+                                <div class="small-img-col">
                                     <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
                                 </div>`;
                             imagesPath += getUrlToFileImg;
@@ -248,7 +248,7 @@
                         <div class="single-product small-container">
                             <div class="details_row">
                                 <div class="details_col">
-                                    <div class="main-img-row position-relative rounded border border-secondary">
+                                    <div class="main-img-row position-relative ">
                                         <img src="{{ '${product.feature_image_path}' }}" id="productImg"/>
                                         <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${product.name}</span></p>
                                     </div>

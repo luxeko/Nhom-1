@@ -30,6 +30,13 @@
                             echo "</div>";
                             Session::put('product_name_null', null);
                         }
+                        $duplicate_product = Session::get('duplicate_product');
+                        if($duplicate_product){
+                            echo "<div class='alert alert-danger'>";
+                                echo $duplicate_product;
+                            echo "</div>";
+                            Session::put('duplicate_product', null);
+                        }
                     @endphp
                     <div class="form-group">
                         <input type="text" class="numberformat form-control form-control-sm py-4 px-3 mb-1" name="product_price" placeholder="Giá sản phẩm (min: 1)" value="{{ $product->price }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
