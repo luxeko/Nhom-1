@@ -17,6 +17,8 @@ class AlterTableUsers extends Migration
             $table->string('name')->after('user_name')->nullable();
             $table->string('email')->after('full_name')->unique()->nullable();
             $table->string('utype')->after('telephone')->default('USR')->nullable();
+            $table->string('address')->after('telephone')->nullable();
+            $table->int('city_id',10)->after('address')->nullable();
         });
     }
 

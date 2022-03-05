@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\City;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class AdminUserController extends Controller
     }
 
     public function index(){
-        $users = $this->user->latest()->paginate(5);
+        $users = $this->user->whereNotNull('full_name')->latest()->paginate(5);
         $currentPage = $users->currentPage();
         $perPage = $users->perPage();
         $total = $users->total();
@@ -31,18 +32,19 @@ class AdminUserController extends Controller
     }
     public function create(){
         $roles = $this->role->all();
-        return view('admin.user.add', compact('roles'));
+        $cities = City::all();
+        return view('admin.user.add', compact('roles', 'cities'));
     }
 
     public function store(Request $request){
         try {
             $err = [];
-            $getUserName = $this->user->where('user_name', $request->full_name)->first();
+            // $getUserName = $this->user->where('user_name', $request->full_name)->first();
             $getEmail = $this->user->where('email', $request->email)->first();
             $getPhone = $this->user->where('telephone', $request->phone)->first();
-            if($request->user_name == null){
-                $err['username_null'] = 'Vui lòng nhập tên tài khoản';
-            }
+            // if($request->user_name == null){
+            //     $err['username_null'] = 'Vui lòng nhập tên tài khoản';
+            // }
             if($request->full_name == null){
                 $err['fullname_null'] = 'Vui lòng nhập tên người dùng';
             }
@@ -58,9 +60,9 @@ class AdminUserController extends Controller
             if($request->password != $request->re_password){
                 $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
             }
-            if( $getUserName){
-                $err['duplicate_username'] = 'Tên tài khoản đã tồn tại';
-            }
+            // if( $getUserName){
+            //     $err['duplicate_username'] = 'Tên tài khoản đã tồn tại';
+            // }
             if($getEmail){
                 $err['duplicate_email'] = 'Email đã tồn tại';
             }
@@ -73,12 +75,14 @@ class AdminUserController extends Controller
                 DB::beginTransaction();
                 $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
-                    'user_name'        => $request->user_name,
+                    // 'user_name'        => $request->user_name,
                     'full_name'        => $request->full_name,
                     'email'            => $request->email,
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id,
                 ];
                
                 if($request->avatar_img_path == null){
@@ -134,7 +138,8 @@ class AdminUserController extends Controller
         $user = $this->user->find($id);
         $roles = $this->role->all();
         $rolesOfUser = $user->roles;
-        return view('admin.user.profile', compact('user', 'roles', 'rolesOfUser'));
+        $cities = City::all();
+        return view('admin.user.profile', compact('user', 'roles', 'rolesOfUser', 'cities'));
     }
     public function update_profile(Request $request, $id){
         try {
@@ -156,7 +161,9 @@ class AdminUserController extends Controller
                     'full_name'        => $request->full_name,
                     'email'            => $request->email,
                     'telephone'        => $request->telephone,
-                    'password'         => Hash::make($request->password) 
+                    'password'         => Hash::make($request->password),
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id
                 ];
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
@@ -179,7 +186,8 @@ class AdminUserController extends Controller
         $roles = $this->role->all();
         $user = $this->user->find($id);
         $rolesOfUser = $user->roles;
-        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser'));
+        $cities = City::all();
+        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser', 'cities'));
     }
     public function update(Request $request, $id){
         try {
@@ -203,6 +211,8 @@ class AdminUserController extends Controller
                     'email'            => $request->email,
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id
                 ];
                
                 if($request->avatar_img_path == null){

@@ -105,22 +105,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label label>Địa chỉ</label>
-                                    <input type="text" class="form-control " name="address_line" style="width: 100%;" value="{{old('address_line')}}" />
+                                    <input type="text" class="form-control " name="address_line" style="width: 100%;" value="{{$user->address}}" />
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-between" >
                                 <div class="form-group"  style="width: 60%;" >
                                     <label>Thành phố</label>
-                                    <select  name="city" class="form-control form-control-md mb-1" >
-                                        <option value=""></option>
-                                        <option value="1"> Hà Nội </option>
-                                        <option value="2"> TP.HCM </option>
+                                    <select  name="city" class="form-control form-control-md mb-1">
+                                        <option>Thành phố</option>
+                                        @foreach ($cities as $city)
+                                            @if($city->city_id == $user->city_id)
+                                            {
+                                                <option selected value="{{$city->city_id}}">{{$city->vn_name}}</option>
+                                            }
+                                            @else
+                                            {
+                                                <option value="{{$city->city_id}}">{{$city->vn_name}}</option>
+                                            }
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group" style="width: 38%;">
+                                <!-- <div class="form-group" style="width: 38%;">
                                     <label>Postal code</label>
                                     <input type="text" class="form-control form-control-md  mb-1" name="postal_code" value="" />
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md-6 avatar_profile">
                                 <div class="form-group">
@@ -137,7 +146,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-primary profile_update">Cập nhật</button>
+                            <button type="submit" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
@@ -169,7 +178,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <button id="update_password" class="btn btn-primary profile_update">Cập nhật</button>
+                            <button type="submit" id="update_password" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
@@ -201,12 +210,12 @@
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-primary profile_update">Cập nhật</button>
+                            <button type="submit" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
                     </div>
-                    {{-- <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                    <!-- {{-- <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
                         <h3 class="mb-4">Notification Settings</h3>
                         <div class="form-group">
                             <div class="form-check">
@@ -235,9 +244,9 @@
                         <div class="">
                             <a class="btn btn-primary profile_update">Cập nhật</a>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
-                            <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
+                            <a class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
-                    </div> --}}
+                    </div> --}} -->
                 </div>
             </div>
         </form>

@@ -27,8 +27,8 @@ class LoginController extends Controller
         } else {
             $remember = false;
         }
-        if($request->admin_username == null){
-            $request->session()->put('username_null','Tài khoản không được để trống');
+        if($request->admin_email == null){
+            $request->session()->put('username_null','Email không được để trống');
         }
         if($request->admin_password == null){
             $request->session()->put('password_null','Mật khẩu không được để trống');
@@ -37,7 +37,7 @@ class LoginController extends Controller
             $request->session()->put('check_login', 'Đăng nhập thành công');
             return redirect()->route('admin.home');
         } else {
-            return back()->withInput()->with('login_faild','Tài khoản hoặc mật khẩu chưa đúng');
+            return back()->withInput()->with('login_faild','Email hoặc mật khẩu chưa đúng');
         }
         
     }

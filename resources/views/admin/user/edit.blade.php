@@ -97,27 +97,36 @@
                     </div>
                     <div class="address_form">
                         <div class="form-group">
-                            <input type="text" class="form-control " name="address_line" style="width: 100%;" placeholder="Địa chỉ" value="{{old('address_line')}}" />
+                            <input type="text" class="form-control " name="address_line" style="width: 100%;" placeholder="Địa chỉ" value="{{$user->address}}" />
                         </div>
                         <div class="form-group d-flex flex-row justify-content-between" style="width:100%">
-                            <div style="width:68%">
+                            <!-- <div style="width:68%"> -->
                                 <select name="city" class="form-control form-control-md  mb-1" style="width:100%">
-                                    <option value=""> Thành phố </option>
-                                    <option value="1"> Hà Nội </option>
-                                    <option value="2"> TP.HCM </option>
+                                    @foreach ($cities as $city)
+                                            <option>Thành phố</option>
+                                        @if($city->city_id == $user->city_id)
+                                        {
+                                            <option selected value="{{$city->city_id}}">{{$city->vn_name}}</option>
+                                        }
+                                        @else
+                                        {
+                                            <option value="{{$city->city_id}}">{{$city->vn_name}}</option>
+                                        }
+                                        @endif
+                                    @endforeach
                                 </select>
-                            </div>
-                            <div style="width:30%">
+                            <!-- </div> -->
+                            <!-- <div style="width:30%">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-md  mb-1" name="postal_code" style="width: 100%;" placeholder="Postal code" value="{{old('postal_code')}}" />
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Sửa User</button>
+                        <button type="submit" class="btn btn-primary">Sửa User</button>
                         <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>
