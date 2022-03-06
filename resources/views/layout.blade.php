@@ -133,6 +133,15 @@
     <!-- Header part end-->
     <!--================Home Banner Area =================-->
 
+    {{-- @yield('all_products')
+    @yield('detail')
+    @yield('audio')
+    @yield('cam')
+    @yield('cases')
+    @yield('components')
+    @yield('cooling')
+    @yield('combo') --}}
+
 	
     {{$slot}}
 
@@ -140,8 +149,9 @@
     <!--::footer_part start::-->
     <footer class="footer-distributed mt-5">
         <div class="footer-left">
-
             <h3>Mativina</h3>
+
+<div class="footer-left">
 
             <p class="footer-links">
                 <a href="#" class="link-1">Home</a>
@@ -194,6 +204,32 @@
 </div>
 
 </footer>
+
+        </div>
+        <div class="copyright_part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="copyright_text">
+                            <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved&nbsp;<i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/luxeko/Nhom-1.git" target="_blank" class="text-primary">team 1</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="footer_icon social_icon">
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                                <li><a href="#" class="single_social_icon"><ion-icon name="logo-github"></ion-icon></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!--::footer_part end::-->
 

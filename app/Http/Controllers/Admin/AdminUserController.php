@@ -85,7 +85,7 @@ class AdminUserController extends Controller
                     'address'          => $request->address,
                     'city_id'          => $request->city_id,
                 ];
-                dd( $dataUserCreate);
+                // dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
                     $dataUserCreate['avatar_img_path'] = $path_dafault;
                 } else {
@@ -164,7 +164,9 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'password'         => bcrypt($request->password),
+
+                       'password'         => bcrypt($request->password),
+                        'utype'            => 'ADM',      
                       'address'          => $request->address,
                     'city_id'          => $request->city_id
                     ];
@@ -173,8 +175,9 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
+                        'utype'            => 'ADM',
                       'address'          => $request->address,
-                    'city_id'          => $request->city_id
+                    'city_id'          => $request->city_id2
                     ];
 
                 }
@@ -228,8 +231,10 @@ class AdminUserController extends Controller
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
+                    'utype'            => 'ADM',
                     'address'          => $request->address,
                     'city_id'          => $request->city_id
+
                 ];
                
                 if($request->avatar_img_path != null){

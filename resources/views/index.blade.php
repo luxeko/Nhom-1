@@ -205,7 +205,10 @@
 			</div>
 
 		</footer>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
     <!--::footer_part end::-->
     @livewireScripts
     <!-- jquery plugins here-->
