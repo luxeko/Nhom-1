@@ -76,13 +76,10 @@ class ProductController extends Controller
         $thumbnail = ProductImage::where('product_id',"=", $product_id)->get('image_path');
         return $thumbnail;
     }
-    // public function get_discount($discount_id){
-    //     $discount = $this->discount->find($discount_id);
-    //     return $discount;
-    // } 
     public function store(Request $request){
         try {
             $err = [];
+            $getName = $this->product->where('name', $request->product_name)->exists();
             if($request->category == null){
                 $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
             }
@@ -98,6 +95,9 @@ class ProductController extends Controller
             if($request->contents == null){
                 $err['content_null'] = 'Vui lòng nhập nội dung cho sản phẩm';
             }
+            if($getName == true){
+                $err['duplicate_product'] = 'Sản phẩm đã tồn tại';
+            }
             if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
             }
@@ -112,6 +112,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -162,9 +163,7 @@ class ProductController extends Controller
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
             }
-            if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
-                $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
-            }
+        
             if(count($err)>0){
                 return Redirect::back()->withInput()->with($err);
             } else{
@@ -176,6 +175,7 @@ class ProductController extends Controller
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -220,6 +220,52 @@ class ProductController extends Controller
                 'code'      => 500,
                 'message'   => 'fail'
             ], 500);
+        }
+    }
+    public function searchProduct(Request $request)
+    {
+        $data = $this->product->latest()->paginate(10);
+        $currentPage = $data->currentPage();
+        $perPage = $data->perPage();
+        $total = $data->total();
+         
+        if($request->ajax()) {
+          
+            $data = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
+           
+            $output = '';
+           
+            if (count($data) >0 ) {
+                $stt = 1;
+                // $cout = ( $currentPage - 1 ) * $perPage + 1 ;
+                foreach ($data as $key => $row){
+                    $output = '<tr class="">';
+                    $output .= '<th class="text-center">'.$row->id.'</th>';
+                    $output .= '<td class="text-center admin_product_img">'.'<img src='.$row->feature_image_path.'>'.'</td>';
+                    $output .= '<td class="text-center">'.$row->name.'</td>';
+                    $output .= '<td class="text-center">'.$row->price.'</td>';
+                    $output .= '<td class="text-center">'.$row->category->name.'</td>';
+                    $output .= '<td class="text-center">'.$row->status.'</td>';
+                    $output .= ' <td colspan="1" class="text-center" style="width:15%">
+
+                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalDetailProduct"  onclick="getCategory('.$row->category_id .') ; getThumbnail('.$row->id.' ) ; viewProductDetail('.$row->id.')"><i class="fas fa-eye"></i></a>
+
+
+
+                                    <a href=" Route("product.edit", ["id"=>'.$row->id.'])" ><i class="fas fa-pencil-alt"></i></a>
+                                    <a data-url="Route("product.delete", ["id"=>'.$row->id.'])"><i class="fas fa-trash-alt"></i></a>
+                                </td>';
+                    $output .= '</tr>';
+                    $stt++;
+                }
+              
+            }
+            else {
+             
+                $output .= '<td class="">'.'No results'.'</td>';
+            }
+           
+            return $output;
         }
     }
     

@@ -139,19 +139,15 @@
                                 </select>
                             <!-- </div> -->
                             <!-- <div style="width:30%">
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-md  mb-1" name="postal_code" style="width: 100%;" placeholder="Postal code" value="{{old('postal_code')}}" />
+                                    <button class="btn btn-primary">Thêm User</button>
+                                    <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
                                 </div>
                             </div> -->
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button class="btn btn-primary">Thêm User</button>
-                        <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
-                    </div>
-                </div>
+                </div>               
             </div>
         </form>
     </div>

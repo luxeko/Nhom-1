@@ -14,12 +14,13 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     {{ auth()->user()->full_name }}
                 </span>
-                <img class="img-profile rounded-circle"src="{{ auth()->user()->avatar_img_path }}">
+                <img class="img-profile rounded-circle" src="{{ auth()->user()->avatar_img_path }}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ route('user.edit', ['id'=>auth()->user()->id]) }}" >
+                <a class="dropdown-item" href="{{ route('admin.profile',['id'=>auth()->user()->id] ) }}" >
+
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Hồ sơ
                 </a>

@@ -4,7 +4,7 @@
     {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
         <img src="{{ URL::asset('/frontend/img/new2.png')}}" >
     </a> --}}
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.index')}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -17,7 +17,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li id="dashboard_active" class="nav-item">
-        <a class="nav-link " href="{{asset('admin/home')}}">
+        <a class="nav-link " href="{{route('admin.index')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Tổng quan</span>
         </a>
@@ -49,8 +49,11 @@
                     
                 @endcan
                 @can('combo-list')
-                    <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combos</a>
+                    <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combo</a>
                 @endcan
+                {{-- @can('combo-list') --}}
+                    <a class="collapse-item order_active" href="{{ route('order.index') }}">Đơn hàng</a>
+                {{-- @endcan --}}
             </div>
         </div>
     </li>
@@ -68,6 +71,9 @@
                 @can('user-list')
                     <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">User</a>  
                 @endcan
+                {{-- @can('guess-list') --}}
+                    <a class="collapse-item guess_active" href="">Khách hàng</a>  
+                {{-- @endcan --}}
                 @can('role-list')
                     <a class="collapse-item role_active" href="{{ asset('admin/roles/index') }}">Vai trò</a>
                 @endcan

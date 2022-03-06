@@ -15,4 +15,7 @@ class List_Product_Combo extends Model
     protected $table = 'list__product__combos';
     protected $guarded = [];
     
+    public function getProduct(){
+        
+    }
 }

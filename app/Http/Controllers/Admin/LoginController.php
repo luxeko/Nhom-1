@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,7 @@ class LoginController extends Controller
     public function postlogin(Request $request){
         $result = ['email'=>$request->admin_email, 
                     'password'=> $request->admin_password
-                ];
-        
+        ];
         if($request->remember = 'Remember me'){
             $remember = true;
         } else {
@@ -35,7 +35,7 @@ class LoginController extends Controller
         } 
         if(Auth::attempt($result, $remember)){          
             $request->session()->put('check_login', 'Đăng nhập thành công');
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.index');
         } else {
             return back()->withInput()->with('login_faild','Email hoặc mật khẩu chưa đúng');
         }

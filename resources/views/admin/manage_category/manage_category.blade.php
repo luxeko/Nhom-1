@@ -89,9 +89,9 @@
                             <td class="text-center">
                                 <?php
                                     if($value->status == 1){
-                                        echo "<span class='text-success'>Active</span>";
+                                        echo "<span class='badge bg-success text-white'>Active</span>";
                                     } else {
-                                        echo "<span class='text-danger'>Disable</span>";
+                                        echo "<span class='badge bg-danger text-white'>Disable</span>";
                                     }   
                                 ?>
                             </td>

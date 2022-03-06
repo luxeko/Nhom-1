@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -83,10 +84,10 @@ Route::get('/mailable2', function () {
 // Public route (Đức Anh)
 Route::group(['namespace'=>'Public'], function(){
     // Xử lý CRUD Blogs
-    Route::group(['middleware'=>'CheckLogedOut'], function(){
-        Route::get('/public/blogs/index',[PublicBlogController::class,'index'])->name('blog.index');
-        Route::get('/public/blogs/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
-        Route::get('/public/blogs/test',[PublicBlogController::class,'test'])->name('blog.test');
+     Route::group(['prefix'=>'public/blogs'], function(){
+        Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
+        Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
+        Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
     }); 
     //Route::group(['prefix'=>'public/'], function(){
     //    Route::get('/index', [PublicProductController::class, 'index']);
@@ -103,12 +104,19 @@ Route::group(['namespace'=>'Admin'], function(){
     });
 
     // xử lý khi đăng nhập thành công
-    Route::get('/admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
-    Route::group(['middleware'=>'CheckLogedOut'], function(){
-        Route::get('/admin/home',[HomeController::class,'showDashboard'])->name('admin.home');
-        Route::get('/admin/error',[HomeController::class,'showErr']);
-        Route::get('/admin/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
-        Route::post('/admin/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
+    Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
+
+    Route::group(['prefix'=>'admin/','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.index');
+        Route::get('profile/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('profile/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
+    }); 
+
+    // xử lý CRUD Profile
+    Route::group(['prefix'=>'admin/profile','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
+
     }); 
 
 
@@ -130,13 +138,35 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/products/getCategoryById/{id}',[ProductController::class,'get_category_name']);
         Route::get('/admin/products/getThumbnail/{id}',[ProductController::class,'get_thumbnail']);
         // Route::get('/getDiscountById/{id}',[ProductController::class,'get_discount']);
+
         Route::get('/admin/products/create',[ProductController::class,'create'])->middleware('can:product-add');
         Route::post('/admin/products/store',[ProductController::class,'store']);
         Route::get('/admin/products/edit/{id}',[ProductController::class,'edit'])->name('product.edit')->middleware('can:product-edit');
         Route::post('/admin/products/update/{id}',[ProductController::class,'update'])->name('product.update');
         Route::get('/admin/products/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
-        // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
 
+        // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
+    }); 
+    // Xử lý CRUD Order
+    Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[OrderController::class,'index'])->name('order.index');
+        Route::get('/details',[OrderController::class,'details_order']);
+        Route::get('/product',[OrderController::class,'get_Product']);
+        Route::get('/order_item',[OrderController::class,'get_Quantity']);
+        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
+        Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
+        Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
+    }); 
+
+     // Xử lý CRUD Combo
+     Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
+        Route::get('/create',[ComboController::class,'create'])->name('combo.create')->middleware('can:combo-add');
+        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
+        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit')->middleware('can:combo-edit');
+        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
+        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
+        Route::get('/details',[ComboController::class,'details_combo'])->name('combo.detail');
     }); 
 
     // Xử lý CRUD Blogs
@@ -167,6 +197,7 @@ Route::group(['namespace'=>'Admin'], function(){
     }); 
 
 
+
     // Xử lý CRUD Combo
     Route::group(['middleware'=>'CheckLogedOut'], function(){
         Route::get('/admin/combos/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
@@ -177,6 +208,7 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/combos/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
         Route::get('/admin/combos/details',[ComboController::class,'details_combo']);
     }); 
+
 
     // Xử lý CRUD User
     Route::group(['middleware'=>'CheckLogedOut'], function(){
