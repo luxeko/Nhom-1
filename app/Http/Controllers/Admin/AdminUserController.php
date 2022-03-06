@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\City;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -35,12 +36,14 @@ class AdminUserController extends Controller
     }
     public function create(){
         $roles = $this->role->all();
-        return view('admin.user.add', compact('roles'));
+        $cities = City::all();
+        return view('admin.user.add', compact('roles', 'cities'));
     }
 
     public function store(Request $request){
         try {
             $err = [];
+
             $getEmail = $this->user->where('email', $request->email)->exists();
             $getPhone = $this->user->where('telephone', $request->telephone)->exists();
             if($request->full_name == null){
@@ -58,6 +61,7 @@ class AdminUserController extends Controller
             if($request->password != $request->re_password){
                 $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
             }
+
             if($getPhone == true){
                 $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
             } 
@@ -79,6 +83,8 @@ class AdminUserController extends Controller
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
                     'utype'            => 'ADM'
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id,
                 ];
                 dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
@@ -134,10 +140,12 @@ class AdminUserController extends Controller
 
     public function profile($id){
         $user = $this->user->find($id);
+
         // dd($user);
         $city = $this->city->all();
         // dd($city);
-        return view('admin.user.profile', compact('user','city'));
+        return view('admin.user.profile', compact('user','cities'));
+
     }
 
     public function update_profile(Request $request, $id){
@@ -159,16 +167,21 @@ class AdminUserController extends Controller
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
                         'password'         => bcrypt($request->password)
+                      'address'          => $request->address,
+                    'city_id'          => $request->city_id
                     ];
                 }
                 else{
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
+                      'address'          => $request->address,
+                    'city_id'          => $request->city_id
                     ];
 
                 }
                 // dd($dataUserCreate);
+ev
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
@@ -190,7 +203,8 @@ class AdminUserController extends Controller
         $roles = $this->role->all();
         $user = $this->user->find($id);
         $rolesOfUser = $user->roles;
-        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser'));
+        $cities = City::all();
+        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser', 'cities'));
     }
     public function update(Request $request, $id){
         try {
@@ -217,6 +231,8 @@ class AdminUserController extends Controller
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id
                 ];
                
                 if($request->avatar_img_path != null){

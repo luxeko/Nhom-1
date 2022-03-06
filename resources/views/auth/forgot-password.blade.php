@@ -15,12 +15,12 @@
                                         </div>
 
                                         @if (session('status'))
-                                            <div class="mb-4 font-medium text-sm text-green-600">
+                                            <div class="mb-4 font-medium text-sm text-green-600" style="color: green;">
                                                 {{ session('status') }}
                                             </div>
                                         @endif
 
-                                        <x-jet-validation-errors class="mb-4" style="color: black;"/>
+                                        <x-jet-validation-errors class="mb-4" style="color: #dc3545;"/>
 
                                         <form method="POST" action="{{ route('password.email') }}">
                                             @csrf

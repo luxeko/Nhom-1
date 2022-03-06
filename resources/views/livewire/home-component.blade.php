@@ -108,12 +108,20 @@
                                 <div id="seconds" class="date"></div>
                             </div>
                         </div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="enter email address"
-                                aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <a href="#" class="input-group-text btn_2" id="basic-addon2">book now</a>
+                        @if(Session::has('email-message'))
+                            <div class="alert alert-success" style="width: 50%;">
+                                {{Session::get('email-message')}}
                             </div>
+                        @endif
+                        <div class="input-group">
+                            <form wire:submit.prevent="subscribe">
+                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text btn_2">book now</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,12 +168,19 @@
                         <h5>Join Our Newsletter</h5>
                         <h2>Subscribe to get Updated
                             with new offers</h2>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="enter email address"
-                                aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <a href="#" class="input-group-text btn_2" id="basic-addon2">subscribe now</a>
+                        @if(Session::has('email-message'))
+                            <div class="alert alert-success" style="width: 50%;">
+                                {{Session::get('email-message')}}
                             </div>
+                        @endif
+                        <div class="input-group">
+                            <form wire:submit.prevent="subscribe">
+                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email">
+                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text btn_2">subscribe now</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

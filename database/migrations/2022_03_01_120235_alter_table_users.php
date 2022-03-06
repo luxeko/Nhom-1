@@ -16,6 +16,8 @@ class AlterTableUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
 
             $table->string('utype')->after('telephone')->default('USR')->nullable();
+            $table->string('address')->after('telephone')->nullable();
+            $table->int('city_id',10)->after('address')->nullable();
         });
     }
 
