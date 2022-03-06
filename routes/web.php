@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\DashDataController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
@@ -112,6 +113,7 @@ Route::group(['namespace'=>'Admin'], function(){
 
     Route::group(['prefix'=>'admin/','middleware'=>'CheckLogedOut'], function(){
         Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.index');
+        Route::get('/home',[DashDataController::class,'dataOrder'])->name('admin.index');
         Route::get('profile/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
         Route::post('profile/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
     }); 
