@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
@@ -17,25 +18,26 @@ class LoginController extends Controller
         return redirect()->intended('admin/login');
     }
     public function postlogin(Request $request){
-        $result = ['user_name'=>$request->admin_username, 
-                    'password'=>$request->admin_password
+        $result = ['email'=>$request->admin_email, 
+                    'password'=> $request->admin_password
                 ];
+        
         if($request->remember = 'Remember me'){
             $remember = true;
         } else {
             $remember = false;
         }
-        if($request->admin_username == null){
-            $request->session()->put('username_null','Tài khoản không được để trống');
+        if($request->admin_email == null){
+            $request->session()->put('username_null','Email không được để trống');
         }
         if($request->admin_password == null){
             $request->session()->put('password_null','Mật khẩu không được để trống');
         } 
         if(Auth::attempt($result, $remember)){          
             $request->session()->put('check_login', 'Đăng nhập thành công');
-            return redirect()->intended('admin/home');
+            return redirect()->route('admin.home');
         } else {
-            return back()->withInput()->with('login_faild','Tài khoản hoặc mật khẩu chưa đúng');
+            return back()->withInput()->with('login_faild','Email hoặc mật khẩu chưa đúng');
         }
         
     }

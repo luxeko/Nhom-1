@@ -108,7 +108,7 @@ class ProductController extends Controller
                 $dataProductCreate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => str_replace(',','', $request->product_price) ,
+                    'price'         => str_replace(',','', $request->product_price),
                     'status'        => $request->status,
                     'category_id'   => $request->category,
                     'user_id'       => auth()->id(),
