@@ -69,9 +69,12 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('/mailable', function () {
     $order = App\Models\Order::find(1);
     
-    return new App\Mail\Ordermail($order);
+    return new App\Mail\OrderMail($order);
 });
+Route::get('/mailable2', function () {
 
+    return new App\Mail\SubscribeMail();
+});
 
 
 

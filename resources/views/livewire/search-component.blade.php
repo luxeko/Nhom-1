@@ -19,6 +19,11 @@
                 <div class="col-lg-3">
                     <div class="left_sidebar_area">
                         <aside class="left_widgets p_filter_widgets">
+                            @if(Session::has('success_message'))
+                                <div class="alert alert-success">
+                                    <strong>Success</strong> {{Session::get('success_message')}}
+                                </div>
+                            @endif
                             <div class="l_w_title">
                                 <h3>Browse Categories</h3>
                             </div>
@@ -32,15 +37,14 @@
                                 </ul>
                             </div>
                         </aside>
-
                         <aside class="left_widgets p_filter_widgets price_rangs_aside">
                             <div wire:ignore x-data="{ min_price: @entangle('min_price'), max_price: @entangle('max_price') }" x-init="
                                 noUiSlider.create($refs.slider, {
-                                        start: [10000, 50000],
+                                        start: [parseInt(min_price), parseInt(max_price)],
                                         connect: true,
                                         range: {
-                                            'min': 10000,
-                                            'max': 50000
+                                            'min': parseInt(min_price),
+                                            'max': parseInt(max_price)
                                         },
                                         pips:{
                                             mode:'steps',
@@ -49,16 +53,14 @@
                                         }
                                     })
                                     .on('update',function (value){
-                                        console.log(this.min_price);
                                         min_price = value[0];
-                                        console.log(this.max_price);
                                         max_price = value[1];
                                     });
                                 ">
                                 <div class="l_w_title">
                                 <h3>Price Filter</h3>
                                     <p>
-                                        <span x-text="min_price"></span> - <span x-text="max_price"></span>
+                                        <span x-text="parseInt(min_price)"></span> - <span x-text="parseInt(max_price)"></span>
                                     </p>
                                 </div>
 
@@ -74,7 +76,7 @@
                         <div class="col-lg-12">
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu">
-                                    <p><span>{{$product_cat}} Products</span></p>
+                                    <p><span>All Products</span></p>
                                 </div>
                                 <div class="single_product_menu d-flex">
                                     <h5 style="margin-right: 5px;">sort by: </h5>
@@ -97,47 +99,47 @@
                                     <h5 style="float: right; margin-left: 5px;">per page</h5>
                                     </div>
                                 </div>
-                                <!-- <div class="single_product_menu d-flex">
+
+                                <div class="single_product_menu d-flex">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="search"
+                                        <input type="search" class="form-control" placeholder="search" wire:model="live_search"
                                             aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
+                                            <span class="input-group-text" id="inputGroupPrepend">
+                                                <i class="ti-search"></i>
+                                            </span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    @if ($products->count() > 0)
-                        <div class="row align-items-center latest_product_inner" id="table_data">
-                            @foreach($products as $item)
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="single_product_item">
-                                        <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
-                                        <div class="single_product_text">
-                                            <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                                            <h3>${{number_format($item->price,0,',','.')}}</h3>
-                                            <a href="#" class="add_cart" wire:click.prevent="store( {{$item->id}}, '{{$item->name}}', {{$item->price}} )">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
+
+                    <div class="row align-items-center latest_product_inner" id="table_data">
+                        @foreach($products as $item)
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="single_product_item">
+                                    <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
+                                    <div class="single_product_text">
+                                        <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
+                                        <h3>${{number_format($item->price,0,',','.')}}</h3>
+                                        <a href="#" class="add_cart" wire:click.prevent="store( {{$item->id}}, '{{$item->name}}', {{$item->price}} )">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
                                 </div>
-                            @endforeach
-                                                    
-                            <div class="col-lg-12">
-                                <div class="pageination">
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination justify-content-center">
-                                            {{ $products->links() }}
-                                        </ul>
-                                    </nav>
-                                </div>
+                            </div>
+                        @endforeach
+                                                
+                        <div class="col-lg-12">
+                            <div class="pageination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        {{ $products->links() }}
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
-                    @else
-                        <p style="padding-top: 30px;">No products found.</p>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>

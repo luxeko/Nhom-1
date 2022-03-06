@@ -21,6 +21,11 @@
                 <div class="col-lg-3">
                     <div class="left_sidebar_area">
                         <aside class="left_widgets p_filter_widgets">
+                            @if(Session::has('success_message'))
+                                <div class="alert alert-success">
+                                    <strong>Success</strong> {{Session::get('success_message')}}
+                                </div>
+                            @endif
                             <div class="l_w_title">
                                 <h3>Browse Categories</h3>
                             </div>
@@ -37,11 +42,11 @@
                         <aside class="left_widgets p_filter_widgets price_rangs_aside">
                             <div wire:ignore x-data="{ min_price: @entangle('min_price'), max_price: @entangle('max_price') }" x-init="
                                 noUiSlider.create($refs.slider, {
-                                        start: [10000, 50000],
+                                        start: [parseInt(min_price), parseInt(max_price)],
                                         connect: true,
                                         range: {
-                                            'min': 10000,
-                                            'max': 50000
+                                            'min': parseInt(min_price),
+                                            'max': parseInt(max_price)
                                         },
                                         pips:{
                                             mode:'steps',
@@ -50,16 +55,14 @@
                                         }
                                     })
                                     .on('update',function (value){
-                                        console.log(this.min_price);
                                         min_price = value[0];
-                                        console.log(this.max_price);
                                         max_price = value[1];
                                     });
                                 ">
                                 <div class="l_w_title">
                                 <h3>Price Filter</h3>
                                     <p>
-                                        <span x-text="min_price"></span> - <span x-text="max_price"></span>
+                                        <span x-text="parseInt(min_price)"></span> - <span x-text="parseInt(max_price)"></span>
                                     </p>
                                 </div>
 
@@ -98,16 +101,19 @@
                                     <h5 style="float: right; margin-left: 5px;">per page</h5>
                                     </div>
                                 </div>
-                                <!-- <div class="single_product_menu d-flex">
+
+                                <div class="single_product_menu d-flex">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="search"
+                                        <input type="search" class="form-control" placeholder="search" wire:model="search"
                                             aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
+                                            <span class="input-group-text" id="inputGroupPrepend">
+                                                <i class="ti-search"></i>
+                                            </span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
+
                             </div>
                         </div>
                     </div>

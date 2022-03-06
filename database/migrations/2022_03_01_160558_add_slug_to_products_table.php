@@ -14,7 +14,7 @@ class AddSlugToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('slug')->unique()->nullable()->after('discount_id');
+            $table->string('slug')->nullable()->after('discount_id');
         });
     }
 

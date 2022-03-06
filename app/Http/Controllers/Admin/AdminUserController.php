@@ -24,7 +24,7 @@ class AdminUserController extends Controller
     }
 
     public function index(){
-        $users = $this->user->whereNotNull('full_name')->latest()->paginate(5);
+        $users = $this->user->latest()->paginate(5);
         $currentPage = $users->currentPage();
         $perPage = $users->perPage();
         $total = $users->total();
