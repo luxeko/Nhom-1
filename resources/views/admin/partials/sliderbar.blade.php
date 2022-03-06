@@ -46,14 +46,14 @@
                 @endcan
                 @can('product-list')
                     <a class="collapse-item product_active" href="{{asset('admin/products/show')}}">Sản phẩm</a>
-                    
                 @endcan
                 @can('combo-list')
                     <a class="collapse-item combo_active" href="{{ route('combo.index') }}">Combo</a>
                 @endcan
-                {{-- @can('combo-list') --}}
+
+                @can('order-list')
                     <a class="collapse-item order_active" href="{{ route('order.index') }}">Đơn hàng</a>
-                {{-- @endcan --}}
+                @endcan
             </div>
         </div>
     </li>
@@ -69,7 +69,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">List:</h6>
                 @can('user-list')
-                    <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">User</a>  
+                    <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">Nhân viên</a>  
                 @endcan
                 {{-- @can('guess-list') --}}
                     <a class="collapse-item guess_active" href="">Khách hàng</a>  

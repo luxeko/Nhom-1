@@ -130,24 +130,24 @@
                             <input type="text" class="form-control" name="address" style="width: 100%;" placeholder="Địa chỉ" value="" />
                         </div>
                         <div class="form-group d-flex flex-row justify-content-between" style="width:100%">
-                            <!-- <div style="width:68%"> -->
+                             <div style="width:100%"> 
                                 <select name="city" class="form-control form-control-md  mb-1" style="width:100%">
                                     <option value=""> Thành phố </option>
                                     @foreach ($cities as $city)
                                         <option value="{{$city->city_id}}">{{$city->vn_name}}</option>
                                     @endforeach
                                 </select>
-                            <!-- </div> -->
-                            <!-- <div style="width:30%">
-
-                                <div class="form-group">
-                                    <button class="btn btn-primary">Thêm User</button>
-                                    <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
-                                </div>
-                            </div> -->
+                            </div> 
+                           
                         </div>
                     </div>
-                </div>               
+                </div> 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Thêm User</button>
+                        <a href="{{ asset('admin/users/index')}}" class="btn btn-secondary">Huỷ</a>
+                    </div>
+                </div>              
             </div>
         </form>
     </div>

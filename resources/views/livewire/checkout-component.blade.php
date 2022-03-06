@@ -188,7 +188,6 @@
 				</form>
 			</div><!--end main content area-->
 		</div><!-- end container -->
-		
 	</main>
 </div>
 

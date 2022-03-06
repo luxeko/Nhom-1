@@ -20,7 +20,10 @@
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/users/create') }} " class="btn btn-primary mb-3">Thêm User</a>
+                @can('user-add')
+                    <a href="{{ asset('admin/users/create') }} " class="btn btn-primary mb-3">Thêm User</a>
+                    
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -85,9 +88,13 @@
                                 <td class="text-center">{{$value->telephone}}</td>
                                 <td class="text-center">{{$value->email}}</td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('user-edit')
+                                        <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('user-delete')
+                                        <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

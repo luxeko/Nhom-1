@@ -17,12 +17,18 @@ class PermissionGateAndPolicy{
         $this->defineGateVoucher();
         $this->defineGateSlider();
         $this->defineGateSetting();
+        $this->defineGateOrder();
     }
     public function defineGateCategory(){
         Gate::define('category-list', 'App\Policies\CategoryPolicy@view');
         Gate::define('category-add', 'App\Policies\CategoryPolicy@create');
         Gate::define('category-edit', 'App\Policies\CategoryPolicy@update');
         Gate::define('category-delete', 'App\Policies\CategoryPolicy@delete');
+    }
+    public function defineGateOrder(){
+        Gate::define('order-list', 'App\Policies\OrderPolicy@view');
+        Gate::define('order-detail', 'App\Policies\OrderPolicy@detail');
+        Gate::define('order-edit', 'App\Policies\OrderPolicy@update');
     }
     public function defineGateProduct(){
         Gate::define('product-list', 'App\Policies\ProductPolicy@view');

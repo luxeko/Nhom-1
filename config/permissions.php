@@ -52,7 +52,11 @@ return [
         // 'edit-voucher'          =>  'edit_voucher',
         // 'delete-voucher'        =>  'delete_voucher',
 
-        'add-permission'        =>  'add_permission',
+        'list-order'               =>  'list_order',
+        'detail-order'             =>  'detail_order',
+        'edit-order'               =>  'edit_order',
+
+        'add-permission'           =>  'add_permission',
 
     ],
     'table_module' => [

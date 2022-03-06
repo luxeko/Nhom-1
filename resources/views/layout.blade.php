@@ -138,24 +138,23 @@
 
 
     <!--::footer_part start::-->
-    <footer class="footer-distributed">
+    <footer class="footer-distributed mt-5">
+        <div class="footer-left">
 
-<div class="footer-left">
+            <h3>Mativina</h3>
 
-    <h3>Mativina</h3>
+            <p class="footer-links">
+                <a href="#" class="link-1">Home</a>
+                
+                <a href="#">Blog</a>
+            
+                <a href="#">Product</a>
+                
+                <a href="#">Contact</a>
+            </p>
 
-    <p class="footer-links">
-        <a href="#" class="link-1">Home</a>
-        
-        <a href="#">Blog</a>
-    
-        <a href="#">Product</a>
-        
-        <a href="#">Contact</a>
-    </p>
-
-    <p class="footer-company-name">Matavina © 2015</p>
-</div>
+            <p class="footer-company-name">Matavina © 2015</p>
+        </div>
 
 <div class="footer-center">
 

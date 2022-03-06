@@ -14,6 +14,7 @@ class Product extends Model
         SoftDeletes;
     protected $table = 'products';
     protected $guarded = [];
+    protected $fillable = [];
 
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');

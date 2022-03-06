@@ -149,11 +149,11 @@ Route::group(['namespace'=>'Admin'], function(){
     }); 
     // Xử lý CRUD Order
     Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/index',[OrderController::class,'index'])->name('order.index');
-        Route::get('/details',[OrderController::class,'details_order']);
+        Route::get('/index',[OrderController::class,'index'])->name('order.index')->middleware('can:order-list');
+        Route::get('/details',[OrderController::class,'details_order'])->middleware('can:order-detail');
         Route::get('/product',[OrderController::class,'get_Product']);
         Route::get('/order_item',[OrderController::class,'get_Quantity']);
-        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
+        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit')->middleware('can:order-edit');
         Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
         Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
     }); 

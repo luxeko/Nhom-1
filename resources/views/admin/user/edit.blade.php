@@ -83,7 +83,7 @@
                             <input type="text" class="form-control " name="address_line" style="width: 100%;" placeholder="Địa chỉ" value="{{$user->address}}" />
                         </div>
                         <div class="form-group d-flex flex-row justify-content-between" style="width:100%">
-                            <!-- <div style="width:68%"> -->
+                           - <div style="width:100%"> 
                                 <select name="city" class="form-control form-control-md  mb-1" style="width:100%">
                                     @foreach ($cities as $city)
                                             <option>Thành phố</option>
@@ -98,12 +98,8 @@
                                         @endif
                                     @endforeach
                                 </select>
-                            <!-- </div> -->
-                            <!-- <div style="width:30%">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-md  mb-1" name="postal_code" style="width: 100%;" placeholder="Postal code" value="{{old('postal_code')}}" />
-                                </div>
-                            </div> -->
+                            </div>
+                           
                         </div>
                     </div>
                 </div>

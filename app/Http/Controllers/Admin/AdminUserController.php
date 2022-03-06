@@ -7,7 +7,6 @@ use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\City;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -82,7 +81,7 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
-                    'utype'            => 'ADM'
+                    'utype'            => 'ADM',
                     'address'          => $request->address,
                     'city_id'          => $request->city_id,
                 ];
@@ -140,9 +139,8 @@ class AdminUserController extends Controller
 
     public function profile($id){
         $user = $this->user->find($id);
-
         // dd($user);
-        $city = $this->city->all();
+        $cities = $this->city->all();
         // dd($city);
         return view('admin.user.profile', compact('user','cities'));
 
@@ -166,7 +164,7 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'password'         => bcrypt($request->password)
+                        'password'         => bcrypt($request->password),
                       'address'          => $request->address,
                     'city_id'          => $request->city_id
                     ];
@@ -181,7 +179,6 @@ class AdminUserController extends Controller
 
                 }
                 // dd($dataUserCreate);
-ev
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
