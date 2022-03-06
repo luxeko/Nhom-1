@@ -23,15 +23,15 @@
         }
         @endphp
     
-        <form action="{{ route('user.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.profile_update',['id'=>$user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right px-3 py-4">
-                    <div class="p-4" >
-                        <div class="img-circle text-center " style="width: 150px; height:150px">
+                    <div class="mb-5">
+                        <div class="img-circle text-center" >
                             <img style="width:100px; height 100px"  src="{{URL::asset($user->avatar_img_path)}}" >
                         </div>
-                        <h6 class="text-center">{{$user->email}}</h6>
+                        <h6 class="pt-4 text-center">{{$user->email}}</h6>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -46,10 +46,6 @@
                             <i class="fa fa-user text-center mr-1"></i> 
                             Bảo mật
                         </a>
-                        {{-- <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
-                            <i class="fa fa-bell text-center mr-1"></i> 
-                            Thông báo
-                        </a> --}}
                     </div>
                 </div>
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
@@ -98,8 +94,9 @@
                                     <label>Thành phố</label>
                                     <select  name="city" class="form-control form-control-md mb-1" >
                                         <option value=""></option>
-                                        <option value="1"> Hà Nội </option>
-                                        <option value="2"> TP.HCM </option>
+                                        @foreach ($city as $item)
+                                            <option value="{{ $item->id }}">{{ $item->vn_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group" style="width: 38%;">
@@ -186,43 +183,11 @@
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-primary profile_update">Cập nhật</button>
+                            <button type="submit" class="btn btn-primary profile_update">Cập nhật</button>
                             <a class="btn btn-secondary profile_cancel">Huỷ</a>
                             <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
                         </div>
                     </div>
-                    {{-- <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                        <h3 class="mb-4">Notification Settings</h3>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="notification1">
-                                <label class="form-check-label" for="notification1">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus, neque cupiditate quis
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="notification2" >
-                                <label class="form-check-label" for="notification2">
-                                    hic nesciunt repellat perferendis voluptatum totam porro eligendi.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="notification3" >
-                                <label class="form-check-label" for="notification3">
-                                    commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <a class="btn btn-primary profile_update">Cập nhật</a>
-                            <a class="btn btn-secondary profile_cancel">Huỷ</a>
-                            <a  class="btn btn-success profile_edit">Chỉnh sửa</a>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </form>

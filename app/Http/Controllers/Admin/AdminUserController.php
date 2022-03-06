@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
@@ -16,10 +17,13 @@ class AdminUserController extends Controller
 {
     private $user;
     private $role;
+    private $city;
     use StorageImageTrait;
-    public function __construct(User $user, Role $role){
+    public function __construct(User $user, Role $role, City $city){
         $this->user = $user;
         $this->role = $role;
+        $this->city = $city ;
+    
     }
 
     public function index(){
@@ -74,8 +78,9 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
+                    'utype'            => 'ADM'
                 ];
-               
+                dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
                     $dataUserCreate['avatar_img_path'] = $path_dafault;
                 } else {
@@ -125,12 +130,16 @@ class AdminUserController extends Controller
     public function details(Request $request){
         return User::findOrFail($request->id);
     }
+
+
     public function profile($id){
         $user = $this->user->find($id);
-        $roles = $this->role->all();
-        $rolesOfUser = $user->roles;
-        return view('admin.user.profile', compact('user', 'roles', 'rolesOfUser'));
+        // dd($user);
+        $city = $this->city->all();
+        // dd($city);
+        return view('admin.user.profile', compact('user','city'));
     }
+
     public function update_profile(Request $request, $id){
         try {
             $err = [];
@@ -144,22 +153,33 @@ class AdminUserController extends Controller
                 return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
-                $dataUserCreate = [
-                    'full_name'        => $request->full_name,
-                    'telephone'        => $request->telephone,
-                    'password'         => Hash::make($request->password) 
-                ];
+                $dataUserCreate = [];
+                if($request->password){
+                    $dataUserCreate = [
+                        'full_name'        => $request->full_name,
+                        'telephone'        => $request->telephone,
+                        'password'         => bcrypt($request->password)
+                    ];
+                }
+                else{
+                    $dataUserCreate = [
+                        'full_name'        => $request->full_name,
+                        'telephone'        => $request->telephone,
+                    ];
+
+                }
+                // dd($dataUserCreate);
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
                 }
-                $user = $this->user->find($id)->update($dataUserCreate);
+                $this->user->find($id)->update($dataUserCreate);
 
                 DB::commit();
-                if($user){
-                    $request->session()->put('success_user', 'Cập nhật thành công');
-                    return Redirect::to("admin/profile/".$id);
-                }
+                
+                $request->session()->put('success_user', 'Cập nhật thành công');
+                return redirect()->route('admin.profile', $id);
+              
             }
         } catch (\Exception $exc) {
             DB::rollBack();
@@ -194,16 +214,12 @@ class AdminUserController extends Controller
                 return Redirect::back()->withInput()->with($err);
             } else {
                 DB::beginTransaction();
-                $path_dafault = "/backend/img/avatar.png";
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
-                    'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                 ];
                
-                if($request->avatar_img_path == null){
-                    $dataUserCreate['avatar_img_path'] = $path_dafault;
-                } else {
+                if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
                 }

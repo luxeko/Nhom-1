@@ -53,6 +53,7 @@ class CategoryController extends Controller
                 'desc_name'     => $request->category_desc,
                 'status'        => $request->status,
                 'parent_id'     => $request->parent_id,
+                'slug'          => strtolower(str_replace(' ','-',$request->category_name))
             ]);
             if($result){
                 $request->session()->put('success_category', 'Thêm danh mục sản phẩm thành công');

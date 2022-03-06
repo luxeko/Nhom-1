@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -101,11 +102,18 @@ Route::group(['namespace'=>'Admin'], function(){
 
     // xử lý khi đăng nhập thành công
     Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
-    Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.home');
-        Route::get('error',[HomeController::class,'showErr']);
-        Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
-        Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
+
+
+    Route::group(['prefix'=>'admin/','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.index');
+        Route::get('profile/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('profile/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
+    }); 
+
+    // xử lý CRUD Profile
+    Route::group(['prefix'=>'admin/profile','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
     }); 
 
 
@@ -132,8 +140,29 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit')->middleware('can:product-edit');
         Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
+        Route::get('/search', [ProductController::class,'searchProduct'])->name('product.search');
         // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
+    }); 
+    // Xử lý CRUD Order
+    Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[OrderController::class,'index'])->name('order.index');
+        Route::get('/details',[OrderController::class,'details_order']);
+        Route::get('/product',[OrderController::class,'get_Product']);
+        Route::get('/order_item',[OrderController::class,'get_Quantity']);
+        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
+        Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
+        Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
+    }); 
 
+     // Xử lý CRUD Combo
+     Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
+        Route::get('/create',[ComboController::class,'create'])->name('combo.create')->middleware('can:combo-add');
+        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
+        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit')->middleware('can:combo-edit');
+        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
+        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
+        Route::get('/details',[ComboController::class,'details_combo'])->name('combo.detail');
     }); 
 
     // Xử lý CRUD Blogs
@@ -161,18 +190,6 @@ Route::group(['namespace'=>'Admin'], function(){
     Route::group(['prefix'=>'admin/permissions','middleware'=>'CheckLogedOut'], function(){
         Route::get('/create',[PermissionController::class,'create'])->name('permission.create')->middleware('can:permission-add');
         Route::post('/store',[PermissionController::class,'store'])->name('permission.store');
-    }); 
-
-
-    // Xử lý CRUD Combo
-    Route::group(['prefix'=>'admin/combos','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/index',[ComboController::class,'index'])->name('combo.index')->middleware('can:combo-list');
-        Route::get('/create',[ComboController::class,'create'])->name('combo.create')->middleware('can:combo-add');
-        Route::post('/store',[ComboController::class,'store'])->name('combo.store');
-        Route::get('/edit/{id}',[ComboController::class,'edit'])->name('combo.edit')->middleware('can:combo-edit');
-        Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
-        Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
-        Route::get('/details',[ComboController::class,'details_combo']);
     }); 
 
     // Xử lý CRUD User
