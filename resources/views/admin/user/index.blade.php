@@ -154,9 +154,9 @@
                             </div>
                             <div class="details_col">
                                 <h4 class="text-center text-capitalize">${user.full_name}</h4>
-                                <div class="mt-1">
+                                <!--<div class="mt-1">
                                     <p class="mb-0"><span> Username: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${user.user_name}</span></p>
-                                </div>
+                                </div>-->
                                 <div class="mt-1">
                                     <p class="mb-0"><span> Email: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${user.email}</span></p>
                                 </div>

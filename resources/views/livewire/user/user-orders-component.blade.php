@@ -1,13 +1,28 @@
 <div>
-    <style>
+    <!-- <style>
         nav svg{
             height: 20px;
         }
         nav .hidden{
             display: block !important;
         }
-    </style>
-
+    </style> -->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                        <div class="breadcrumb_iner_item">
+                        <h2></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->  
     <div class="container" style="padding: 30px 0;">        
         <div class="row">
             <div class="col-md-12">

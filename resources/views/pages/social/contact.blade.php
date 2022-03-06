@@ -29,93 +29,82 @@
 <body>
   <!--::header part start::-->
   <header class="main_menu home_menu">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="index.html"> <img src="img/new2.png" alt="logo"> </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="menu_icon"><i class="fas fa-bars"></i></span>
-                    </button>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="{{URL::to('/home')}}"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                        </button>
 
-                    <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Shop
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                    <a class="dropdown-item" href="category.html"> shop category</a>
-                                    <a class="dropdown-item" href="single-product.html">product details</a>
-                                    
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    pages
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    <a class="dropdown-item" href="login.html"> login</a>
-                                    <a class="dropdown-item" href="tracking.html">tracking</a>
-                                    <a class="dropdown-item" href="checkout.html">product checkout</a>
-                                    <a class="dropdown-item" href="cart.html">shopping cart</a>
-                                    <a class="dropdown-item" href="confirmation.html">confirmation</a>
-                                    <a class="dropdown-item" href="elements.html">elements</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    blog
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    <a class="dropdown-item" href="blog.html"> blog</a>
-                                    <a class="dropdown-item" href="single-blog.html">Single blog</a>
-                                </div>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="hearer_icon d-flex">
-                        <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                        <a href=""><i class="ti-heart"></i></a>
-                        <div class="dropdown cart">
-                            <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cart-plus"></i>
-                            </a>
-                            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="single_product">
+                        <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{URL::to('/home')}}">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{URL::to('/home')}}" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Special
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="{{URL::to('/home')}}"> Combo </a>
+                                        <a class="dropdown-item" href="{{URL::to('/home')}}">New product</a>
+                                        
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Product
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                        <a class="dropdown-item" href="{{URL::to('/cases')}}"> cases</a>
+                                        <a class="dropdown-item" href="{{URL::to('/cooling')}}">cooling</a>
+                                        <a class="dropdown-item" href="{{URL::to('/components')}}">components</a>
+                                        <a class="dropdown-item" href="{{URL::to('/audio')}}">Audio</a>
+                                        <a class="dropdown-item" href="{{URL::to('/cam')}}">CAM</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
+                                        blog
+                                    </a>
+                                    <div  aria-labelledby="navbarDropdown_2">
 
-                                </div>
-                            </div> -->
-                            
+                                    </div>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{URL::to('/contact')}}">Contact</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                </nav>
+                        <div class="hearer_icon d-flex">
+                            <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
+                            <a class="navbar__icon" href="{{URL::to('/login')}}"><ion-icon name="person-circle-outline"></ion-icon></i></a>
+                                <a class="navbar__icon" class="dropdown-toggle navbar__icon" href="{{URL::to('/cart')}}" id="navbarDropdown3" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <ion-icon name="cart-outline"></ion-icon>
+                                </a>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="search_input" id="search_input_box">
-        <div class="container ">
-            <form class="d-flex justify-content-between search-inner">
-                <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                <button type="submit" class="btn"></button>
-                <span class="ti-close" id="close_search" title="Close Search"></span>
-            </form>
+        <div class="search_input" id="search_input_box">
+            <div class="container ">
+                <form class="d-flex justify-content-between search-inner">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <button type="submit" class="btn"></button>
+                    <span class="ti-close" id="close_search" title="Close Search"></span>
+                </form>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
   <!-- Header part end-->
 
   <!--================Home Banner Area =================-->
@@ -250,69 +239,70 @@
   <!-- ================ contact section end ================= -->
 
   <!--::footer_part start::-->
-  <footer class="footer_part">
-    <div class="container">
-      <div class="row justify-content-around">
-        <div class="col-sm-6 col-lg-2">
-          <div class="single_footer_part">
-          <h4>Contact</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Company</a></li>
-                            <li><a href="">Custom support</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>About us</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Q & A</a></li>
-                            <li><a href="">Careers</a></li>
-                            <li><a href="">Customer review</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>Features</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Jobs</a></li>
-                            <li><a href="">Brand Assets</a></li>
-                            <li><a href="">Investor Relations</a></li>
-                            <li><a href="">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-2">
-                    <div class="single_footer_part">
-                        <h4>Community</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Our discord</a></li>
-                            <li><a href="">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="single_footer_part">
-                        <h4>Notification</h4>
-                        <p>Please to back information if as you want to accept the new message of us, I want to receive our latest notifications
-            </p>
-            <div id="mc_embed_signup">
-              <form target="_blank"
-                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                method="get" class="subscribe_form relative mail_part">
-                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
-                  class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                  onblur="this.placeholder = ' Email Address '">
-                <button type="submit" name="submit" id="newsletter-submit"
-                  class="email_icon newsletter-submit button-contactForm">subscribe</button>
-                <div class="mt-10 info"></div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+  <footer class="footer-distributed">
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
+<div class="footer-left">
+
+  <h3>Mativina</h3>
+
+  <p class="footer-links">
+    <a href="#" class="link-1">Home</a>
+    
+    <a href="#">Blog</a>
+  
+    <a href="#">Product</a>
+    
+    <a href="#">Contact</a>
+  </p>
+
+  <p class="footer-company-name">Matavina © 2015</p>
+</div>
+
+<div class="footer-center">
+
+  <div style="display:flex;">
+              <ion-icon class="footer_icon" name="location-outline"></ion-icon>
+    <p style="padding-left: 10px;">Số 8, Tôn Thất Thuyết, Mỹ Đình, Cầu Giấy</p>
+  </div>
+
+  <div style="display:flex;">
+              <ion-icon class="footer_icon" name="call-outline"></ion-icon>
+    <p style="padding-left: 10px;">+84.987654321</p>
+  </div>
+
+  <div style="display:flex;">
+              <ion-icon class="footer_icon" name="mail-outline"></ion-icon>
+    <p style="padding-left: 10px;"><a href="mailto:support@company.com">support@company.com</a></p>
+  </div>
+
+</div>
+
+<div class="footer-right">
+
+  <p class="footer-company-about">
+    <span>About the company</span>
+    Our company is a place to produce unique computer equipment. Our products have inspired many people to work. Not only that, but we also translate the unique ideas of our customers into our products. products delicately. Hope you find your favorite device and have the best experience!
+  </p>
+
+  <div class="footer-icons">
+
+    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+    <a href="#"><ion-icon name="logo-instagram"></ion-icon></i></a>
+    <a href="#"><ion-icon name="logo-linkedin"></ion-icon></i></a>
+    <a href="#"><ion-icon name="logo-github"></ion-icon></i></a>
+
+  </div>
+
+</div>
+
+</footer>
+<<<<<<< HEAD
+=======
     </div>
     <div class="copyright_part">
       <div class="container">
@@ -338,6 +328,10 @@
       </div>
     </div>
   </footer>
+>>>>>>> e960135583243601a50389da9258ef4e41130b40
+=======
+
+>>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
   <!--::footer_part end::-->
 
   <!-- jquery plugins here-->
@@ -367,6 +361,8 @@
   <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
   <!-- custom js -->
   <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
