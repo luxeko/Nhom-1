@@ -8,7 +8,7 @@
       @endif
       <div class="cart_inner">
         <div class="table-responsive">
-          @if(Cart::count() > 0)
+          @if(Cart::instance('cart')->count() > 0)
             <table class="table">
               <thead>
                 <tr>
@@ -20,7 +20,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach (Cart::content() as $item)
+                @foreach (Cart::instance('cart')->content() as $item)
                 <tr>
                   <td colspan=1 style="width: 20%">
                     <div class="media d-flex flex-column">
@@ -77,7 +77,7 @@
                     <h5>Subtotal</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::subtotal()}}</h5>
+                    <h5>${{Cart::instance('cart')->subtotal()}}</h5>
                   </td>
                 </tr>
                 <tr class="shipping_area">
@@ -88,7 +88,7 @@
                     <h5>Tax</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::tax()}}</h5>
+                    <h5>${{Cart::instance('cart')->tax()}}</h5>
                   </td>
                 </tr>
                 <tr>
@@ -116,7 +116,7 @@
                     <h5>Total</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::total()}}</h5>
+                    <h5>${{Cart::instance('cart')->total()}}</h5>
                   </td>
                 </tr>
               </tbody>

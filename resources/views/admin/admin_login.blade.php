@@ -32,7 +32,7 @@
                     <h2 class="title">Admin login</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" name="admin_email" placeholder="Username" value="{{old('admin_email')}}"/>
+                        <input type="text" name="admin_email" placeholder="Email" value="{{old('admin_email')}}"/>
                     </div>
                     @include('admin/errors.note_username_null')
                     <div class="input-field">

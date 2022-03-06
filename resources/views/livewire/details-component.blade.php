@@ -75,7 +75,10 @@
             <span>Display: 3 inches</span>
             <span>|</span>
             <span>Color: Black</span>
-        </div> {{$product->content}}
+        </div> 
+        @php
+            echo $product->content
+        @endphp
     </div>
     <div style="margin-top:20px"><button class="btn" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->price}} )">Add To Cart</button></div>
     </div>
