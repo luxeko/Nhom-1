@@ -78,9 +78,9 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
-                    'utype'            => 'ADM'
+                    
                 ];
-                dd( $dataUserCreate);
+                // dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
                     $dataUserCreate['avatar_img_path'] = $path_dafault;
                 } else {
