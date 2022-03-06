@@ -12,9 +12,6 @@ class HomeController extends Controller
     }
     public function getLogout(){
         Auth::logout();
-        return redirect()->intended('admin/login');
-    }
-    public function showErr(){
-        return view('admin/errors.404errors');
+        return redirect()->route('goLogin');
     }
 }

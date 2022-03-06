@@ -7,7 +7,6 @@ use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\City;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -82,11 +81,11 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
-                    'utype'            => 'ADM'
+                    'utype'            => 'ADM',
                     'address'          => $request->address,
                     'city_id'          => $request->city_id,
                 ];
-                dd( $dataUserCreate);
+                // dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
                     $dataUserCreate['avatar_img_path'] = $path_dafault;
                 } else {
@@ -166,7 +165,8 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'password'         => bcrypt($request->password)
+                       'password'         => bcrypt($request->password),
+                        'utype'            => 'ADM',      
                       'address'          => $request->address,
                     'city_id'          => $request->city_id
                     ];
@@ -175,13 +175,13 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
+                        'utype'            => 'ADM',
                       'address'          => $request->address,
-                    'city_id'          => $request->city_id
+                    'city_id'          => $request->city_id2
                     ];
 
                 }
                 // dd($dataUserCreate);
-ev
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
                     $dataUserCreate['avatar_img_path'] = $dataUploadFeatureImage['file_path']; 
@@ -231,8 +231,10 @@ ev
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
+                    'utype'            => 'ADM',
                     'address'          => $request->address,
                     'city_id'          => $request->city_id
+
                 ];
                
                 if($request->avatar_img_path != null){
