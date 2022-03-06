@@ -81,6 +81,7 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
+
                     'utype'            => 'ADM',
                     'address'          => $request->address,
                     'city_id'          => $request->city_id,

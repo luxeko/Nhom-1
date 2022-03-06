@@ -138,116 +138,42 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="single_product_menu d-flex">
+                                <!-- <div class="single_product_menu d-flex" id="searchform" name="searchform">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="search"
+                                        <input type="text" name="name" value="{{request()->get('name','')}}" id="search" class="form-control" placeholder="search"
                                             aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend"><i
                                                     class="ti-search"></i></span>
                                         </div>
                                     </div>
-                                </div>
+                                    <a class='btn btn-success' href='{{url("products")}}' id='search_btn'>Search</a>
+                                </div> -->
+                                <div id="search">
+              <form id="searchform" name="searchform">
+                <div class="form-group">
+                  <label>Search by Name</label>
+                  <input type="text" name="name" value="{{request()->get('name','')}}" class="form-control" />
+                  @csrf
+
+                </div>
+                
+                <a class='btn btn-success' href='{{url("all_product")}}' id='search_btn'>Search</a>
+              </form>
+
+
+            </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row align-items-center latest_product_inner" id="table_data">
+                    
                         @include('pages.products.pagination_data')
-                        <!-- <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_1.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_2.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_3.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_4.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_5.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_6.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_7.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_8.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="{{ URL::asset('/frontend/img/product/product_2.png'); }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="col-lg-12">
+                        
+                        {{-- <div class="col-lg-12">
                             <div class="pageination">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
+                                    <ul class=" justify-content-center" >
                                         <li class="page-item">
                                             <a class="page-link" href="#" aria-label="Previous">
                                                 <i class="ti-angle-double-left"></i>
@@ -264,10 +190,11 @@
                                                 <i class="ti-angle-double-right"></i>
                                             </a>
                                         </li>
+                                        
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
