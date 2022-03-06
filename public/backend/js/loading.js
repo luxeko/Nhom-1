@@ -1,8 +1,7 @@
-var loader = document.getElementById("admin-preloader");
-window.addEventListener("load", function(){
-    setTimeout(() => {
-        loader.style.display = "none";
-    }, 1000);
-});
+$(function(){
+    $(document).ready(function(){
+        $('#admin-preloader').show().delay(1000).hide(100);
+    });
+})
 
             

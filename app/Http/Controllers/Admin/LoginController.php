@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
@@ -17,9 +18,10 @@ class LoginController extends Controller
         return redirect()->intended('admin/login');
     }
     public function postlogin(Request $request){
-        $result = ['user_name'=>$request->admin_username, 
-                    'password'=>$request->admin_password
+        $result = ['email'=>$request->admin_email, 
+                    'password'=> $request->admin_password
                 ];
+        
         if($request->remember = 'Remember me'){
             $remember = true;
         } else {
@@ -33,7 +35,7 @@ class LoginController extends Controller
         } 
         if(Auth::attempt($result, $remember)){          
             $request->session()->put('check_login', 'Đăng nhập thành công');
-            return redirect()->intended('admin/home');
+            return redirect()->route('admin.home');
         } else {
             return back()->withInput()->with('login_faild','Tài khoản hoặc mật khẩu chưa đúng');
         }

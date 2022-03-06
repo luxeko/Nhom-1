@@ -5,14 +5,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Computer Store</title>
-    <link rel="icon" href="{{ URL::asset('/frontend/img/favicon.png'); }}">
+    <title>Mativina</title>
+    <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
     <!-- animate CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/animate.css'); }}">
     <!-- owl carousel CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/owl.carousel.min.css'); }}">
+    <!-- nice select CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/nice-select.css'); }}">
     <!-- font awesome CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/all.css'); }}">
     <!-- flaticon CSS -->
@@ -22,8 +24,15 @@
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/magnific-popup.css'); }}">
     <!-- swiper CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/slick.css'); }}">
+    <!-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/price_rangs.css'); }}"> -->
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css'); }}">
+    <!-- css trang checkout -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }}">
+    @livewireStyles
 </head>
 
 <body>
@@ -33,7 +42,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ URL::asset('/frontend/img/logo.png'); }}" alt="logo"> </a>
+
+                        <a class="navbar-brand" href="/"> <img src="{{ URL::asset('/frontend/img/new2.png'); }}" alt="logo"> </a>
+						
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -43,34 +54,33 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{URL::to('/home')}}">Home</a>
+                                    <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                    <a class="nav-link dropdown-toggle" href="{{URL::to('/home')}}" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Special
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Combo </a>
-                                        <a class="dropdown-item" href="single-product.html">New product</a>
-                                        
+                                        <a class="dropdown-item" href="#"> Combo </a>
+                                        <a class="dropdown-item" href="#">New product</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/shop" >
+                                    <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="login.html"> cases</a>
-                                        <a class="dropdown-item" href="tracking.html">cooling</a>
-                                        <a class="dropdown-item" href="checkout.html">components</a>
-                                        <a class="dropdown-item" href="cart.html">Audio</a>
-                                        <a class="dropdown-item" href="confirmation.html">CAM</a>
+                                        <a class="dropdown-item" href="/case">cases</a>
+                                        <a class="dropdown-item" href="/cooling">cooling</a>
+                                        <a class="dropdown-item" href="/component">components</a>
+                                        <a class="dropdown-item" href="/audio">Audio</a>
+                                        <a class="dropdown-item" href="/cam">CAM</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="blog.html" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -79,37 +89,58 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="{{URL::to('/contact')}}">Contact</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
-                            <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
-                            <a class="navbar__icon" href=""><ion-icon name="person-circle-outline"></ion-icon></i></a>
-                                <a class="navbar__icon" class="dropdown-toggle navbar__icon" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <ion-icon name="cart-outline"></ion-icon>
-                                </a>
+                            <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
+                            </div>
+                            @auth
+                                @if(Auth::user()->utype === "USR")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
+                                            <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                            <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
+                                        <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"
+                                            onclick="event.preventDefault() document.getElementById('logout-form').submit()";>Logout</a>
+                                        </div>
+                                        <form id="logout-form" method="POST" action="{{route('logout')}}">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                    <a class="navbar__icon">
+                                        <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                        <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                    </div>
+                                </div>
+                            @endif
+                            @livewire('cart-count-component')
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
-                    <span class="ti-close" id="close_search" title="Close Search"></span>
-                </form>
-            </div>
-        </div>
+        @livewire('header-search-component')
+        
     </header>
     <!-- Header part end-->
 
     <!-- banner part start-->
     <div class="bg-video-wrap">
-    <video src="{{ URL::asset('/frontend/img/New H-Series Case Overview & Comparison.mp4'); }}" loop muted autoplay>
+    <video src="{{ URL::asset('/frontend/img/background.mp4'); }}" loop muted autoplay>
     </video>
     <div class="overlay">
     </div>
@@ -120,32 +151,29 @@
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><ion-icon name="arrow-up-outline"></ion-icon></button>
     <!-- banner part start-->
-    @yield('content')
+    {{$slot}}
     <!--::subscribe_area part end::-->
-
+    
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="container">
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Top Products</h4>
+                        <h4>Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Managed Website</a></li>
-                            <li><a href="">Manage Reputation</a></li>
-                            <li><a href="">Power Tools</a></li>
-                            <li><a href="">Marketing Service</a></li>
+                            <li><a href="">Company</a></li>
+                            <li><a href="">Custom support</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Quick Links</h4>
+                        <h4>About us</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Jobs</a></li>
-                            <li><a href="">Brand Assets</a></li>
-                            <li><a href="">Investor Relations</a></li>
-                            <li><a href="">Terms of Service</a></li>
+                            <li><a href="">Q & A</a></li>
+                            <li><a href="">Careers</a></li>
+                            <li><a href="">Customer review</a></li>
                         </ul>
                     </div>
                 </div>
@@ -162,19 +190,17 @@
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Resources</h4>
+                        <h4>Community</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Guides</a></li>
-                            <li><a href="">Research</a></li>
-                            <li><a href="">Experts</a></li>
-                            <li><a href="">Agencies</a></li>
+                            <li><a href="">Our discord</a></li>
+                            <li><a href="">Blog</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="single_footer_part">
-                        <h4>Newsletter</h4>
-                        <p>Heaven fruitful doesn't over lesser in days. Appear creeping
+                        <h4>Notification</h4>
+                        <p>Please to back information if as you want to accept the new message of us, I want to receive our latest notifications
                         </p>
                         <div id="mc_embed_signup">
                             <form target="_blank"
@@ -199,7 +225,7 @@
                     <div class="col-lg-8">
                         <div class="copyright_text">
                             <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved&nbsp;<i class="ti-heart" aria-hidden="true"></i> by <a href="https://github.com/luxeko/Nhom-1.git" target="_blank" class="text-primary">team 1</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
                         </div>
                     </div>
@@ -218,7 +244,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!--::footer_part end::-->
-
+    @livewireScripts
     <!-- jquery plugins here-->
     <script src="{{ URL::asset('/frontend/js/jquery-1.12.1.min.js'); }}"></script>
     <!-- popper js -->
@@ -233,7 +259,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/masonry.pkgd.js'); }}"></script>
     <!-- particles js -->
     <script src="{{ URL::asset('/frontend/js/owl.carousel.min.js'); }}"></script>
-    <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script>
+    
     <!-- slick js -->
     <script src="{{ URL::asset('/frontend/js/slick.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.counterup.min.js'); }}"></script>
@@ -243,10 +269,25 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ URL::asset('/frontend/js/jquery.form.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script> -->
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- <script>
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            start: [20, 80],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
+    </script> -->
+    
 </body>
 
 </html>

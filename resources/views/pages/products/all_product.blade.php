@@ -1,56 +1,28 @@
 @extends('layout')
-@section('all_products')    
+@section('all_products')  
+<!-- Header part end-->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+            <div class="breadcrumb_iner">
+                <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                <div class="breadcrumb_iner_item">
+                <h2>Category</h2>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->  
     <!--================Category Product Area =================-->
     <section class="cat_product_area section_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="left_sidebar_area">
-                        <aside class="left_widgets p_filter_widgets">
-                            <div class="l_w_title">
-                                <h3>Category
-                                    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                                </h3>
-                            </div>
-                            <div class="widgets_inner">
-                                {{-- @foreach($categories as $item)
-                                    <a href="{{url('all_product/'.$item->id)}}"><p>{{$item['name']}}</p></a>
-                                @endforeach --}}
-                            </div>
-                                
-                                {{-- <ul class="list">
-                                    <li>
-                                        <a href="#">Frozen Fish</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dried Fish</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Fresh Fish</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Meat Alternatives</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Fresh Fish</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Meat Alternatives</a>
-                                        <span>(250)</span>
-                                    </li>
-                                    <li>
-                                        <a href="#">Meat</a>
-                                        <span>(250)</span>
-                                    </li>
-                                </ul>
-                            </div> --}}
-                        </aside>
-
                         <aside class="left_widgets p_filter_widgets">
                             <div class="l_w_title">
                                 <h3>Product filters</h3>

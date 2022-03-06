@@ -292,6 +292,8 @@ body {
         }
     }
 }
+
+// setting display none cho form tinymce
 .select2-selection__choice{
     background-color: $primary-color !important;
     color: $white !important;
@@ -305,6 +307,9 @@ body {
 }
 .tox-tinymce{
     height: 400px !important;
+}
+.tox-statusbar{
+    display: none !important;
 }
 @media (max-width: 870px){
     .admin_container{

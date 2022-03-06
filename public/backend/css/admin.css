@@ -383,6 +383,10 @@ body {
   height: 400px !important;
 }
 
+.tox-statusbar {
+  display: none !important;
+}
+
 @media (max-width: 870px) {
   .admin_container {
     min-height: 800px;
