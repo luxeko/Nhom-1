@@ -88,7 +88,56 @@
             <h3>Sản phẩm trong combo</h3>
             <hr>
             
-            <div id="firstproduct"></div>
+            <div id="firstproduct">
+                @forEach($list_product as $value)
+                <div class="productdiv">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class=" form-group d-flex justify-content-between" >
+                                        <div style="width:67%">
+                                            <div class="form-group">
+                                                <label>Tên sản phẩm</label>
+                                                <select type="text"  name="product_name[]" class="form-control selectProduct">
+                                                    <option value="">Chọn sản phẩm</option>     
+                                                    <option selected
+                                                    value="{{  $value->id }}" 
+                                                    data-price="{{ $value->price}}">
+                                                    {{ $value->name}}
+                                                </option>
+                                                @forEach($products as $product)
+                                                    @if(!!$list_product->contains('product_id', $product->id))
+                                                        <option value="{{ $product->id }}" 
+                                                                data-price="{{ $product->price}}">
+                                                                {{ $product->name}}
+                                                        </option>
+                                                    @endif
+                                                        
+                                                @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                            <div style="width:30%">
+                                                <div class="form-group">
+                                                    <label>Giá sản phẩm (VNĐ)</label>
+                                                    <input id="price-product-input" value="{{$product->price}}" readonly type="text" class="form-control price-product-input">
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>  
+                                        
+                                <div class="col-md-6 d-flex align-items-center ">
+                                    <div>
+                                        <button type="button"  class="removeProduct btn btn-danger"><i class="fas fa-minus-circle"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>   
+                @endforeach
+            </div>
             
             <button type="button"  class="addProduct btn btn-success">Thêm Product</i></button>
 
@@ -102,7 +151,7 @@
                     </div> --}}
                     <div style="width:30%" >
                         <label for="">Tổng (VNĐ)</label>
-                        <input readonly class="form-control" type="text" name="total_price" id="total_price">
+                        <input readonly class="form-control" type="text" value="{{ $combo->price }}" name="total_price" id="total_price">
                     </div>
                 </div>
             </div>

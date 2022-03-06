@@ -102,11 +102,18 @@ Route::group(['namespace'=>'Admin'], function(){
 
     // xử lý khi đăng nhập thành công
     Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
-    Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.home');
-        Route::get('error',[HomeController::class,'showErr']);
-        Route::get('/profile/{id}',[AdminUserController::class,'profile'])->name('user.profile');
-        Route::post('/update_profile/{id}',[AdminUserController::class,'update_profile'])->name('user.profile_update');
+
+
+    Route::group(['prefix'=>'admin/','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/home',[HomeController::class,'showDashboard'])->name('admin.index');
+        Route::get('profile/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('profile/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
+    }); 
+
+    // xử lý CRUD Profile
+    Route::group(['prefix'=>'admin/profile','middleware'=>'CheckLogedOut'], function(){
+        Route::get('/{id}',[AdminUserController::class,'profile'])->name('admin.profile');
+        Route::post('/update/{id}',[AdminUserController::class,'update_profile'])->name('admin.profile_update');
     }); 
 
 

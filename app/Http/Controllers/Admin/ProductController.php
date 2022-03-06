@@ -151,7 +151,6 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         try {
             $err = [];
-            $getName = $this->product->where('name', $request->product_name)->exists();
             if($request->category == null){
                 $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
             }
@@ -164,12 +163,7 @@ class ProductController extends Controller
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
             }
-            if($getName == true){
-                $err['duplicate_product'] = 'Sản phẩm đã tồn tại';
-            }
-            if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
-                $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
-            }
+        
             if(count($err)>0){
                 return Redirect::back()->withInput()->with($err);
             } else{

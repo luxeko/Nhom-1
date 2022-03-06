@@ -87,7 +87,10 @@ class ComboController extends Controller
     public function edit($id){
         $products = $this->product->where('status', 1)->get();
         $combo = $this->combo->find($id);
-        return view('admin/manage_combo.edit', compact('combo', 'products'));
+        $list_product = $combo->getList;
+        dd($list_product);
+        // dd($list_product->getProduct);
+        return view('admin/manage_combo.edit', compact('combo', 'products', 'list_product', ));
 
     }
     public function update(){

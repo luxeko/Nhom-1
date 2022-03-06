@@ -4,7 +4,7 @@
     {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
         <img src="{{ URL::asset('/frontend/img/new2.png')}}" >
     </a> --}}
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.index')}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -17,7 +17,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li id="dashboard_active" class="nav-item">
-        <a class="nav-link " href="{{asset('admin/home')}}">
+        <a class="nav-link " href="{{route('admin.index')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Tổng quan</span>
         </a>

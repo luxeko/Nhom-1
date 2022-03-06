@@ -10,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 class Combo extends Model
 {
     use HasFactory;
-    use HasFactory;
     use Notifiable,
         SoftDeletes;
     protected $table = 'combos';
@@ -19,5 +18,8 @@ class Combo extends Model
 
     public function list_product_combos(){
         return $this->belongsToMany(Product::class, 'list__product__combos', 'combo_id', 'product_id');
+    }
+    public function getList(){
+        return $this->hasMany(List_Product_Combo::class);
     }
 }

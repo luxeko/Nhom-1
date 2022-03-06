@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
-    private $user;
-    private $role;
-    public function __construct(User $user, Role $role){
-        $this->user = $user;
-        $this->role = $role;
-    }
     public function getlogin(){
         return view('admin.admin_login');
     }
@@ -41,7 +35,7 @@ class LoginController extends Controller
         } 
         if(Auth::attempt($result, $remember)){          
             $request->session()->put('check_login', 'Đăng nhập thành công');
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.index');
         } else {
             return back()->withInput()->with('login_faild','Tài khoản hoặc mật khẩu chưa đúng');
         }
