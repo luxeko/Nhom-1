@@ -9,7 +9,8 @@
 						<div class="wrap-login-item ">
 							<div class="register-form form-item ">
                                 <x-jet-validation-errors class="mb-4" style="color: black;"/>
-                                <form class="form-stl" action="{{route('register')}}" name="frm-login" method="POST" >
+                                <form class="form-stl" action="{{route('register')}}" name="frm-login" method="POST" 
+								style="padding-right: 40px; margin-bottom: 65px; padding-left: 40px;">
                                     @csrf
 									<fieldset class="wrap-title">
 										<h3 class="form-title">Create an account</h3>

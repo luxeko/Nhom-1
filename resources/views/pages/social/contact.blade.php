@@ -242,6 +242,10 @@
   <footer class="footer-distributed">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
 <div class="footer-left">
 
   <h3>Mativina</h3>
@@ -297,6 +301,7 @@
 </div>
 
 </footer>
+<<<<<<< HEAD
 =======
     </div>
     <div class="copyright_part">
@@ -324,6 +329,9 @@
     </div>
   </footer>
 >>>>>>> e960135583243601a50389da9258ef4e41130b40
+=======
+
+>>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
   <!--::footer_part end::-->
 
   <!-- jquery plugins here-->

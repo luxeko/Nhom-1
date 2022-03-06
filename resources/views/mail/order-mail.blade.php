@@ -40,8 +40,8 @@
 </tbody>
 </table>    
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => $url, 'color' => 'success'])
+View Order
 @endcomponent
 
 Thanks,<br>

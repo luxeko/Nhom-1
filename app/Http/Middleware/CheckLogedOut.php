@@ -18,7 +18,7 @@ class CheckLogedOut
     {
         if(Auth::guest()){
             $request->session()->put('checklogedout','Vui lòng đăng nhập trước khi vào trang Admin');
-            return redirect()->intended('admin/login');
+            return redirect()->route('goLogin');
         }
         return $next($request);
     }
