@@ -30,7 +30,6 @@
     <!-- css trang checkout -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
-    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }}">
     @livewireStyles
 </head>
@@ -52,7 +51,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav" style="margin-top: 20px;">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
@@ -62,7 +61,7 @@
                                         Special
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="#"> Combo </a>
+                                        <a class="dropdown-item" href="#">Combo </a>
                                         <a class="dropdown-item" href="#">New product</a>
                                     </div>
                                 </li>
@@ -71,13 +70,7 @@
                                     <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="/case">cases</a>
-                                        <a class="dropdown-item" href="/cooling">cooling</a>
-                                        <a class="dropdown-item" href="/component">components</a>
-                                        <a class="dropdown-item" href="/audio">Audio</a>
-                                        <a class="dropdown-item" href="/cam">CAM</a>
-                                    </div>
+                                    @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
@@ -105,7 +98,7 @@
                                         </a>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
-                                            <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                            <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"
@@ -270,24 +263,10 @@
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
-    <!-- <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script> -->
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- <script>
-        var slider = document.getElementById('slider');
-
-        noUiSlider.create(slider, {
-            start: [20, 80],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 100
-            }
-        });
-    </script> -->
-    
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>    
 </body>
 
 </html>

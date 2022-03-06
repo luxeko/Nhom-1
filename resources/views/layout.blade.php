@@ -52,7 +52,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav" style="margin-top: 20px;">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
@@ -62,7 +62,7 @@
                                         Special
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href=""> Combo </a>
+                                        <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
                                     </div>
                                 </li>
@@ -71,13 +71,7 @@
                                     <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href=""> cases</a>
-                                        <a class="dropdown-item" href="">cooling</a>
-                                        <a class="dropdown-item" href="">components</a>
-                                        <a class="dropdown-item" href="">Audio</a>
-                                        <a class="dropdown-item" href="">CAM</a>
-                                    </div>
+                                    @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
@@ -105,7 +99,7 @@
                                         </a>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
-                                            <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a>
+                                            <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('logout') }}" style="color:#fefefe"

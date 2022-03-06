@@ -16,12 +16,12 @@
     <div class="container-fluid" id="preloader">
         <h2 class="form-title">Thêm User</h2>
         <hr>
-        <form action="{{ URL::to('admin/users/store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 ">
                     <div class="form-group mb-3" style="width:100%">
-                        <input type="text" class="form-control " name="full_name" style="width: 100%;" placeholder="Full name" value="{{old('full_name')}}" />
+                        <input type="text" class="form-control " name="full_name" style="width: 100%;" placeholder="Full name" value="" />
                     </div>
                     @php         
                         $err_fullname = Session::get('fullname_null');
@@ -35,7 +35,7 @@
                     <div class="form-group d-flex justify-content-between mb-1" style="width:100%">
                         <div style="width:49%">
                             <div class="form-group" style="width:100%">
-                                <input type="text" class="form-control " name="telephone" style="width: 100%;" placeholder="Telephone" value="{{old('telephone')}}"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                <input type="text" class="form-control " name="telephone" style="width: 100%;" placeholder="Telephone" value=""  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                             </div>
                             @php         
                                 $err_telephone = Session::get('telephone_null');
@@ -56,7 +56,7 @@
                         </div>
                         <div style="width:49%">
                             <div class="form-group" style="width:100%">
-                                <input type="email" class="form-control " name="email" style="width: 100%;" placeholder="Email" value="{{old('email')}}" />
+                                <input type="email" class="form-control " name="email" style="width: 100%;" placeholder="Email" value="" />
                             </div>
                             @php         
                                 $err_email = Session::get('err_email');
@@ -76,12 +76,11 @@
                             @endphp
                         </div>
                     </div>
-
                    
                     <div class="form-group d-flex justify-content-between mb-1" style="width:100%">
                         <div style="width:49%">
                             <div class="form-group" >
-                                <input type="password" class="form-control " name="password" style="width: 100%;" placeholder="Password" value="{{old('password')}}" />
+                                <input type="password" class="form-control " name="password" style="width: 100%;" placeholder="Password" value="" />
                             </div>
                             @php         
                                 $err_password = Session::get('password_null');
@@ -96,7 +95,7 @@
 
                         <div style="width:49%">
                             <div class="form-group" >
-                                <input type="password" class="form-control " name="re_password" style="width: 100%;" placeholder="Confirm password" value="{{old('re_password')}}" />
+                                <input type="password" class="form-control " name="re_password" style="width: 100%;" placeholder="Confirm password" value="" />
                             </div>
                             @php         
                                 $err_confirm_password = Session::get('confirm_password_notEqual');
@@ -128,21 +127,22 @@
                     </div>
                     <div class="address_form">
                         <div class="form-group">
-                            <input type="text" class="form-control " name="address_line" style="width: 100%;" placeholder="Địa chỉ" value="{{old('address_line')}}" />
+                            <input type="text" class="form-control" name="address" style="width: 100%;" placeholder="Địa chỉ" value="" />
                         </div>
                         <div class="form-group d-flex flex-row justify-content-between" style="width:100%">
-                            <div style="width:68%">
+                            <!-- <div style="width:68%"> -->
                                 <select name="city" class="form-control form-control-md  mb-1" style="width:100%">
                                     <option value=""> Thành phố </option>
-                                    <option value="1"> Hà Nội </option>
-                                    <option value="2"> TP.HCM </option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{$city->city_id}}">{{$city->vn_name}}</option>
+                                    @endforeach
                                 </select>
-                            </div>
-                            <div style="width:30%">
+                            <!-- </div> -->
+                            <!-- <div style="width:30%">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-md  mb-1" name="postal_code" style="width: 100%;" placeholder="Postal code" value="{{old('postal_code')}}" />
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

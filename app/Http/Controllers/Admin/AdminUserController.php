@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\City;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -31,12 +32,14 @@ class AdminUserController extends Controller
     }
     public function create(){
         $roles = $this->role->all();
-        return view('admin.user.add', compact('roles'));
+        $cities = City::all();
+        return view('admin.user.add', compact('roles', 'cities'));
     }
 
     public function store(Request $request){
         try {
             $err = [];
+
             $getEmail = $this->user->where('email', $request->email)->exists();
             $getPhone = $this->user->where('telephone', $request->telephone)->exists();
             if($request->full_name == null){
@@ -54,6 +57,7 @@ class AdminUserController extends Controller
             if($request->password != $request->re_password){
                 $err['confirm_password_notEqual'] = 'Mật khẩu nhập lại không đúng';
             }
+
             if($getPhone == true){
                 $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
             } 
@@ -74,6 +78,8 @@ class AdminUserController extends Controller
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
                     'password'         => Hash::make($request->password),
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id,
                 ];
                
                 if($request->avatar_img_path == null){
@@ -129,7 +135,8 @@ class AdminUserController extends Controller
         $user = $this->user->find($id);
         $roles = $this->role->all();
         $rolesOfUser = $user->roles;
-        return view('admin.user.profile', compact('user', 'roles', 'rolesOfUser'));
+        $cities = City::all();
+        return view('admin.user.profile', compact('user', 'roles', 'rolesOfUser', 'cities'));
     }
     public function update_profile(Request $request, $id){
         try {
@@ -147,7 +154,9 @@ class AdminUserController extends Controller
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
-                    'password'         => Hash::make($request->password) 
+                    'password'         => Hash::make($request->password),
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id
                 ];
                 if($request->avatar_img_path != null){
                     $dataUploadFeatureImage = $this->storageTraitUpload($request, 'avatar_img_path', 'user');
@@ -170,7 +179,8 @@ class AdminUserController extends Controller
         $roles = $this->role->all();
         $user = $this->user->find($id);
         $rolesOfUser = $user->roles;
-        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser'));
+        $cities = City::all();
+        return view('admin/user.edit', compact('user', 'roles', 'rolesOfUser', 'cities'));
     }
     public function update(Request $request, $id){
         try {
@@ -199,6 +209,8 @@ class AdminUserController extends Controller
                     'full_name'        => $request->full_name,
                     'avatar_img_path'  => $request->avatar_img_path,
                     'telephone'        => $request->telephone,
+                    'address'          => $request->address,
+                    'city_id'          => $request->city_id
                 ];
                
                 if($request->avatar_img_path == null){
