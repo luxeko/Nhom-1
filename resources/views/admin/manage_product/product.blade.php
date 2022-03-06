@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 {{-- Các bước để tạo khung trang Dashboard --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- Bước 1: @extends('admin/layouts.admin_layout') --}}
 @extends('admin/layouts.admin_layout')
@@ -20,7 +22,9 @@
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                @can('product-add')
+                    <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -58,7 +62,7 @@
         @php             
             $success = Session::get('success_product');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='product_alert'>";
                     echo $success;
                     Session::put('success_product', null);
                 echo "</div>";
@@ -91,16 +95,20 @@
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
+                                            echo "<span class='badge bg-success text-white'>Active</span>";
                                         } else {
-                                            echo "<span class='text-danger'>Disable</span>";
+                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
                                         }  
                                     ?>
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('product-edit')
+                                        <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('product-delete')
+                                        <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -111,22 +119,22 @@
                     @endif
                     
                 </tbody>
+                <tbody id="list-product"></tbody>
+                
             </table>
             <div class="d-flex justify-content-center">
                 {!! $data->links() !!}
             </div>
         </div>
-        <input type="hidden" name="hidden_page" id="hidden_page" value="1">
-        <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
-        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
-        
+
         <section>
             <!-- Modal -->
             <div class="modal fade" id="modalDetailProduct" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header border-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        <div class="modal-header bg-dark">
+                            <span class="text-white modal-title" id="myModalLabel150">Chi tiết sản phẩm</span>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">x</button>
                         </div>
                         {{-- code từ đây  --}}
                         <div class="modal-body border-0" id="modal-product-detail"></div>
@@ -147,76 +155,43 @@
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.product_active').addClass('active');
-    });
-</script>
+<script src="{{URL::asset('backend/js/product/main.js')}}"></script>
 
+<script>
+       $(document).ready(function () {
+             
+             $('#search').on('keyup',function() {
+                 var query = $(this).val(); 
+                 $.ajax({
+                    
+                     url:"{{ route('product.search') }}",
+               
+                     type:"GET",
+                    
+                     data:{'search':query},
+                    
+                     success:function (data) {
+                       
+                         $('#list-product').html(data);
+                     }
+                 })
+                 // end of ajax call
+             });
+
+             
+            //  $(document).on('click', 'td', function(){
+               
+            //      var value = $(this).text();
+            //      $('#search').val(value);
+            //      $('#list-product').html("");
+            //  });
+         });
+</script>
 
 <script type="text/javascript" >  
     // $(document).ready(function(){
         var category_name = '';
         let imagesPath = '';
-        // function clear_icon(){
-        //     $('#id_icon').html('');
-        //     $('#post_title_icon').html('');
-        // }
-        // function fetch_data(page, sort_type, sort_by, query){
-        //     $.ajax({
-        //         url: "/admin/products/show/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
-        //         success:function(data){
-        //             $('tbody').html('');
-        //             $('#table_data tbody').html(data)
-        //         }
-        //     });
-        // }
-        // $(document).on('click', '.pagination a', function(event){
-        //     event.preventDefault();
-        //     var page = $(this).attr('href').split('page=')[1];
-        //     $('#hidden_page').val(page);
-        //     var column_name = $('#hidden_column_name').val();
-        //     var sort_type = $('#hidden_sort_type').val();
-        //     var query = $('#search').val();
-        //     $('li').removeClass('active');
-        //     $(this).parent().addClass('active');
-        //     fetch_data(page, sort_type, column_name, query);
-
-        // });
-        // $(document).on('click', '.sorting', function(){
-        //     var column_name = $(this).data('column_name');
-        //     var order_type = $(this).data('sorting_type');
-        //     var reverse_order = '';
-        //     if(order_type == 'asc'){
-        //         $(this).data('sorting_type', 'desc');
-        //         reverse_order = 'desc';
-        //         clear_icon();
-        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
-        //     }
-        //     if(order_type == 'desc'){
-        //         $(this).data('sorting_type', 'asc');
-        //         reverse_order = 'asc';
-        //         clear_icon
-        //         $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
-        //     }
-        //     $('#hidden_column_name').val(column_name);
-        //     $('#hidden_sort_type').val(reverse_order);
-        //     var page = $('#hidden_page').val();
-        //     var query  = $('#search').val();
-        //     fetch_data(page, reverse_order, column_name, query );
-        // });
-
-        // $(document).on('keyup', '#search', function(){
-        //     var query  = $('#search').val();
-        //     var column_name = $('#hidden_column_name').val();
-        //     var sort_type = $('#hidden_sort_type').val();
-        //     var page = $('#hidden_page').val();
-        //     fetch_data(page, sort_type, column_name, query);
-        // });
-
-        
         function getCategory(id){
             $.ajax({
                 url:`/admin/products/getCategoryById/${id}`,
@@ -235,9 +210,10 @@
                     let getUrlToFileImg = '';
                     for (let i = 0; i < getArrayThumbnail.length; i++) {
                         names = getArrayThumbnail.map(function(i) {
-                            getUrlToFileImg =   `<div class="small-img-col rounded border border-secondary">
-                                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
-                                                </div>`;
+                            getUrlToFileImg = `
+                                <div class="small-img-col">
+                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
+                                </div>`;
                             imagesPath += getUrlToFileImg;
                         });
                         break;
@@ -269,7 +245,7 @@
                         <div class="single-product small-container">
                             <div class="details_row">
                                 <div class="details_col">
-                                    <div class="main-img-row position-relative rounded border border-secondary">
+                                    <div class="main-img-row position-relative ">
                                         <img src="{{ '${product.feature_image_path}' }}" id="productImg"/>
                                         <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${product.name}</span></p>
                                     </div>
@@ -308,7 +284,6 @@
                 }
             });
         }
-
     // });
 
 </script>

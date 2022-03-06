@@ -8013,11 +8013,10 @@ a:hover.reviews {
     padding: 15px;
     border-radius: 50%;
     height: 42px;
-    background-color: #6f42c1;
+    background-color: #4e73df;
 }
-
 #myBtn:hover {
-    background-color: #555;
+    background-color: #5a5c69;
 }
 /* Banner index */
 .bg-video-wrap {

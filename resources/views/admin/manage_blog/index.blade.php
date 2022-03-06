@@ -20,7 +20,9 @@
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/blogs/create') }} " class="btn btn-primary mb-3">Thêm blog</a>
+                @can('blog-add')
+                    <a href="{{ asset('admin/blogs/create') }} " class="btn btn-primary mb-3">Thêm blog</a>
+                @endcan
             </div>
             <div> 
                 <form class="form-inline">
@@ -58,7 +60,7 @@
         @php             
             $success = Session::get('success_blog');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='blog_alert'>";
                     echo $success;
                     Session::put('success_blog', null);
                 echo "</div>";
@@ -87,16 +89,20 @@
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='text-success'>Active</span>";
+                                            echo "<span class='badge bg-success text-white'>Active</span>";
                                         } elseif ($value->status == 2) {
-                                            echo "<span class='text-danger'>Disable</span>";
+                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
                                         } 
                                     ?>
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="viewBlogDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailBlog"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('blog.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('blog.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('blog-edit')
+                                        <a class="btn btn-primary" href="#" onclick="viewBlogDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailBlog"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ Route('blog.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('blog-delete')
+                                        <a data-url="{{Route('blog.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -141,12 +147,7 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('.active_blogs_sliderbar').addClass('active');
-    });
-</script>
-
+<script type='text/javascript' src="{{URL::asset('backend/js/blog/main.js')}}"></script>
 
 <script type="text/javascript" >  
     function viewBlogDetail(id){
@@ -168,7 +169,7 @@
                     <div class="single-product small-container">
                         <div class="details_row">
                             <div class="details_col">
-                                <div class="main-img-row position-relative rounded border border-secondary">
+                                <div class="main-img-row position-relative ">
                                     <img src="{{ '${blog.image}' }}" id="productImg"/>
                                     <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${blog.author}</span></p>
                                 </div>

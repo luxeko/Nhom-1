@@ -10,8 +10,11 @@
 
 6: php artisan migrate
 
-7:  php artisan db:seed --class=CategoryTableSeeder
+7:  Chạy dữ liệu có sẵn: 
+    php artisan db:seed --class=CategoryTableSeeder
     php artisan db:seed --class=UserTableSeeder
+    php artisan db:seed --class=CreateRoleSeeder
+    php artisan db:seed --class=PermissionSeeder
 
 8: php artisan storage:link
 
@@ -22,3 +25,11 @@
 11: code công việc của mình
 
 12: git push -u origin "name" và đợi quản lý source pull request
+
+13: composer require laravel/Jetstream
+
+14: npm install -> npm run dev
+
+15: kiểm tra file composer.json phần require có 
+"cartalyst/stripe-laravel": "^13.0" chưa thì thêm vào rồi chạy composer update
+
