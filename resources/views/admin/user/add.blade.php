@@ -76,26 +76,6 @@
                             @endphp
                         </div>
                     </div>
-
-                    <!-- <div class="form-group mb-3" style="width:100%">
-                        <input type="text" class="form-control" name="user_name" style="width: 100%;" placeholder="User name" value="" />
-                    </div>
-                    @php         
-                        $err_username = Session::get('username_null');
-                        $duplicate_username = Session::get('duplicate_username');
-                        if($err_username){
-                            echo "<div class='alert alert-danger'>";
-                                echo $err_username;
-                            echo "</div>";
-                            Session::put('username_null', null);
-                        }
-                        if($duplicate_username){
-                            echo "<div class='alert alert-danger'>";
-                                echo $duplicate_username;
-                            echo "</div>";
-                            Session::put('duplicate_username', null);
-                        }
-                    @endphp -->
                    
                     <div class="form-group d-flex justify-content-between mb-1" style="width:100%">
                         <div style="width:49%">

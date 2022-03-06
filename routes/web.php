@@ -90,7 +90,7 @@ Route::group(['namespace'=>'Public'], function(){
     }); 
     //Route::group(['prefix'=>'public/'], function(){
     //    Route::get('/index', [PublicProductController::class, 'index']);
-    //}); 
+     //}); 
 });
 
 // Admin route

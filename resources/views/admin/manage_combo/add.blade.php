@@ -32,9 +32,7 @@
                             Session::put('combo_name_null', null);
                         }
                     @endphp
-                    <div class="form-group">
-                        <input type="text" class="numberformat form-control form-control-sm py-4 px-3 mb-1" name="price" placeholder="Giá combo (min: 1)" value="{{old('price')}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    </div>
+                  
                     @php         
                         $price_null = Session::get('price_null');
                         if($price_null){
@@ -90,26 +88,34 @@
                     @endphp
                 </div>
             </div>
+
+            <div class="order">
+                <h1>KFCC</h1>
+                <ul id="order-items" class="order-items">
+                   
+                </ul>
+                <a class="btn btn-danger" id="btn-test">Add product</a>
+                <div>
+                    <p>Subtotal <span id="sub-total" class="money"></span></p>
+                    <p>Shippng <span id="shipping" class="money"></span></p>
+                    <p>Total <span id="total" class="money"></span></p>
+                </div>
+            </div>
+
             <h3>Sản phẩm trong combo</h3>
             <hr>
-            <div id="firstproduct">
-                
-            </div>
+            
+            <div id="firstproduct"></div>
+            
+            <button type="button"  class="addProduct btn btn-success">Add Product</i></button>
+
             <div class="col-md-6" style="width:100%">
                 <hr>
                 <div class="form-group d-flex justify-content-end" >
-                    <div style="width:12%" class="mr-4">
-                        <label for="">Discount</label>
-                        <select class="form-control input-xs" name="discount" id="discount">
-                            <option value="0">0 %</option>
-                            @php
-                                $stt = 0;
-                            @endphp
-                            @for($i = 1; $i <= 10; $i++)
-                                {{$stt++}}
-                                <option class="form-control" value="{{ $stt*10 }}">{{ $stt*10 }} %</option>
-                            @endfor
-                        </select>
+                    <div style="width:21%" class="mr-4">
+                        <label for="">Discount % (0->100)</label>
+                        <input type="text" class="form-control input-xs" name="discount" id="discount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        <div class="mt-2" id="message"></div>
                     </div>
                     <div style="width:30%" >
                         <label for="">Tổng</label>
@@ -120,12 +126,6 @@
 
             {{-- more product  --}}
             <div id="moreproduct"></div>         
-            <div class="">
-                <div class="form-group">
-                    <button type="button"  class="addProduct btn btn-success"><i class="fas fa-plus-circle"></i></button>
-                    <button type="button"  class="removeProduct btn btn-danger"><i class="fas fa-minus-circle"></i></button>
-                </div>
-            </div>
             <hr>
             <div class="">
                 <div class="form-group">
@@ -141,18 +141,75 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({ selector: '#mytextarea'});</script>
 <script src="{{URL::asset('backend/js/combo/main.js')}}"></script>
+
 <script>
     $(document).ready(function(){
-        $('.removeProduct').click(function(){
-            $('.productdiv').last().remove();
+        const items = [
+            {
+                name: 'Pizza 001', 
+                price: 6},
+            {
+                name: 'Pizza 002', 
+                price: 6},
+            {
+                name: 'Pizza 003', 
+                price: 6},
+        ]
+        const Shipping = 5
+        function render(){
+            let subtotal = 0;
+            items.forEach(item => {
+                subtotal += item.price;
+            })
+
+            const total = subtotal + Shipping;
+            const html = items.map(item => `
+                <li class="order-item">
+                    <span>${item.name}</span>
+
+                    <span class="price">
+                        <span>${item.price.toFixed(2)}</span>
+                        <a style="color:red; border:solid 1px #ccc; cursor:pointer" class"btn-delete">X</a>
+                    </span>
+                </li>`).join('')
+            $('#order-items').html(html)  
+
+            const deleteBtn = [$('.btn-delete')]
+            for(let i = 0; i < deleteBtn.length; i++){
+                deleteBtn[i].on('click', function(){
+                    remove(i);
+                })
+            }
+            $("#sub-total").text(`$${subtotal.toFixed(2)}`)
+            $("#shipping").text(`$${Shipping}`) 
+            $("#total").text(`$${total.toFixed(2)}`) 
+        }
+
+        function add(){
+            items.push({
+                name: `Pizza ${Math.random().toFixed(3)}`,
+                price: Math.random()*10
+            })
+
+            render();
+        }
+        $('#btn-test').on('click', function(){
+            add();
         })
+        render();
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        // $('.removeProduct').click(function(){
+        //     $('.productdiv').last().remove();
+        // })
         $('.addProduct').click(function(){
             genderSelect();
             // $('#firstproduct .productdiv').clone().find('select').val('').end().appendTo('#moreproduct');
         })
         let products = {!! json_encode($products) !!};
-        genderSelect();
-
+        genderSelect();  
         function genderSelect(){
             let container = $("#firstproduct");
             let selectOption ='';
@@ -162,31 +219,44 @@
             let item = `
             <div class="productdiv">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class=" form-group d-flex justify-content-between " style="width:100%" >
-                            <div style="width:67%">
-                                <div class="form-group " >
-                                    <label >Sản phẩm</label>
-                                    <select type="text" name="product_name[]" class="form-control selectProduct">
-                                        <option value="">Chọn sản phẩm</option>
-                                        ${selectOption}
-                                        </select>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class=" form-group d-flex justify-content-between" >
+                                    <div style="width:67%">
+                                        <div class="form-group">
+                                            <label>Sản phẩm</label>
+                                            <select type="text" name="product_name[]" class="form-control selectProduct">
+                                                <option value="">Chọn sản phẩm</option>
+                                                ${selectOption}
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style="width:30%">
-                                    <div class="form-group">
-                                        <label>Giá sản phẩm</label>
-                                        <input id="price-product-input" readonly type="text" name="product_price[]" class="form-control price-product-input">
+                                    <div style="width:30%">
+                                        <div class="form-group">
+                                            <label>Giá sản phẩm</label>
+                                            <input id="price-product-input" readonly type="text" name="product_price[]" class="form-control price-product-input">
+                                        </div>
                                     </div>
+                                </div> 
+                            </div>  
+                            
+                            <div class="col-md-6 d-flex align-items-center ">
+                                <div>
+                                    <button type="button"  class="removeProduct btn btn-danger"><i class="fas fa-minus-circle"></i></button>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                    </div>      
-                </div>   
-            `
+
+                    </div>    
+                </div>
+            </div>   
+            `              
             container.append(item);
             document.querySelectorAll('.selectProduct').forEach(item =>{
+                
                 item.addEventListener('change',function(){
+                    
                     let parent = item.parentNode.parentNode.parentNode;
                     let input = parent.querySelector("input");
                     let value = item.value;
@@ -198,20 +268,38 @@
                     }else{
                         input.value = ""; 
                     }
-                    
                     handlerTotalPrice();
                 })
             })
+        
             function handlerTotalPrice(){
-                let total  = 0;
+                let price = 0;
+                let subtotal  = 0;
                 document.querySelectorAll(".price-product-input").forEach(item=>{
                     const itemElemt = item.value == "" ? 0 : item.value;
-                    total += parseInt(itemElemt);
+                    subtotal += parseInt(itemElemt);
+                    $(document).on("change keyup blur", "#discount", function() {
+                        let discount =  ($("#discount").val()/100).toFixed(2);
+                        price = subtotal - subtotal*discount
+                        $("#total_price").val(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                    }) 
+                    console.log(subtotal);
                 })
-                    let finishPrice = (100 - $("#discount").val())/100;
-                    total = total*finishPrice
-                $("#total_price").val(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
             }
+           
+
+            $(document).on('click', '.removeProduct', function () {
+                $(this).closest('.productdiv').remove();
+            });
         }
+    })
+    $(document).ready(function(){
+        $('#discount').on('keyup', function () {
+            if ($('#discount').val() > 100 ) {
+                $('#message').html('Max 100% !!!').addClass("alert-danger").addClass("alert")
+            } else {
+                $('#message').html('').removeClass("alert-danger").removeClass("alert");
+            }
+        });
     })
 </script>
