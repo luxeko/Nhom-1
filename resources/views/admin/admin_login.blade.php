@@ -16,14 +16,14 @@
         <div class="forms-container">
             <div class="signin-signup">
                 <!-- form đăng nhập  -->
-                <form action="" method="post" class="sign-in-form">
+                <form action="{{ route('admin.login') }}" method="post" class="sign-in-form">
                     @csrf
                     @php             
-                        $message = Session::get('message');
+                        $not_admin = Session::get('not_admin');
                         echo "<div style='color: red; font-weight: bold; font-size: 14px'>";
-                            if($message){
-                                echo $message;
-                                Session::put('message', null);
+                            if($not_admin){
+                                echo $not_admin;
+                                Session::put('not_admin', null);
                             }
                         echo "</div>";
                     @endphp

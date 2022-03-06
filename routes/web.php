@@ -81,7 +81,7 @@ Route::get('/mailable', function () {
 // Public route (Đức Anh)
 Route::group(['namespace'=>'Public'], function(){
     // Xử lý CRUD Blogs
-    Route::group(['prefix'=>'public/blogs','middleware'=>'CheckLogedOut'], function(){
+    Route::group(['prefix'=>'public/blogs'], function(){
         Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
         Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
         Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
@@ -91,17 +91,19 @@ Route::group(['namespace'=>'Public'], function(){
      //}); 
 });
 
+
+
 // Admin route
 Route::group(['namespace'=>'Admin'], function(){
     // xử lý đến trang login
     Route::get('admin',[LoginController::class,'goLogin']);
     Route::group(['middleware'=>'CheckLogedIn'], function(){
-        Route::get('admin/login',[LoginController::class,'getlogin']);
-        Route::post('admin/login',[LoginController::class,'postlogin']);
+        Route::get('admin/login',[LoginController::class,'getlogin'])->name('goLogin');
+        Route::post('admin/login',[LoginController::class,'postlogin'])->name('admin.login');
     });
 
-    // xử lý khi đăng nhập thành công
-    Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); // xử lý khi đăng xuất
+    // xử lý khi đăng xuất
+    Route::get('admin/logout',[HomeController::class,'getLogout'])->name('admin.logout'); 
 
 
     Route::group(['prefix'=>'admin/','middleware'=>'CheckLogedOut'], function(){

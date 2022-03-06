@@ -80,7 +80,7 @@ class AdminUserController extends Controller
                     'password'         => Hash::make($request->password),
                     'utype'            => 'ADM'
                 ];
-                dd( $dataUserCreate);
+                // dd( $dataUserCreate);
                 if($request->avatar_img_path == null){
                     $dataUserCreate['avatar_img_path'] = $path_dafault;
                 } else {
@@ -158,13 +158,15 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'password'         => bcrypt($request->password)
+                        'password'         => bcrypt($request->password),
+                        'utype'            => 'ADM'
                     ];
                 }
                 else{
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
+                        'utype'            => 'ADM'
                     ];
 
                 }
@@ -217,6 +219,7 @@ class AdminUserController extends Controller
                 $dataUserCreate = [
                     'full_name'        => $request->full_name,
                     'telephone'        => $request->telephone,
+                    'utype'            => 'ADM'
                 ];
                
                 if($request->avatar_img_path != null){
