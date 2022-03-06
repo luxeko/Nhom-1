@@ -159,35 +159,7 @@
     </section>
     <!-- product_list part end-->
 
-    <!-- subscribe_area part start-->
-    <section class="subscribe_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="subscribe_area_text text-center">
-                        <h5>Join Our Newsletter</h5>
-                        <h2>Subscribe to get Updated
-                            with new offers</h2>
-                        @if(Session::has('email-message'))
-                            <div class="alert alert-success" style="width: 50%;">
-                                {{Session::get('email-message')}}
-                            </div>
-                        @endif
-                        <div class="input-group">
-                            <form wire:submit.prevent="subscribe">
-                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email">
-                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
-                                <div class="input-group-append">
-                                    <button type="submit" class="input-group-text btn_2">subscribe now</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--::subscribe_area part end::-->
+  
 
     <!-- subscribe_area part start-->
     <section class="client_logo padding_top">
