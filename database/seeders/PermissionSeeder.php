@@ -423,42 +423,42 @@ class PermissionSeeder extends Seeder
             // ],
             
             [
-                'id'         => 53,
+                // 'id'         => 53,
                 'name'       => 'Customer',
                 'desc_name'  => 'Customer',
                 'parent_id'  => 0,
                 'key_code'   => ''
             ],
             [
-                'id'         => 54,
+                // 'id'         => 54,
                 'name'       => 'Danh sách Customer',
                 'desc_name'  => 'Danh sách Customer',
                 'parent_id'  => 53,
                 'key_code'   => 'list_customer'
             ],
             [
-                'id'         => 55,
+                // 'id'         => 55,
                 'name'       => 'Xoá Customer',
                 'desc_name'  => 'Xoá Customer',
                 'parent_id'  => 53,
                 'key_code'   => 'delete_customer'
             ],
             [
-                'id'         => 56,
+                // 'id'         => 56,
                 'name'       => 'Chi tiết Customer',
                 'desc_name'  => 'Chi tiết Customer',
                 'parent_id'  => 53,
                 'key_code'   => 'detail_customer'
             ],
             [
-                'id'         => 57,
+                // 'id'         => 57,
                 'name'       => 'Order',
                 'desc_name'  => 'Order',
                 'parent_id'  => 0,
                 'key_code'   => ''
             ],
             [
-                'id'         => 58,
+                // 'id'         => 58,
                 'name'       => 'Danh sách Order',
                 'desc_name'  => 'Danh sách Order',
                 'parent_id'  => 57,
@@ -466,7 +466,7 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 59,
+                // 'id'         => 59,
                 'name'       => 'Chi tiết Order',
                 'desc_name'  => 'Chi tiết Order',
                 'parent_id'  => 57,
@@ -474,7 +474,7 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 60,
+                // 'id'         => 60,
                 'name'       => 'Sửa Order',
                 'desc_name'  => 'Sửa Order',
                 'parent_id'  => 57,
@@ -482,14 +482,14 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 61,
+                // 'id'         => 61,
                 'name'       => 'Setting',
                 'desc_name'  => 'Setting',
                 'parent_id'  => 0,
                 'key_code'   => ''
             ],
             [
-                'id'         => 62,
+                // 'id'         => 62,
                 'name'       => 'Danh sách Setting',
                 'desc_name'  => 'Danh sách Setting',
                 'parent_id'  => 61,
@@ -497,7 +497,7 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 63,
+                // 'id'         => 63,
                 'name'       => 'Thêm Setting',
                 'desc_name'  => 'Thêm Setting',
                 'parent_id'  => 64,
@@ -505,7 +505,7 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 64,
+                // 'id'         => 64,
                 'name'       => 'Sửa Setting',
                 'desc_name'  => 'Sửa Setting',
                 'parent_id'  => 61,
@@ -513,7 +513,7 @@ class PermissionSeeder extends Seeder
 
             ],
             [
-                'id'         => 65,
+                // 'id'         => 65,
                 'name'       => 'Xoá Setting',
                 'desc_name'  => 'Xoá Setting',
                 'parent_id'  => 61,

@@ -92,7 +92,7 @@
                                 <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
                             </div>
                             @auth
-                                @if(Auth::user()->utype === "USR")
+                                @if(Auth::user()->utype === "USR" || Auth::user()->utype === "ADM")
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
@@ -109,7 +109,17 @@
                                             @csrf
                                         </form>
                                     </div>
-                                @endif
+                                <!-- @elseif(Auth::user()->utype === "ADM")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                            <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                        </div>
+                                    </div>
+                                @endif -->
                             @else
                                 <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                     <a class="navbar__icon">
@@ -132,16 +142,6 @@
     </header>
     <!-- Header part end-->
     <!--================Home Banner Area =================-->
-
-    {{-- @yield('all_products')
-    @yield('detail')
-    @yield('audio')
-    @yield('cam')
-    @yield('cases')
-    @yield('components')
-    @yield('cooling')
-    @yield('combo') --}}
-
 	
     {{$slot}}
 
