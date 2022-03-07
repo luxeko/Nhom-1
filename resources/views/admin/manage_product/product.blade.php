@@ -64,34 +64,34 @@
                 <div class="form-group">
                     <select class="form-control input-xs mr-sm-2" name="status_filter" >
                         <option value="">Chọn status </option>
-                        @if(isset($status)  && $status == 1)
+                        @if(isset($status_filter)  && $status_filter == 1)
                             <option selected value="1">Active</option>
                             <option value="2">Disable</option>
                         @endif
-                        @if(isset($status) && $status == 2)
+                        @if(isset($status_filter) && $status_filter == 2)
                             <option value="1">Active</option>
                             <option selected value="2">Disable</option>
                         @endif
-                        @if(empty($status))
+                        @if(empty($status_filter))
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
                         @endif
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                    <select class="form-control input-xs mr-sm-2" name="date" >
                         <option value="">Top sản phẩm </option>
-                        @if(isset($status)  && $status == 1)
-                            <option selected value="1">Mới nhất</option>
-                            <option value="2">cũ nhất</option>
+                        @if(isset($date)  && $date == 'latest')
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">cũ nhất</option>
                         @endif
-                        @if(isset($status) && $status == 2)
-                            <option value="1">Mới nhất</option>
-                            <option selected value="2">Cũ nhất</option>
+                        @if(isset($date) && $date == 'oldest')
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
                         @endif
-                        @if(empty($status))
-                            <option value="1">Mới nhất</option>
-                            <option value="2">Cũ nhất</option>
+                        @if(empty($date))
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
                     </select>
                 </div>

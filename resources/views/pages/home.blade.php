@@ -88,11 +88,6 @@
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 col-md-6">
-                    <div class="offer_img">
-                        <img src="{{ URL::asset('/frontend/img/index/5.png'); }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
                         <h2>Weekly Sale on
                             30% Off All Combo</h2>

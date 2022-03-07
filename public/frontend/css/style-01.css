@@ -7230,4 +7230,15 @@ p.text-sm.text-gray-700.leading-5 {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-  }
+}
+
+.form_login_public{
+    background-image: url('../img/gamingroom3.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.form_login_public .form_login{
+    background-color: #fff;
+}

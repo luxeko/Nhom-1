@@ -92,7 +92,7 @@
                                 <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
                             </div>
                             @auth
-                                @if(Auth::user()->utype === "USR")
+                                @if(Auth::user()->utype === "USR" || Auth::user()->utype === "ADM" )
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
@@ -147,7 +147,7 @@
 
 
     <!--::footer_part start::-->
-    <footer class="footer-distributed mt-5">
+    <footer class="footer-distributed">
         <div class="footer-left">
             <h3>Mativina</h3>
 

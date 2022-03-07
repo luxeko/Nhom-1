@@ -223,23 +223,39 @@ class ProductController extends Controller
 
     public function search(Request $request){
         $search = $request->get('search');
-        $status = $request->get('status_filter');
+        $status_filter = $request->get('status_filter');
         $getAllCategory = $this->category->all();
         $category = $request->get('category_filter');
         $sort = $request->get('sort');
-
-        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
+        $date = $request->get('date');
+        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', $status_filter)->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
         if($sort == 'ASC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->latest()->paginate(100);
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', $status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->paginate(100);
         }
         if($sort == 'DESC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->latest()->paginate(100);
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->paginate(100);
         }
+        if($date == 'latest'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
+        }
+        if($date == 'oldest' && $sort == 'ASC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->oldest()->paginate(100);
+        }
+        if($date == 'oldest' && $sort == 'DESC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->oldest()->paginate(100);
+        }
+        if($date == 'latest' && $sort == 'ASC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->oldest()->paginate(100);
+        }
+        if($date == 'latest' && $sort == 'DESC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->oldest()->paginate(100);
+        }
+
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
         $htmlOption = $this->getCategory($parentId = '');
-        return view('admin/manage_product.product', compact('data', 'currentPage', 'perPage', 'total', 'search', 'status', 'category', 'htmlOption', 'sort', 'getAllCategory'));
+        return view('admin/manage_product.product', compact('data', 'date' ,'currentPage', 'perPage', 'total', 'search', 'status_filter', 'category', 'htmlOption', 'sort', 'getAllCategory'));
     }
     
 }

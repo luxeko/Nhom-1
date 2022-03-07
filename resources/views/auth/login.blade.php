@@ -1,15 +1,14 @@
 <x-guest-layout>
-    <main id="main" class="main-site left-sidebar">
-
+    <main id="main" class="main-site left-sidebar form_login_public mt-5">
 		<div class="container">
 			<div class="row" style="padding: 150px 0 0 0;">
                 <div class="col"></div>
-				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-					<div class=" main-content-area">
+				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12 ">
+					<div class=" main-content-area ">
 						<div class="wrap-login-item ">						
-							<div class="login-form form-item form-stl">
-                                <x-jet-validation-errors class="mb-4" style="color: black;"/>
-                                <form name="frm-login" method="POST" action="{{route('login')}}">
+							<div class="login-form form-item form-stl form_login">
+                                <x-jet-validation-errors  style="color: black;"/>
+                                <form class="" name="frm-login" method="POST" action="{{route('login')}}">
                                     @csrf
 									<fieldset class="wrap-title">
 										<h3 class="form-title">Log in to your account</h3>										
