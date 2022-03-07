@@ -228,12 +228,12 @@ class ProductController extends Controller
         $category = $request->get('category_filter');
         $sort = $request->get('sort');
 
-        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->paginate(100);
+        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
         if($sort == 'ASC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->paginate(100);
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->latest()->paginate(100);
         }
         if($sort == 'DESC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->paginate(100);
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->latest()->paginate(100);
         }
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();

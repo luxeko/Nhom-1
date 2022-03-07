@@ -42,11 +42,11 @@
                         <aside class="left_widgets p_filter_widgets price_rangs_aside">
                             <div wire:ignore x-data="{ min_price: @entangle('min_price'), max_price: @entangle('max_price') }" x-init="
                                 noUiSlider.create($refs.slider, {
-                                        start: [parseInt(min_price), parseInt(max_price)],
+                                        start: [min_price, max_price],
                                         connect: true,
                                         range: {
-                                            'min': parseInt(min_price),
-                                            'max': parseInt(max_price)
+                                            'min': min_price,
+                                            'max': max_price
                                         },
                                         pips:{
                                             mode:'steps',

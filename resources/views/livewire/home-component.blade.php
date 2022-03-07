@@ -160,7 +160,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="section_tittle text-center">
-                    <h2>Blogs <span>shop</span></h2>
+                    <h2>Blogs</h2>
                 </div>
             </div>
         </div>
@@ -168,6 +168,12 @@
             <div class="blog_public_box">
                 <div class="blog_public_item">
                     <img src="{{ URL::asset('/frontend/img/gamingroom1.jpg'); }}" class="blog_public_image">
+                    <div>
+                        <h2>
+                            TEst title
+                        </h2>
+                        <p>Content here</p>
+                    </div>
                 </div>
                 <div class="blog_public_item">
                     <img src="{{ URL::asset('/frontend/img/gamingroom5.jpg'); }}" class="blog_public_image">
@@ -248,7 +254,6 @@
         </div>
      </section>
 
-  
 
     <!-- subscribe_area part start-->
     <section class="client_logo padding_top">

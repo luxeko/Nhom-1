@@ -85,7 +85,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item active_blogs_sliderbar">
+    <li class="nav-item">
         <a class="nav-link" href="{{asset('admin/blogs/index')}}">
             <i class="fas fa-fw fa-table"></i>
             <span>Contact</span>
