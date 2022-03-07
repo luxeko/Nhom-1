@@ -155,6 +155,99 @@
     </section>
     <!-- product_list part end-->
 
+    {{-- blog starts  --}}
+    <section class="blog_public_main">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="section_tittle text-center">
+                    <h2>Blogs <span>shop</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="blog_public_container">
+            <div class="blog_public_box">
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom1.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom5.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom6.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom7.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom8.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom3.jpg'); }}" class="blog_public_image">
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- blog ends  --}}
+
+    <!---------- Testimonial ---------->
+     <section class="mt-5">
+         <div class="row justify-content-center">
+             <div class="col-lg-12">
+                 <div class="section_tittle text-center">
+                     <h2>Feedback</h2>
+                 </div>
+             </div>
+         </div>
+        <div class="feedback">
+            <div class="home-testimonial">
+                <div class="home-row">
+
+                    <div class="home-col-2">
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/s1mple.jpg'); }}">
+                            <div>
+                                <h4>S1mple Leo</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div> 
+                        <p> <i class="fa fa-quote-left"> </i>&#160;&#160; Great product and service from the team at MATIVINA. Thank you for support. @s1mpleleo</p>   
+                    </div>
+                    <div class="home-col-2">                      
+                       
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/niko.jpg'); }}">
+                            <div>
+                                <h4>Niko Kovač</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div> 
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; i hate having my game drop in fps. And MATINIVA helped me overcome it. @nikocsgo</p>
+                    </div>
+                    <div class="home-col-2">                       
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/faker.jpg'); }}">
+                            <div>
+                                <h4>Faker</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div>  
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; Come with MATIVINA if you want pro like me. @fake_r</p>
+                    </div>
+                    <div class="home-col-2">
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/domixi.jpg'); }}">
+                            <div>
+                                <h4>Mixi Moi</h4>
+                                <p>Streamer</p>
+                            </div>
+                        </div> 
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; Cuộc sống này phức tạp là do bạn làm quá nó lên. @mixigaming</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
   
 
     <!-- subscribe_area part start-->

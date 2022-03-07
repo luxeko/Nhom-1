@@ -138,8 +138,7 @@
     <div class="overlay">
     </div>
     <div class="banner-text">
-        <h1> The H1
-        </h1>
+        <h1> Life Is More Fun If You <span style="font-size: 50px">PLAY GAMES</span> </h1>
     </div>
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><ion-icon name="arrow-up-outline"></ion-icon></button>
@@ -153,7 +152,6 @@
 			<div class="footer-left">
 
 				<h3>Mativina</h3>
-
 				<p class="footer-links">
 					<a href="#" class="link-1">Home</a>
 					
