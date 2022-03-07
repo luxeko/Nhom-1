@@ -13,10 +13,7 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách combo</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách combo</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
@@ -24,36 +21,46 @@
                     <a href="{{ route('combo.create') }} " class="btn btn-primary mb-3">Thêm combo</a>
                 @endcan
             </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                            {{-- {!! $htmlOption !!} --}}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
+            <form action="{{ route('combo.search') }}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên combo" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <select name="sort" class="form-control input-xs mr-sm-2">
+                        <option value="">Giá tiền</option>
+                        @if(isset($sort) && $sort == 'ASC')
+                            <option selected value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(isset($sort) && $sort == 'DESC')
+                            <option  value="ASC">Thấp đến cao</option>
+                            <option selected value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(empty($sort))
+                            <option value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        <option value="">Chọn status </option>
+                        @if(isset($status)  && $status == 1)
+                            <option selected value="1">Active</option>
+                            <option value="2">Disable</option>
+                        @endif
+                        @if(isset($status) && $status == 2)
+                            <option value="1">Active</option>
+                            <option selected value="2">Disable</option>
+                        @endif
+                        @if(empty($status))
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
            
         </div>
         
@@ -116,7 +123,9 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                {!! $data->links() !!}
+                @if (!empty($data))
+                    {!! $data->links() !!} 
+                @endif  
             </div>
         </div>
         <section>

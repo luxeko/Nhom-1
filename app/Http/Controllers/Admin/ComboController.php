@@ -88,7 +88,7 @@ class ComboController extends Controller
         $products = $this->product->where('status', 1)->get();
         $combo = $this->combo->find($id);
         $list_product = $combo->getList;
-        dd($list_product);
+        // dd($list_product);
         // dd($list_product->getProduct);
         return view('admin/manage_combo.edit', compact('combo', 'products', 'list_product', ));
 
@@ -117,6 +117,24 @@ class ComboController extends Controller
         $list_product = $combo->list_product_combos;
         return $list_product;
  
+    }
+
+    public function search(Request $request){
+        $search = $request->get('search');
+        $status = $request->get('status_filter');
+        $sort = $request->get('sort');
+
+        $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->paginate(100);
+        if($sort == 'ASC'){
+            $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->orderBy('price', 'ASC')->paginate(100);
+        }
+        if($sort == 'DESC'){
+            $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->orderBy('price', 'DESC')->paginate(100);
+        }
+        $currentPage = $data->currentPage();
+        $perPage = $data->perPage();
+        $total = $data->total();
+        return view('admin/manage_combo.index', compact('data', 'currentPage', 'perPage', 'total', 'search', 'status', 'sort'));
     }
 
 }

@@ -27,11 +27,12 @@ class AdminUserController extends Controller
     }
 
     public function index(){
-        $users = $this->user->latest()->paginate(5);
+        $users = $this->user->where('utype','ADM')->latest()->paginate(10);
         $currentPage = $users->currentPage();
         $perPage = $users->perPage();
         $total = $users->total();
-        return view('admin.user.index', compact('users', 'currentPage', 'perPage', 'total'));
+        $allCity = $this->city->all();
+        return view('admin.user.index', compact('users', 'currentPage', 'perPage', 'total', 'allCity'));
     }
     public function create(){
         $roles = $this->role->all();
@@ -108,16 +109,7 @@ class AdminUserController extends Controller
             Log::error("Message: " . $exc->getMessage() . ' Line: ' . $exc->getLine());
         }
     }
-    // public function getRoles($id){
-    //     $roles = role_user::where('user_id',$id)->get('role_id');
-    //     $roleName = Role::findOrFail($roles);
-    //     $data = [];
-    //     foreach($roleName as $value){
-    //         $data = $value->name;
-    //     }
-    //     dd($data);
-    //     return $data;
-    // }
+ 
     public function delete($id){
         try {
             $this->user->find($id)->delete();
@@ -165,11 +157,10 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-
-                       'password'         => bcrypt($request->password),
+                        'password'         => bcrypt($request->password),
                         'utype'            => 'ADM',      
-                      'address'          => $request->address,
-                    'city_id'          => $request->city_id
+                        'address'          => $request->address,
+                        'city_id'          => $request->city_id
                     ];
                 }
                 else{
@@ -177,8 +168,8 @@ class AdminUserController extends Controller
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
                         'utype'            => 'ADM',
-                      'address'          => $request->address,
-                    'city_id'          => $request->city_id2
+                        'address'          => $request->address,
+                        'city_id'          => $request->city_id
                     ];
 
                 }
@@ -224,7 +215,6 @@ class AdminUserController extends Controller
                     $err['duplicate_phone'] = 'Số điện thoại đã tồn tại';
                 } 
             }
-
             if(count($err) > 0){
                 return Redirect::back()->withInput()->with($err);
             } else {
@@ -254,5 +244,23 @@ class AdminUserController extends Controller
             DB::rollBack();
             Log::error("Message: " . $exc->getMessage() . ' Line: ' . $exc->getLine());
         }
+    }
+
+    public function search(Request $request){
+        $full_name = $request->get('full_name');
+        $email = $request->get('email');
+        $telephone = $request->get('telephone');
+        $address = $request->get('address');
+        $city_id = $request->get('city_id');
+        $allCity = $this->city->all();
+        $users = $this->user->where('full_name', 'like', '%'.$full_name.'%')->where('email', 'like', '%'.$email.'%')->where('telephone', 'like', '%'.$telephone.'%')->where('utype', 'like', '%'.'ADM'.'%')->paginate(100);
+        if($address != null || $city_id != null){
+            $users = $this->user->where('full_name', 'like', '%'.$full_name.'%')->where('email', 'like', '%'.$email.'%')->where('telephone', 'like', '%'.$telephone.'%')->where('utype', 'like', '%'.'ADM'.'%')->where('address', 'like', '%'.$address.'%')->where('city_id', 'like', '%'.$city_id.'%')->paginate(100);
+        }
+    
+        $currentPage = $users->currentPage();
+        $perPage = $users->perPage();
+        $total = $users->total();
+        return view('admin/user.index', compact('users', 'currentPage', 'perPage', 'total', 'full_name', 'email', 'telephone', 'address', 'city_id', 'allCity'));
     }
 }

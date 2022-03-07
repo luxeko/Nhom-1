@@ -5,7 +5,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>User</title>
+    <title>Customer</title>
 @endsection
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
@@ -13,16 +13,10 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2 class="border-bottom border-secondary">Danh sách User</h2>
+            <h2 class="border-bottom border-secondary">Danh sách Customer</h2>
         </div>
-        <div class="d-flex justify-content-between">    
-            <div>
-                @can('user-add')
-                    <a href="{{ asset('admin/users/create') }} " class="btn btn-primary mb-3">Thêm User</a>
-                    
-                @endcan
-            </div>
-            <form action="{{ route('user.search') }}" method="get" class="form-inline mb-3">
+        <div class="d-flex justify-content-end">    
+            <form action="{{ route('customer.search') }}" method="get" class="form-inline mb-3">
                 <div class="form-group">
                     <input value="{{ isset($full_name) ? $full_name : '' }}" class="form-control mr-sm-2" name="full_name" type="search" placeholder="Tên" aria-label="Search">
                 </div>
@@ -62,7 +56,7 @@
         @php             
             $success = Session::get('success_user');
             if($success){
-                echo "<div class='alert alert-success' id='user_alert'>";
+                echo "<div class='alert alert-success' id='customer_alert'>";
                     echo $success;
                     Session::put('success_user', null);
                 echo "</div>";
@@ -79,7 +73,6 @@
                         <th class="text-center">Email</th>
                         <th class="text-center">Địa chỉ</th>
                         <th class="text-center">Thành phố</th>
-                        <th class="text-center">Vai trò</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead> 
@@ -94,17 +87,12 @@
                                 <td class="text-center">{{$value->email}}</td>
                                 <td class="text-center">{{$value->address}}</td>
                                 <td class="text-center">{{ optional($value->getCity)->vn_name }}</td>
-                                <td class="text-center">
-                                    @forEach($value->roles as $data )
-                                        <span class='badge bg-success p-2 text-white' style="font-size: 15px">{{$data->name}}</span>
-                                    @endforeach
-                                </td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    @can('user-edit')
-                                        <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @can('customer-detail')
+                                        <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
                                     @endcan
-                                    @can('user-delete')
-                                        <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('customer-delete')
+                                        <a data-url="{{Route('customer.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
                                     @endcan
                                 </td>
                             </tr>
@@ -118,12 +106,30 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                @if (!empty($users))
-                    {!! $users->links() !!}
+                @if (!empty($customer))
+                    {!! $customer->links() !!}
                 @endif  
             </div>
         </div>
         
+        <section>
+            <!-- Modal -->
+            <div class="modal fade" id="modalDetailUser" tabindex="-1" aria-labelledby="user-modal-label" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        </div>
+                        {{-- code từ đây  --}}
+                        <div class="modal-body border-0" id="modal-user-detail"></div>
+                        {{-- end code thông báo  --}}
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <style>
             .w-5{
                 display: none;
@@ -134,7 +140,6 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-
-<script src="{{URL::asset('backend/js/user/main.js')}}"></script>
+<script src="{{URL::asset('backend/js/customer/main.js')}}"></script>
 
 

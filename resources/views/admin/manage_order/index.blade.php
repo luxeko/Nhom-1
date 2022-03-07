@@ -14,43 +14,87 @@
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
-        <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Danh sách order</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+        <div class="d-flex bg-light justify-content-between mb-3 ">
+            <h2 class="border-bottom border-secondary">Danh sách order</h2>
         </div>
         <div class="d-flex justify-content-end mb-3">    
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                        
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+            <form action="{{ route('order.search') }}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input value="{{ isset($firstname) ? $firstname : '' }}" class="form-control mr-sm-2" name="firstname" type="search" placeholder="First Name" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input value="{{ isset($lastname) ? $lastname : '' }}" class="form-control mr-sm-2" name="lastname" type="search" placeholder="Last Name" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input  value="{{ isset($email) ? $email : '' }}" class="form-control mr-sm-2" name="email" type="search" placeholder="Email" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input value="{{ isset($mobile) ? $mobile : '' }}" class="form-control mr-sm-2" name="mobile" type="search" placeholder="Số điện thoại" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <select name="city"  class="pr-5 form-control input-xs mr-sm-2">
+                        <option value="">Thành phố</option>
+                        @if(isset($city))
+                            @forEach($allCity as $value)
+                                @if($city == $value->city_id)
+                                    <option selected value="{{$value->city_id}}">{{$value->vn_name}}</option>
+                                @else
+                                    <option value="{{$value->city_id}}">{{$value->vn_name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                        @if(empty($city))
+                            @forEach($allCity as $value)
+                                <option value="{{$value->city_id}}">{{ $value->vn_name}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select name="sort" class="form-control  input-xs mr-sm-2">
+                        <option value="">Giá tiền</option>
+                        @if(isset($sort) && $sort == 'ASC')
+                            <option selected value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(isset($sort) && $sort == 'DESC')
+                            <option  value="ASC">Thấp đến cao</option>
+                            <option selected value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(empty($sort))
+                            <option value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        <option value="">Chọn status </option>
+                        @if(isset($status)  && $status == 'ordered')
+                            <option selected value="ordered">ordered</option>
+                            <option value="delivered">delivered</option>
+                            <option value="canceled">canceled</option>
+                        @endif
+                        @if(isset($status) && $status == 'delivered')
+                            <option value="ordered">ordered</option>
+                            <option selected value="delivered">delivered</option>
+                            <option value="canceled">canceled</option>
+                        @endif
+                        @if(isset($status) && $status == 'canceled' )
+                            <option value="ordered">ordered</option>
+                            <option value="delivered">delivered</option>
+                            <option selected value="canceled">canceled</option>
+                        @endif
+                        @if(empty($status))
+                            <option value="ordered">ordered</option>
+                            <option value="delivered">delivered</option>
+                            <option value="canceled">canceled</option>
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
            
         </div>
         
@@ -68,7 +112,8 @@
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
-                        <th class="text-center">Tên khách hàng</th>
+                        <th class="text-center">Firt Name</th>
+                        <th class="text-center">Last Name</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">SĐT</th>
                         <th class="text-center">Thành phố</th>
@@ -82,7 +127,8 @@
                         @foreach ( $data as  $key =>  $value)                         
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
-                                <td class="text-center">{{  $value->lastname.' '. $value->firstname}}</td>
+                                <td class="text-center">{{  $value->firstname }}</td>
+                                <td class="text-center">{{  $value->lastname}}</td>
                                 <td class="text-center">{{  $value->email }}</td>
                                 <td class="text-center">{{  $value->mobile }}</td>
                                 <td class="text-center">{{ optional( $value->getCity)->vn_name }}</td>
@@ -119,7 +165,9 @@
                 
             </table>
             <div class="d-flex justify-content-center">
-                {!!  $data->links() !!}
+                @if (!empty($data))
+                    {!! $data->links() !!} 
+                @endif  
             </div>
         </div>
         

@@ -7,7 +7,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Sản phẩm</title>
+    <title>Product</title>
 @endsection
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
@@ -15,48 +15,71 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách sản phẩm</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách Product</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
                 @can('product-add')
-                    <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                    <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm Product</a>
                 @endcan
             </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
+            <form action="{{ route('product.search') }}" method="get" class="form-inline mb-3">
+                <div class="form-group">
+                    <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên sản phẩm" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <select name="sort" class="form-control input-xs mr-sm-2">
+                        <option value="">Giá tiền</option>
+                        @if(isset($sort) && $sort == 'ASC')
+                            <option selected value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(isset($sort) && $sort == 'DESC')
+                            <option  value="ASC">Thấp đến cao</option>
+                            <option selected value="DESC">Cao đến thấp</option>
+                        @endif
+                        @if(empty($sort))
+                            <option value="ASC">Thấp đến cao</option>
+                            <option value="DESC">Cao đến thấp</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select name="category_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Danh mục</option>
+                        @if(isset($category))
+                            @foreach($getAllCategory as $value)
+                                @if($category == $value->id)
+                                    <option selected value="{{$value->id}}">{{$value->name}}</option>
+                                @else
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                        @if(empty($category))
                             {!! $htmlOption !!}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        <option value="">Chọn status </option>
+                        @if(isset($status)  && $status == 1)
+                            <option selected value="1">Active</option>
+                            <option value="2">Disable</option>
+                        @endif
+                        @if(isset($status) && $status == 2)
+                            <option value="1">Active</option>
+                            <option selected value="2">Disable</option>
+                        @endif
+                        @if(empty($status))
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-           
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
         </div>
         
         @php             
@@ -116,14 +139,15 @@
                         <tr>
                             <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
                         </tr>
-                    @endif
-                    
+                    @endif                    
                 </tbody>
                 <tbody id="list-product"></tbody>
                 
             </table>
-            <div class="d-flex justify-content-center">
-                {!! $data->links() !!}
+            <div class="d-flex justify-content-center">    
+                @if (!empty($data))
+                    {!! $data->links() !!} 
+                @endif    
             </div>
         </div>
 
@@ -156,37 +180,8 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/product/main.js')}}"></script>
+<script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
 
-<script>
-       $(document).ready(function () {
-             
-             $('#search').on('keyup',function() {
-                 var query = $(this).val(); 
-                 $.ajax({
-                    
-                     url:"{{ route('product.search') }}",
-               
-                     type:"GET",
-                    
-                     data:{'search':query},
-                    
-                     success:function (data) {
-                       
-                         $('#list-product').html(data);
-                     }
-                 })
-                 // end of ajax call
-             });
-
-             
-            //  $(document).on('click', 'td', function(){
-               
-            //      var value = $(this).text();
-            //      $('#search').val(value);
-            //      $('#list-product').html("");
-            //  });
-         });
-</script>
 
 <script type="text/javascript" >  
     // $(document).ready(function(){

@@ -18,12 +18,24 @@ class PermissionGateAndPolicy{
         $this->defineGateSlider();
         $this->defineGateSetting();
         $this->defineGateOrder();
+        $this->defineGateCustomer();
+    }
+    public function defineGateCustomer(){
+        Gate::define('customer-list', 'App\Policies\CustomerPolicy@view');
+        Gate::define('customer-delete', 'App\Policies\CustomerPolicy@delete');
+        Gate::define('customer-detail', 'App\Policies\CustomerPolicy@detail');
     }
     public function defineGateCategory(){
         Gate::define('category-list', 'App\Policies\CategoryPolicy@view');
         Gate::define('category-add', 'App\Policies\CategoryPolicy@create');
         Gate::define('category-edit', 'App\Policies\CategoryPolicy@update');
         Gate::define('category-delete', 'App\Policies\CategoryPolicy@delete');
+    }
+    public function defineGateSetting(){
+        Gate::define('setting-list', 'App\Policies\SettingPolicy@view');
+        Gate::define('setting-add', 'App\Policies\SettingPolicy@create');
+        Gate::define('setting-edit', 'App\Policies\SettingPolicy@update');
+        Gate::define('setting-delete', 'App\Policies\SettingPolicy@delete');
     }
     public function defineGateOrder(){
         Gate::define('order-list', 'App\Policies\OrderPolicy@view');
@@ -84,10 +96,5 @@ class PermissionGateAndPolicy{
         // Gate::define('slider-edit', 'App\Policies\SliderPolicy@update');
         // Gate::define('slider-delete', 'App\Policies\SliderPolicy@delete');
     }
-    public function defineGateSetting(){
-        // Gate::define('setting-list', 'App\Policies\SettingPolicy@view');
-        // Gate::define('setting-add', 'App\Policies\SettingPolicy@create');
-        // Gate::define('setting-edit', 'App\Policies\SettingPolicy@update');
-        // Gate::define('setting-delete', 'App\Policies\SettingPolicy@delete');
-    }
+
 }

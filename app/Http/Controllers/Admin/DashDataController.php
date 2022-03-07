@@ -27,8 +27,8 @@ class DashDataController extends Controller
         // $chartDataOne = ;
    
         $countOrderWait = count($orderWait);
-        $countUser = count($userAccount);
-        $countOrder=count($orderDate);
+        $countUser      = count($userAccount);
+        $countOrder     = count($orderDate);
         $sumPrice = 0;
         $categoryChart = Category::all();
         foreach($orderDate as $order){
@@ -47,9 +47,7 @@ class DashDataController extends Controller
         , 'result_four'
         , 'result_five'
         , 'result_six'
-        , 'result_seven'
-        // , 'chartDataOne'
-    ));
+        , 'result_seven' ));
     }
     public function chartCategory(){
         // $count = 0;

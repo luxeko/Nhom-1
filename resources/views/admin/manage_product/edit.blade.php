@@ -6,7 +6,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Chỉnh sửa sản phẩm</title>
+    <title>Cập nhật Product</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
@@ -14,7 +14,7 @@
     <!-- code database bắt đầu từ đây  -->
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
-        <h2 class="form-title">Chỉnh sửa sản phẩm</h2>
+        <h2 class="form-title">Cập nhật Product</h2>
         <form action="{{ route('product.update', ['id'=>$product->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -90,15 +90,7 @@
                             {!! $htmlOption !!}
                         </select>
                     </div>
-                    @php         
-                        $category_id_null = Session::get('category_id_null');
-                        if($category_id_null){
-                            echo "<div class='alert alert-danger'>";
-                                echo $category_id_null;
-                            echo "</div>";
-                            Session::put('category_id_null', null);
-                        }
-                    @endphp
+                
         
                     <div class="form-group">
                         <select name="status" class="form-control input-xs" style="width:30%">
@@ -133,7 +125,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Cập nhật sản phẩm</button>
+                        <button class="btn btn-primary">Cập nhật Product</button>
                         <a href="{{ asset('admin/products/show')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>

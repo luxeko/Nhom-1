@@ -13,7 +13,7 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách vai trò</h2>
+            <h2>Danh sách vai trò</h2>
             <div class="form-inline">
                 <input class="form-control" type="text" id="search" name="search" placeholder="Search">
             </div>

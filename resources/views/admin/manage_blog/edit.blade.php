@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Cập nhật sản phẩm Blog</button>
+                        <button class="btn btn-primary">Cập nhật Blog</button>
                         <a href="{{ asset('admin/blogs/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>

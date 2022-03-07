@@ -86,14 +86,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label label>Địa chỉ</label>
-                                    <input type="text" class="form-control " name="address_line" style="width: 100%;" value="{{$user->address}}" />
+                                    <input type="text" class="form-control " name="address" style="width: 100%;" value="{{$user->address}}" />
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-between" >
                                 <div class="form-group"  style="width: 60%;" >
                                     <label>Thành phố</label>
 
-                                    <select  name="city" class="form-control form-control-md mb-1">
+                                    <select  name="city_id" class="form-control form-control-md mb-1">
                                         <option>Thành phố</option>
                                         @foreach ($cities as $city)
                                             @if($city->city_id == $user->city_id)

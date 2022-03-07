@@ -90,22 +90,16 @@
     <!-- awesome_shop start-->
     <section class="our_offer section_padding">
         <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6">
-                    <div class="offer_img">
-                        <img src="{{ URL::asset('/frontend/img/offer_img.png'); }}" alt="">
-                    </div>
-                </div>
+            <div class="row align-items-center justify-content-center text-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
-                        <h2>Weekly Sale on
-                            60% Off All Products</h2>
+                        <h2 class="text-white">Weekly Sale on 60% Off All Products</h2>
                         <div class="date_countdown">
                             <div id="timer">
-                                <div id="days" class="date"></div>
-                                <div id="hours" class="date"></div>
-                                <div id="minutes" class="date"></div>
-                                <div id="seconds" class="date"></div>
+                                <div id="days" class="date text-white"></div>
+                                <div id="hours" class="date text-white"></div>
+                                <div id="minutes" class="date text-white"></div>
+                                <div id="seconds" class="date text-white"></div>
                             </div>
                         </div>
                         @if(Session::has('email-message'))
@@ -113,13 +107,15 @@
                                 {{Session::get('email-message')}}
                             </div>
                         @endif
-                        <div class="input-group">
+                        <div class="input-group align-items-center justify-content-center">
                             <form wire:submit.prevent="subscribe">
-                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email"
-                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
-                                <div class="input-group-append">
-                                    <button type="submit" class="input-group-text btn_2">book now</button>
+                                <div class="d-flex flex-row">
+                                    <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email"
+                                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    @error('email') <span class="text-danger">{{$message}}</span> @enderror
+                                    <div class="input-group ml-3">
+                                        <button type="submit" class="input-group-text btn_2">book now</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

@@ -6,7 +6,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Sửa vai trò</title>
+    <title>cập nhật vai trò</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
@@ -14,7 +14,7 @@
     <!-- code database bắt đầu từ đây  -->
     @include('admin/partials.preloader')
     <div class="container-fluid" id="preloader">
-        <h2 class="form-title">Thêm vai trò</h2>
+        <h2 class="form-title">Cập nhật vai trò</h2>
         <form action="{{ route('role.update', ['id'=>$role->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary">Sửa vai trò</button>
+                        <button class="btn btn-primary">Cập nhật vai trò</button>
                         <a href="{{ asset('admin/roles/index')}}" class="btn btn-secondary">Huỷ</a>
                     </div>
                 </div>

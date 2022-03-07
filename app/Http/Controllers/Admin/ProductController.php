@@ -44,7 +44,7 @@ class ProductController extends Controller
     
     public function show(){
         $htmlOption = $this->getCategory($parentId = '');
-        $data = $this->product->latest()->paginate(5);
+        $data = $this->product->latest()->paginate(10);
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
@@ -151,9 +151,7 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         try {
             $err = [];
-            if($request->category == null){
-                $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
-            }
+         
             if($request->product_name == null){
                 $err['product_name_null'] = 'Vui lòng nhập tên cho sản phẩm';
             }
@@ -222,51 +220,26 @@ class ProductController extends Controller
             ], 500);
         }
     }
-    public function searchProduct(Request $request)
-    {
-        $data = $this->product->latest()->paginate(10);
+
+    public function search(Request $request){
+        $search = $request->get('search');
+        $status = $request->get('status_filter');
+        $getAllCategory = $this->category->all();
+        $category = $request->get('category_filter');
+        $sort = $request->get('sort');
+
+        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->paginate(100);
+        if($sort == 'ASC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->paginate(100);
+        }
+        if($sort == 'DESC'){
+            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->paginate(100);
+        }
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
-         
-        if($request->ajax()) {
-          
-            $data = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
-           
-            $output = '';
-           
-            if (count($data) >0 ) {
-                $stt = 1;
-                // $cout = ( $currentPage - 1 ) * $perPage + 1 ;
-                foreach ($data as $key => $row){
-                    $output = '<tr class="">';
-                    $output .= '<th class="text-center">'.$row->id.'</th>';
-                    $output .= '<td class="text-center admin_product_img">'.'<img src='.$row->feature_image_path.'>'.'</td>';
-                    $output .= '<td class="text-center">'.$row->name.'</td>';
-                    $output .= '<td class="text-center">'.$row->price.'</td>';
-                    $output .= '<td class="text-center">'.$row->category->name.'</td>';
-                    $output .= '<td class="text-center">'.$row->status.'</td>';
-                    $output .= ' <td colspan="1" class="text-center" style="width:15%">
-
-                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalDetailProduct"  onclick="getCategory('.$row->category_id .') ; getThumbnail('.$row->id.' ) ; viewProductDetail('.$row->id.')"><i class="fas fa-eye"></i></a>
-
-
-
-                                    <a href=" Route("product.edit", ["id"=>'.$row->id.'])" ><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="Route("product.delete", ["id"=>'.$row->id.'])"><i class="fas fa-trash-alt"></i></a>
-                                </td>';
-                    $output .= '</tr>';
-                    $stt++;
-                }
-              
-            }
-            else {
-             
-                $output .= '<td class="">'.'No results'.'</td>';
-            }
-           
-            return $output;
-        }
+        $htmlOption = $this->getCategory($parentId = '');
+        return view('admin/manage_product.product', compact('data', 'currentPage', 'perPage', 'total', 'search', 'status', 'category', 'htmlOption', 'sort', 'getAllCategory'));
     }
     
 }

@@ -71,18 +71,25 @@
                 @can('user-list')
                     <a class="collapse-item user_active" href="{{ asset('admin/users/index') }}">Nhân viên</a>  
                 @endcan
-                {{-- @can('guess-list') --}}
-                    <a class="collapse-item guess_active" href="">Khách hàng</a>  
-                {{-- @endcan --}}
+                
+                @can('customer-list')
+                    <a class="collapse-item customer_active" href="{{ route('customer.index') }}">Khách hàng</a>  
+                @endcan
                 @can('role-list')
                     <a class="collapse-item role_active" href="{{ asset('admin/roles/index') }}">Vai trò</a>
                 @endcan
                 @can('permission-add')
                     <a class="collapse-item permission_active" href="{{ asset('admin/permissions/create') }}" >Tạo phân quyền</a>
                 @endcan
-                <a class="collapse-item" href="">Logs </a>
+                {{-- <a class="collapse-item" href="">Logs </a> --}}
             </div>
         </div>
+    </li>
+    <li class="nav-item active_blogs_sliderbar">
+        <a class="nav-link" href="{{asset('admin/blogs/index')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Contact</span>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -102,29 +109,18 @@
             </a>
         </li>
     @endcan
-
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
+    @can('setting-list')    
+        <li class="nav-item active_settings_sliderbar" >
+            <a class="nav-link" href="{{ route('setting.index') }}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Setting</span>
+            </a>
+        </li>
+    @endcan
+    <li class="nav-item ">
+        <a class="nav-link" >
             <i class="fas fa-fw fa-table"></i>
-            <span>Sliders</span>
-        </a>
-    </li>
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Voucher</span>
-        </a>
-    </li>
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Thư viện</span>
-        </a>
-    </li>
-    <li class="nav-item active_discount_sliderbar">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Cài đặt</span>
+            <span>Image</span>
         </a>
     </li>
 

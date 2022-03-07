@@ -70,7 +70,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Đơn hàng đang xử lý {{$result_one}}</div>
+                                Đơn hàng đang xử lý </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrderWait}} Orders</div>
                         </div>
                         <div class="col-auto">
@@ -81,22 +81,21 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <!-- Area Chart -->
-        
-            
         <!-- Calender -->
         <div class="col-md-4">
             <div id="container" class="calendar-container pt-1"></div>
         </div>
         <div class="col-md-8">
-            <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+                <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
         </div>
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/dashboard/main.js')}}"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="{{URL::asset('backend/js/loader.js')}}"></script>
 <script type="text/javascript">
     var $calendar;
     $(document).ready(function () {

@@ -58,6 +58,15 @@ return [
 
         'add-permission'           =>  'add_permission',
 
+        'list-customer'            =>  'list_customer',
+        'delete-customer'          =>  'delete_customer',
+        'detail-customer'          =>  'detail_customer',
+
+        'list-setting'             =>  'list_setting',
+        'delete-setting'           =>  'delete_setting',
+        'edit-setting'             =>  'edit_setting',
+        'add-setting'              =>  'add_setting',
+
     ],
     'table_module' => [
         'category',
@@ -71,6 +80,9 @@ return [
         'voucher',
         'role',
         'permission',
+        'customer',
+        'setting',
+        'order'
     ],
     'module_select' => [
         'list',

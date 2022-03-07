@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $data = $this->category->all();
         $recusive = new Recusive($data);
         $htmlOption = $recusive->categoryRecusive($parentId);
-        return  $htmlOption;
+        return $htmlOption;
     }
     public function create(){
         $htmlOption = $this->getCategory($parentId = '');
@@ -31,8 +31,9 @@ class CategoryController extends Controller
         $all_category = $this->category->latest()->paginate(7);
         $currentPage = $all_category->currentPage();
         $perPage = $all_category->perPage();
-        $total = $all_category->total();
-        return view('admin/manage_category.manage_category', compact('all_category', 'currentPage', 'perPage', 'total'));
+        $total = $all_category->total(); 
+        $htmlOption = $this->getCategory($parentId = '');
+        return view('admin/manage_category.manage_category', compact('all_category', 'currentPage', 'perPage', 'total', 'htmlOption'));
     }
     public function store(Request $request){   
         $err = [];
@@ -109,5 +110,14 @@ class CategoryController extends Controller
         }
         
     }
-
+    public function search(Request $request){
+        $search = $request->get('search');
+        $status = $request->get('status_filter');
+        $all_category = $this->category->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->paginate(7);
+       
+        $currentPage = $all_category->currentPage();
+        $perPage = $all_category->perPage();
+        $total = $all_category->total();
+        return view('admin/manage_category.manage_category', compact('all_category', 'currentPage', 'perPage', 'total', 'search', 'status'));
+    }
 }
