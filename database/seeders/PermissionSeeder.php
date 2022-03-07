@@ -422,65 +422,65 @@ class PermissionSeeder extends Seeder
 
             // ],
             
-            // [
-            //     'id'         => 53,
-            //     'name'       => 'Customer',
-            //     'desc_name'  => 'Customer',
-            //     'parent_id'  => 0,
-            //     'key_code'   => ''
-            // ],
-            // [
-            //     'id'         => 54,
-            //     'name'       => 'Danh sách Customer',
-            //     'desc_name'  => 'Danh sách Customer',
-            //     'parent_id'  => 53,
-            //     'key_code'   => 'list_customer'
-            // ],
-            // [
-            //     'id'         => 55,
-            //     'name'       => 'Xoá Customer',
-            //     'desc_name'  => 'Xoá Customer',
-            //     'parent_id'  => 53,
-            //     'key_code'   => 'delete_customer'
-            // ],
-            // [
-            //     'id'         => 56,
-            //     'name'       => 'Chi tiết Customer',
-            //     'desc_name'  => 'Chi tiết Customer',
-            //     'parent_id'  => 53,
-            //     'key_code'   => 'detail_customer'
-            // ],
-            // [
-            //     'id'         => 57,
-            //     'name'       => 'Order',
-            //     'desc_name'  => 'Order',
-            //     'parent_id'  => 0,
-            //     'key_code'   => ''
-            // ],
-            // [
-            //     'id'         => 58,
-            //     'name'       => 'Danh sách Order',
-            //     'desc_name'  => 'Danh sách Order',
-            //     'parent_id'  => 57,
-            //     'key_code'   => 'list_order'  
+            [
+                'id'         => 53,
+                'name'       => 'Customer',
+                'desc_name'  => 'Customer',
+                'parent_id'  => 0,
+                'key_code'   => ''
+            ],
+            [
+                'id'         => 54,
+                'name'       => 'Danh sách Customer',
+                'desc_name'  => 'Danh sách Customer',
+                'parent_id'  => 53,
+                'key_code'   => 'list_customer'
+            ],
+            [
+                'id'         => 55,
+                'name'       => 'Xoá Customer',
+                'desc_name'  => 'Xoá Customer',
+                'parent_id'  => 53,
+                'key_code'   => 'delete_customer'
+            ],
+            [
+                'id'         => 56,
+                'name'       => 'Chi tiết Customer',
+                'desc_name'  => 'Chi tiết Customer',
+                'parent_id'  => 53,
+                'key_code'   => 'detail_customer'
+            ],
+            [
+                'id'         => 57,
+                'name'       => 'Order',
+                'desc_name'  => 'Order',
+                'parent_id'  => 0,
+                'key_code'   => ''
+            ],
+            [
+                'id'         => 58,
+                'name'       => 'Danh sách Order',
+                'desc_name'  => 'Danh sách Order',
+                'parent_id'  => 57,
+                'key_code'   => 'list_order'  
 
-            // ],
-            // [
-            //     'id'         => 59,
-            //     'name'       => 'Chi tiết Order',
-            //     'desc_name'  => 'Chi tiết Order',
-            //     'parent_id'  => 57,
-            //     'key_code'   => 'detail_order'  
+            ],
+            [
+                'id'         => 59,
+                'name'       => 'Chi tiết Order',
+                'desc_name'  => 'Chi tiết Order',
+                'parent_id'  => 57,
+                'key_code'   => 'detail_order'  
 
-            // ],
-            // [
-            //     'id'         => 60,
-            //     'name'       => 'Sửa Order',
-            //     'desc_name'  => 'Sửa Order',
-            //     'parent_id'  => 57,
-            //     'key_code'   => 'edit_order'  
+            ],
+            [
+                'id'         => 60,
+                'name'       => 'Sửa Order',
+                'desc_name'  => 'Sửa Order',
+                'parent_id'  => 57,
+                'key_code'   => 'edit_order'  
 
-            // ],
+            ],
             [
                 'id'         => 61,
                 'name'       => 'Setting',

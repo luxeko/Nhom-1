@@ -1,5 +1,5 @@
 <div>
-<<section class="feature_part padding_top">
+<section class="feature_part padding_top">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">

@@ -39,8 +39,8 @@
 <body>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><ion-icon name="arrow-up-outline"></ion-icon></button>
     <!--::header part start::-->
-    <header class="main_menu home_menu">
-        <div class="container">
+    <header class="main_menu home_menu " id="nav_bar">
+        <div class="container ">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -262,6 +262,8 @@
     <!-- <script src="{{ URL::asset('/frontend/js/price_rangs.js'); }}"></script> -->
     <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/main.js'); }}"></script>
+
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -324,8 +326,8 @@ $(document).ready(function(){
   } else {
     $box.prop("checked", false);
   }
-});
-  </script>
+    });
+    </script>
 </body>
 
 </html>

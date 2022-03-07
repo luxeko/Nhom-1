@@ -36,8 +36,8 @@
 
 <body>
     <!--::header part start::-->
-    <header class="main_menu home_menu">
-        <div class="container">
+    <header class="main_menu home_menu" id="nav_bar">
+        <div class="container ">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -133,7 +133,7 @@
 
     <!-- banner part start-->
     <div class="bg-video-wrap">
-    <video src="{{ URL::asset('/frontend/img/background.mp4'); }}" loop muted autoplay>
+    <video src="{{ URL::asset('/frontend/img/newBackground.mp4'); }}" loop muted autoplay>
     </video>
     <div class="overlay">
     </div>
@@ -205,10 +205,7 @@
 			</div>
 
 		</footer>
-<<<<<<< HEAD
-=======
 
->>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
     <!--::footer_part end::-->
     @livewireScripts
     <!-- jquery plugins here-->
@@ -236,10 +233,11 @@
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/main.js'); }}"></script>
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>    
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>   
 </body>
 
 </html>
