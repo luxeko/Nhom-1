@@ -65,7 +65,7 @@
 
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
-                                    </div> -->
+                                    </div> 
                                     <div  aria-labelledby="navbarDropdown_2">
 
                                     </div>

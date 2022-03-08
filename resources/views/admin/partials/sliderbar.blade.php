@@ -1,5 +1,5 @@
 <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-dark sidebar sidebar-light accordion" id="accordionSidebar">
+ <ul class="navbar-nav bg-gradient-dark sliderbar_admin sidebar sidebar-light accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
         <img src="{{ URL::asset('/frontend/img/new2.png')}}" >
@@ -12,8 +12,10 @@
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
+    <hr class="sidebar-divider my-0 mb-3">
+    <div class="sidebar-heading text-center text-white">
+        Quản lý
+    </div>
     <!-- Nav Item - Dashboard -->
     <li  id="dashboard_active" class="nav-item">
         <a class="nav-link text-white" href="{{route('admin.index')}}">
@@ -23,12 +25,10 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+   
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Quản lý
-    </div>
+   
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -95,7 +95,7 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    <div class="sidebar-heading text-center text-white">
         Giao diện
     </div>
 
