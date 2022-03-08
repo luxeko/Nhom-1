@@ -13,8 +13,8 @@
             </div>
         </div>
     </section>
-    <div class="container" style="padding: 30px 0;">
-        <div class="row">
+    <div class="container">
+        <div class="row padding_top">
             <div class="col-md-12">
                 @if(Session::has('order_message'))
                     <div class="alert alert-success" role="alert">{{Session::get('order_message')}}</div>
@@ -196,7 +196,7 @@
         </div>
         @endif
 
-        <div class="row">
+        <div class="row padding_bottom">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">

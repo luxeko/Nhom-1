@@ -75,7 +75,7 @@
                                     @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{ route('blog') }}" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="/blog" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -84,7 +84,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{URL::to('/contact')}}">Contact</a>
+                                    <a class="nav-link" href="/contact">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -165,13 +165,13 @@
 
 				<h3>Mativina</h3>
 				<p class="footer-links">
-					<a href="#" class="link-1">Home</a>
+					<a href="/" class="link-1">Home</a>
 					
-					<a href="#">Blog</a>
+					<a href="/blog">Blog</a>
 				
-					<a href="#">Product</a>
+					<a href="/shop">Product</a>
 					
-					<a href="#">Contact</a>
+					<a href="/contact">Contact</a>
 				</p>
 
 				<p class="footer-company-name">Matavina © 2015</p>

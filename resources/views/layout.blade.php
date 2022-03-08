@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} " >
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} ">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     @livewireStyles
 </head>
@@ -76,7 +76,7 @@
                                     @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('blog') }}" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="/shop" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -85,7 +85,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="route('contact')">Contact</a>
+                                    <a class="nav-link" href="/contact">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -155,13 +155,13 @@
 
 				<h3>Mativina</h3>
 				<p class="footer-links">
-					<a href="#" class="link-1">Home</a>
+					<a href="/" class="link-1">Home</a>
 					
-					<a href="#">Blog</a>
+					<a href="/blog">Blog</a>
 				
-					<a href="#">Product</a>
+					<a href="/shop">Product</a>
 					
-					<a href="#">Contact</a>
+					<a href="/contact">Contact</a>
 				</p>
 
 				<p class="footer-company-name">Matavina © 2015</p>
@@ -204,7 +204,7 @@
 
 			</div>
 
-		</footer>
+    </footer>
 
     <!--::footer_part end::-->
 
