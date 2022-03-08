@@ -73,7 +73,7 @@
                                     <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
-                                    @livewire('header-category-component');
+                                    @livewire('header-category-component')
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="/blog" id="navbarDropdown_2" role="button">

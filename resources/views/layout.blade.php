@@ -60,12 +60,12 @@
                                     <a class="nav-link" href="#" id="navbarDropdown_2" role="button">
                                         Combo
                                     </a>
-                                    <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
+                                    <!-- <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
 
 
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
-                                    </div> -->
+                                    </div> --> 
                                     <div  aria-labelledby="navbarDropdown_2">
 
                                     </div>
@@ -75,10 +75,10 @@
                                     <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
                                         Product
                                     </a>
-                                    @livewire('header-category-component');
+                                    @livewire('header-category-component')
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/shop" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="/blog" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">

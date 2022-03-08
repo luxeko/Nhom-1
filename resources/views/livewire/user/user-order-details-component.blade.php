@@ -73,11 +73,11 @@
                                     <div class="product-name">
                                         <a class="link-to-product" href="{{route('product.details',['slug'=>$item->product->slug])}}">{{$item->product->name}}</a>
                                     </div>
-                                    <div class="price-field produtc-price"><p class="price">{{number_format($item->price)}}</p></div>
+                                    <div class="price-field produtc-price"><p class="price">{{number_format($item->price)}} VND</p></div>
                                     <div class="quantity">
                                         <h5>{{$item->quantity}}</h5>                                        
                                     </div>
-                                    <div class="price-field sub-total"><p class="price">{{number_format($item->price * $item->quantity)}}</p></div>  
+                                    <div class="price-field sub-total"><p class="price">{{number_format($item->price * $item->quantity)}} VND</p></div>  
                                     @if($order->status == 'delivered' && $item->rstatus == false)                                 
                                         <div class="price-field sub-total"><p class="price"><a href="{{route('user.review',['order_item_id'=>$item->id])}}">Write Review</a></p></div>
                                     @endif    
@@ -89,10 +89,10 @@
                             <div class="order-summary">
                                 <h4 class="title-box">Order Summary</h4>
                                 <div style="float:right; width: 20%; margin-right: 20px; margin-right: 70px;">
-                                    <p class="summary-info"><span class="title">Subtotal</span><b class="index">{{number_format($order->subtotal)}}</b></p>
-                                    <p class="summary-info"><span class="title">Tax</span><b class="index">{{number_format($order->tax)}}</b></p>
+                                    <p class="summary-info"><span class="title">Subtotal</span><b class="index">{{number_format($order->subtotal)}} VND</b></p>
+                                    <p class="summary-info"><span class="title">Tax</span><b class="index">{{number_format($order->tax)}} VND</b></p>
                                     <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-                                    <p class="summary-info"><span class="title">Total</span><b class="index">{{number_format($order->total)}}</b></p>
+                                    <p class="summary-info"><span class="title">Total</span><b class="index">{{number_format($order->total)}} VND</b></p>
                                 </div>
                             </div>
                         </div>

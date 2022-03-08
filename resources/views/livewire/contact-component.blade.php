@@ -1,20 +1,20 @@
 <div>
     <!--================Home Banner Area =================-->
-  <!-- breadcrumb start-->
-  <section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="breadcrumb_iner">
-            <div class="breadcrumb_iner_item">
-              <h2>contact us</h2>
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="breadcrumb_iner">
+              <div class="breadcrumb_iner_item">
+                <h2>contact us</h2>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- breadcrumb start-->
+    </section>
+    <!-- breadcrumb start-->
 
   <!-- ================ contact section start ================= -->
   <section class="contact-section padding_top padding_bottom">
