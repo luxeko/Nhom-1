@@ -51,9 +51,9 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>{{$loop->index +1}}</td>
-                                        <td>${{number_format($order->subtotal)}}</td>
-                                        <td>${{number_format($order->tax)}}</td>
-                                        <td>${{number_format($order->total)}}</td>
+                                        <td>{{number_format($order->subtotal)}} VND</td>
+                                        <td>{{number_format($order->tax)}} VND</td>
+                                        <td>{{number_format($order->total)}} VND</td>
                                         <td>{{$order->firstname}}</td>
                                         <td>{{$order->lastname}}</td>
                                         <td>{{$order->mobile}}</td>

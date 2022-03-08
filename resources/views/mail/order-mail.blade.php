@@ -18,16 +18,16 @@
             <td><img src="{{asset('assets/images/products')}}/{{$item->product->image}}" width="100" /></td>
             <td>{{$item->product->name}}</td>
             <td>{{$item->quantity}}</td>
-            <td>${{number_format($item->price * $item->quantity)}}</td>
+            <td>{{number_format($item->price * $item->quantity)}} VND</td>
         </tr>
     @endforeach
     <tr>
         <td colspan="3" style="border-top:1px solid #ccc;"></td>
-        <td style="font-size:15px;font-weight:bold;border-top:1px solid #ccc;">Subtotal : ${{number_format($order->subtotal)}}</td>
+        <td style="font-size:15px;font-weight:bold;border-top:1px solid #ccc;">Subtotal : {{number_format($order->subtotal)}} VND</td>
     </tr>
     <tr>
         <td colspan="3"></td>
-        <td  style="font-size:15px;font-weight:bold;">Tax : ${{number_format($order->tax)}}</td>
+        <td  style="font-size:15px;font-weight:bold;">Tax : {{number_format($order->tax)}} VND</td>
     </tr>
     <tr>
         <td colspan="3"></td>
@@ -35,7 +35,7 @@
     </tr>
     <tr>
         <td colspan="3"></td>
-        <td style="font-size:22px;font-weight:bold;">Total : ${{number_format($order->total)}}</td>
+        <td style="font-size:22px;font-weight:bold;">Total : {{number_format($order->total)}} VND</td>
     </tr>
 </tbody>
 </table>    

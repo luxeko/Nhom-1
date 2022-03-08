@@ -230,7 +230,7 @@
                                     <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                                     <div class="single_product_text">
                                         <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                                        <h3>${{number_format($item->price,0,',','.')}}</h3>
+                                        <h3>{{number_format($item->price,0,',','.')}} VND</h3>
                                         <a href="#" class="add_cart" wire:click.prevent="store( {{$item->id}}, '{{$item->name}}', {{$item->price}} )">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
                                 </div>
@@ -271,7 +271,7 @@
                             <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                             <div class="single_product_text">
                                 <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                                <h3>{{number_format($item->price,0,',','.')}}</h3>
+                                <h3>{{number_format($item->price,0,',','.')}} VND</h3>
                             </div>
                         </div>
                         @endforeach

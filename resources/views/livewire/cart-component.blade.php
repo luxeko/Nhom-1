@@ -37,7 +37,7 @@
                     </div>
                   </td>
                   <td >
-                    <h5>${{number_format($item->price)}}</h5>
+                    <h5>{{number_format($item->price)}} VND</h5>
                   </td>
                   <td>
                   <div class="quantity">
@@ -49,7 +49,7 @@
                   </div>
                   </td>
                   <td>
-                    <h5>${{$item->subtotal()}}</h5>
+                    <h5>${{$item->subtotal()}} VND</h5>
                   </td>
                   <td> 
                     <a href="" wire:click.prevent="destroy('{{$item->rowId}}')" style="color: #2a2a2a;">
@@ -77,7 +77,7 @@
                     <h5>Subtotal</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->subtotal()}}</h5>
+                    <h5>{{Cart::instance('cart')->subtotal()}} VND</h5>
                   </td>
                 </tr>
                 <tr class="shipping_area">
@@ -88,7 +88,7 @@
                     <h5>Tax</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->tax()}}</h5>
+                    <h5>{{Cart::instance('cart')->tax()}} VND</h5>
                   </td>
                 </tr>
                 <tr>
@@ -116,7 +116,7 @@
                     <h5>Total</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->total()}}</h5>
+                    <h5>{{Cart::instance('cart')->total()}} VND</h5>
                   </td>
                 </tr>
               </tbody>
