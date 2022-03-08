@@ -64,7 +64,7 @@ Route::get('/search',SearchComponent::class)->name('products.search');
 Route::get('/contact',ContactComponent::class)->name('contact');
 Route::get('/blog',BlogComponent::class)->name('blog');
 Route::middleware(['auth:sanctum','verified'])->group(function(){ 
-    // Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
+    Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
     Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');
     Route::get('/user/orders/{order_id}',UserOrderDetailsComponent::class)->name('user.orderdetails');
 });

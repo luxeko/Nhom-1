@@ -56,15 +56,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="navbarDropdown_2" role="button">
                                         Combo
                                     </a>
                                     <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
                                     </div> -->
+                                    <div  aria-labelledby="navbarDropdown_2">
+
+                                    </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="/shop" >
@@ -73,7 +75,7 @@
                                     </a>
                                     @livewire('header-category-component');
                                 </li>
-                                <li class="nav-item dropdown">
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('blog') }}" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
@@ -97,7 +99,7 @@
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu" style="margin-top: 4px;">
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
                                             <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
@@ -125,7 +127,7 @@
                                     <a class="navbar__icon">
                                         <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                     </a>
-                                    <div class="dropdown-menu">
+                                    <div class="dropdown-menu" style="margin-top: 4px;">
                                         <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
                                         <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
                                     </div>
