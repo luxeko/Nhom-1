@@ -28,6 +28,8 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\ContactComponent;
+use App\Http\Livewire\BlogComponent;
 use App\Http\Livewire\user\UserDashboardComponent;
 use App\Http\Livewire\user\UserOrdersComponent;
 use App\Http\Livewire\user\UserOrderDetailsComponent;
@@ -58,9 +60,11 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
 Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
 Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
-Route::get('/search',SearchComponent::class)->name('products.search'); 
+Route::get('/search',SearchComponent::class)->name('products.search');
+Route::get('/contact',ContactComponent::class)->name('contact');
+Route::get('/blog',BlogComponent::class)->name('blog');
 Route::middleware(['auth:sanctum','verified'])->group(function(){ 
-    Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
+    // Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
     Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');
     Route::get('/user/orders/{order_id}',UserOrderDetailsComponent::class)->name('user.orderdetails');
 });
@@ -87,18 +91,18 @@ Route::get('/mailable2', function () {
 
 
 // Public route (Đức Anh)
-Route::group(['namespace'=>'Public'], function(){
-    // Xử lý CRUD Blogs
+// Route::group(['namespace'=>'Public'], function(){
+//     // Xử lý CRUD Blogs
 
-     Route::group(['prefix'=>'public/blogs'], function(){
-        Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
-        Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
-        Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
-    }); 
-    //Route::group(['prefix'=>'public/'], function(){
-    //    Route::get('/index', [PublicProductController::class, 'index']);
-     //}); 
-});
+//      Route::group(['prefix'=>'public/blogs'], function(){
+//         Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
+//         Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
+//         Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
+//     }); 
+//     Route::group(['prefix'=>'public/'], function(){
+//        Route::get('/index', [PublicProductController::class, 'index']);
+//      }); 
+// });
 
 
 

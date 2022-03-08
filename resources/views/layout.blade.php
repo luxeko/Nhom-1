@@ -57,14 +57,14 @@
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Special
+                                        Combo
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="/shop" >
@@ -74,7 +74,7 @@
                                     @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="{{ route('blog') }}" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -83,7 +83,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="route('contact')">Contact</a>
                                 </li>
                             </ul>
                         </div>

@@ -241,11 +241,6 @@
   <!--::footer_part start::-->
   <footer class="footer-distributed">
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 8c95c5f9c503abb1ffbd3dcea236a5cd7c734a68
 <div class="footer-left">
 
   <h3>Mativina</h3>
