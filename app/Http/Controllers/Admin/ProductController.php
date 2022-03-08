@@ -22,14 +22,12 @@ class ProductController extends Controller
     private $product;
     private $category;
     private $productImage;
-    private $discount;
 
-    public function __construct(Product $product, Category $category, ProductImage $productImage, discount $discount)
+    public function __construct(Product $product, Category $category, ProductImage $productImage)
     {
         $this->product = $product;
         $this->category = $category;
         $this->productImage = $productImage;
-        $this->discount = $discount;
     }
     public function getCategory($parentId){
         $data = $this->category->all();
@@ -50,21 +48,7 @@ class ProductController extends Controller
         $total = $data->total();
         return view('admin.manage_product.product', compact('data', 'currentPage', 'perPage', 'total', 'htmlOption'));
     }
-    // public function fetch_data(Request $request){
-    //     if($request->ajax())
-    //     {
-    //         $sort_by = $request->get('sortby');
-    //         $sort_type = $request->get('sorttype');
-    //         $search = $request->get('search');
-    //         $search = str_replace(" ", "%", $search);
-    //         $data = $this->product
-    //                         ->where('name', 'LIKE', '%'.$search.'%')
-    //                         ->orWhere('price', 'LIKE', '%'.$search.'%')
-    //                         ->orderBy($sort_by, $sort_type)
-    //                         ->paginate(5);
-    //         return view('admin.manage_product.data', compact('data'))->render();
-    //     }
-    // }
+   
     public function details_product(Request $request){
         return Product::findOrFail($request->id);
     }   
@@ -224,38 +208,53 @@ class ProductController extends Controller
     public function search(Request $request){
         $search = $request->get('search');
         $status_filter = $request->get('status_filter');
-        $getAllCategory = $this->category->all();
         $category = $request->get('category_filter');
-        $sort = $request->get('sort');
-        $date = $request->get('date');
-        $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', $status_filter)->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
-        if($sort == 'ASC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status', $status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->paginate(100);
-        }
-        if($sort == 'DESC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->paginate(100);
-        }
-        if($date == 'latest'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->latest()->paginate(100);
-        }
-        if($date == 'oldest' && $sort == 'ASC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->oldest()->paginate(100);
-        }
-        if($date == 'oldest' && $sort == 'DESC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->oldest()->paginate(100);
-        }
-        if($date == 'latest' && $sort == 'ASC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'ASC')->oldest()->paginate(100);
-        }
-        if($date == 'latest' && $sort == 'DESC'){
-            $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status',$status_filter)->where('category_id', 'like', '%'.$category.'%')->orderBy('price', 'DESC')->oldest()->paginate(100);
-        }
+        $sort = $request->get('sort_filter');
+        $getAllCategory = $this->category->where('status', 1)->get();
+        $htmlOption = $this->getCategory($parentId = '');
+        
+        $data = [];
+        if($category == null && $status_filter == null && $search== null){
+            $data = $this->product->whereNull('deleted_at')->latest()->paginate(10);
+            if($sort == 'asc' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+            }
+            if($sort == 'desc' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+            }
+    
+            if($sort == 'latest' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+            }
+    
+            if($sort == 'oldest'){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+            }
+        } else {
+            if($search != null || $status_filter != null || $category != null){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->paginate(50);
+                if($sort == 'asc' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+                }
+                if($sort == 'desc' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+                }
+        
+                if($sort == 'latest' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+                }
+        
+                if($sort == 'oldest'){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+                }
+            }
+        }        
 
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
-        $htmlOption = $this->getCategory($parentId = '');
-        return view('admin/manage_product.product', compact('data', 'date' ,'currentPage', 'perPage', 'total', 'search', 'status_filter', 'category', 'htmlOption', 'sort', 'getAllCategory'));
+       
+        return view('admin.manage_product.product', compact('data','currentPage', 'perPage', 'total', 'search', 'status_filter', 'category', 'htmlOption', 'sort', 'getAllCategory'));
     }
     
 }

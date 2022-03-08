@@ -149,7 +149,6 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/products/getCategoryById/{id}',[ProductController::class,'get_category_name']);
         Route::get('/admin/products/getThumbnail/{id}',[ProductController::class,'get_thumbnail']);
         // Route::get('/getDiscountById/{id}',[ProductController::class,'get_discount']);
-
         Route::get('/admin/products/create',[ProductController::class,'create'])->middleware('can:product-add');
         Route::post('/admin/products/store',[ProductController::class,'store']);
         Route::get('/admin/products/edit/{id}',[ProductController::class,'edit'])->name('product.edit')->middleware('can:product-edit');
@@ -200,7 +199,6 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/settings/edit/{id}',[SettingController::class,'edit'])->name('setting.edit')->middleware('can:setting-edit');
         Route::post('/admin/settings/update/{id}',[SettingController::class,'update'])->name('setting.update');
         Route::get('/admin/settings/delete/{id}',[SettingController::class,'delete'])->name('setting.delete')->middleware('can:setting-delete');
-        Route::get('/admin/settings/search',[SettingController::class,'search'])->name('setting.search');
     }); 
 
     // Xử lý CRUD Roles

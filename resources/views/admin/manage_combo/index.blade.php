@@ -26,36 +26,56 @@
                     <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên combo" aria-label="Search">
                 </div>
                 <div class="form-group">
-                    <select name="sort" class="form-control input-xs mr-sm-2">
-                        <option value="">Giá tiền</option>
-                        @if(isset($sort) && $sort == 'ASC')
-                            <option selected value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                    <select name="sort_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Sắp xếp</option>
+                        @if(isset($sort) && $sort === 'asc')
+                            <option selected value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
-                        @if(isset($sort) && $sort == 'DESC')
-                            <option  value="ASC">Thấp đến cao</option>
-                            <option selected value="DESC">Cao đến thấp</option>
+                        @if(isset($sort) && $sort === 'desc')
+                            <option  value="asc">Price: Thấp đến cao</option>
+                            <option selected value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'latest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'oldest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
                         @endif
                         @if(empty($sort))
-                            <option value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
                     </select>
                 </div>
                 <div class="form-group">
                     <select class="form-control input-xs mr-sm-2" name="status_filter" >
-                        <option value="">Chọn status </option>
-                        @if(isset($status)  && $status == 1)
-                            <option selected value="1">Active</option>
-                            <option value="2">Disable</option>
+                        @if(isset($status)  && $status == 'Active')
+                            <option value="">Chọn status </option>  
+                            <option selected value="Active">Active</option>
+                            <option value="Disable">Disable</option>
                         @endif
-                        @if(isset($status) && $status == 2)
-                            <option value="1">Active</option>
-                            <option selected value="2">Disable</option>
+                        @if(isset($status) && $status == 'Disable')
+                            <option value="">Chọn status </option>  
+                            <option value="Active">Active</option>
+                            <option selected value="Disable">Disable</option>
                         @endif
                         @if(empty($status))
-                            <option value="1">Active</option>
-                            <option value="2">Disable</option>
+                            <option value="">Chọn status </option>  
+                            <option value="Active">Active</option>
+                            <option value="Disable">Disable</option>
                         @endif
                     </select>
                 </div>
@@ -74,13 +94,14 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
                         <th class="text-center">Hình ảnh</th>
-                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer">Tên</th>
-                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="price" style="cursor: pointer">Giá <span class="text-success">(-20%)</span></th>
+                        <th class="text-center">Tên</th>
+                        <th class="text-center">Giá <span class="text-success">(-20%)</span></th>
                         <th class="text-center">Mô tả</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Thao tác</th>
@@ -92,21 +113,20 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->image_combo_path}}'></td>
-                                <td class="text-center">{{$value->name}}</td>
-                                <td class="text-center"><span class="text-danger">{{ number_format($value->price, 0) }} VNĐ</span>
+                                <td class="text-dark font-weight-bolder">{{$value->name}}</td>
+                                <td class="font-italic"><span class="text-success ">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center"> @php echo  $value->desc @endphp</td>
+                                <td class=""> @php echo  $value->desc @endphp</td>
                                 <td class="text-center"> 
                                     @if ($value->status == "Active")
-                                        <span class='badge bg-success text-white'>{{$value->status}}</span>
+                                        <span class='badge bg-success text-white p-2'>{{$value->status}}</span>
                                     @else
-                                        <span class='badge bg-danger text-white'>{{$value->status}}</span>
+                                        <span class='badge bg-danger text-white p-2'>{{$value->status}}</span>
                                     @endif 
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('combo-edit')
                                         <a class="btn btn-primary" href="#" onclick="viewComboDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailCombo"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ Route('combo.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
                                     @endcan
                                     @can('combo-delete')
                                         <a data-url="{{Route('combo.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>

@@ -30,7 +30,11 @@ html::-webkit-scrollbar-thumb {
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #607080;
+  background-color: #f2f7ff;
 }
 
 /* ---------- DucAnh-LoadingPage-Code ---------- */

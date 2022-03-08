@@ -60,7 +60,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -77,14 +78,14 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->image}}'></td>
-                                <td class="text-center">{{$value->title}}</td>
-                                <td class="text-center">{{$value->author}}</td>
+                                <td class="font-weight-bold">{{$value->title}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->author}}</td>
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='badge bg-success text-white'>Active</span>";
+                                            echo "<span class='badge bg-success p-2 text-white'>Active</span>";
                                         } elseif ($value->status == 2) {
-                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
+                                            echo "<span class='badge bg-danger p-2 text-white'>Disable</span>";
                                         } 
                                     ?>
                                 </td>

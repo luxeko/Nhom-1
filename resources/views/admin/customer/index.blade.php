@@ -63,7 +63,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $users->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -82,8 +83,8 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{URL::asset($value->avatar_img_path)}}'></td>
-                                <td class="text-center">{{$value->full_name}}</td>
-                                <td class="text-center">{{$value->telephone}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->full_name}}</td>
+                                <td class="text-center font-weight-bolder">{{$value->telephone}}</td>
                                 <td class="text-center">{{$value->email}}</td>
                                 <td class="text-center">{{$value->address}}</td>
                                 <td class="text-center">{{ optional($value->getCity)->vn_name }}</td>

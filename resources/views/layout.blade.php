@@ -61,7 +61,7 @@
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Special
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
                                     </div>
@@ -97,7 +97,7 @@
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu" style="margin-top: 0.125rem">
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
                                             <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
@@ -115,7 +115,7 @@
                                     <a class="navbar__icon">
                                         <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                     </a>
-                                    <div class="dropdown-menu">
+                                    <div class="dropdown-menu" style="margin-top: 0.125rem">
                                         <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
                                         <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
                                     </div>
@@ -147,66 +147,136 @@
 
 
     <!--::footer_part start::-->
-    <footer class="footer-distributed">
+    {{-- <footer class="footer-distributed">
+
         <div class="footer-left">
+
             <h3>Mativina</h3>
+            <p class="footer-links">
+                <a href="#" class="link-1">Home</a>
+                
+                <a href="#">Blog</a>
+            
+                <a href="#">Product</a>
+                
+                <a href="#">Contact</a>
+            </p>
 
+            <p class="footer-company-name">Matavina © 2015</p>
+        </div>
 
-			<div class="footer-left">
+        <div class="footer-center">
 
-				<h3>Mativina</h3>
-				<p class="footer-links">
-					<a href="#" class="link-1">Home</a>
-					
-					<a href="#">Blog</a>
-				
-					<a href="#">Product</a>
-					
-					<a href="#">Contact</a>
-				</p>
+            <div style="display:flex;">
+                <ion-icon class="footer_icon" name="location-outline"></ion-icon>
+                <p style="padding-left: 10px;">Số 8, Tôn Thất Thuyết, Mỹ Đình, Cầu Giấy</p>
+            </div>
 
-				<p class="footer-company-name">Matavina © 2015</p>
-			</div>
+            <div style="display:flex;">
+                <ion-icon class="footer_icon" name="call-outline"></ion-icon>
+                <p style="padding-left: 10px;">+84.987654321</p>
+            </div>
 
-			<div class="footer-center">
+            <div style="display:flex;">
+                <ion-icon class="footer_icon" name="mail-outline"></ion-icon>
+                <p style="padding-left: 10px;"><a href="mailto:support@company.com">support@company.com</a></p>
+            </div>
 
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="location-outline"></ion-icon>
-					<p style="padding-left: 10px;">Số 8, Tôn Thất Thuyết, Mỹ Đình, Cầu Giấy</p>
-				</div>
+        </div>
 
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="call-outline"></ion-icon>
-					<p style="padding-left: 10px;">+84.987654321</p>
-				</div>
+        <div class="footer-right">
 
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="mail-outline"></ion-icon>
-					<p style="padding-left: 10px;"><a href="mailto:support@company.com">support@company.com</a></p>
-				</div>
+            <p class="footer-company-about">
+                <span>About the company</span>
+                Our company is a place to produce unique computer equipment. Our products have inspired many people to work. Not only that, but we also translate the unique ideas of our customers into our products. products delicately. Hope you find your favorite device and have the best experience!
+            </p>
 
-			</div>
+            <div class="footer-icons">
 
-			<div class="footer-right">
+                <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-instagram"></ion-icon></i></a>
+                <a href="#"><ion-icon name="logo-linkedin"></ion-icon></i></a>
+                <a href="#"><ion-icon name="logo-github"></ion-icon></i></a>
 
-				<p class="footer-company-about">
-					<span>About the company</span>
-					Our company is a place to produce unique computer equipment. Our products have inspired many people to work. Not only that, but we also translate the unique ideas of our customers into our products. products delicately. Hope you find your favorite device and have the best experience!
-				</p>
+            </div>
 
-				<div class="footer-icons">
+        </div>
 
-					<a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-					<a href="#"><ion-icon name="logo-instagram"></ion-icon></i></a>
-					<a href="#"><ion-icon name="logo-linkedin"></ion-icon></i></a>
-					<a href="#"><ion-icon name="logo-github"></ion-icon></i></a>
+    </footer> --}}
+    <footer class="footer">
+        <div class="home-container">
+            <div class="footer-row">
+                <div class="footer-col-1">
+                    <ul>
+                        <li>
+                            <h3>MATIVINA STORE</h3>
+                            <p>We always provide you with the best quality products at a reasonable price. Besides. we have a professional support team. Always consult and make customers satisfied</p>
+                        </li>
+                        <li>
+                            <a href=""><i class="fa fa-map-marker">&#160;&#160;</i>8A Ton That Thuyet, My Dinh, Ha Noi</a>
+                        </li>
+                        <li>
+                            <a href="tel:+849666666666"><i class="fa fa-phone">&#160;&#160;</i>+84-96-6666-6666</a>
+                        </li>
+                        <li>
+                            <a href="mailto:support@cosy.com"><i class="fa fa-envelope">&#160;&#160;</i>support@mantivia.com</a>
+                        </li>
+                        <div class="social-links">
+                            <a href="http://facebook.com"><i class="fab fa-facebook-f"></i></a>
+                            <a href="http://twitter.com"><i class="fab fa-twitter"></i></a>
+                            <a href="http://instagram.com"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </ul>
+                </div>
+                <div class="footer-col ">
+                    <h4>Map</h4>
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Combo</a></li>
+                        <li><a href="">All Product</a></li>
+                        <li><a href="l">Blogs</a></li>
+                        <li><a href="">Contact Us</a></li>
+                    </ul>
+                </div> 
 
-				</div>
+               
+                <div class="footer-col">
+                    <h4>Store Ha Noi </h4>
+                    <div>
+                        <ul>    
+                            <li>
+                                <div class="footer-showroom">
+                                    <h1>Store 1</h1>
+                                    <p>Adress : <span>79B, Hai Ba Trung, Ha Noi</span></p>
+                                    <p>Support : <a href="tel:0693 993 323">0693 993 323</a></p>
+                                    <p>Email : <a href="mailto:Cosy_79B@gmail.com">Cosy_79B@gmail.com</a></p>
+                                </div>   
+                            </li> 
 
-			</div>
+                            <li>
+                                <div class="footer-showroom ">
+                                    <h1>Store 2</h1>
+                                    <p>Adress : <span>8, Ba Dinh, Ha Noi</span></p>
+                                    <p>Support : <a  href="tel:0685 221 999">0685 221 999</a></p>
+                                    <p>Email : <a href="mailto:Cosy_8BaDinh@gmail.com">Cosy_8Ba@gmail.com</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>   
+                </div>
+                <div class="footer-col">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.0964841656846!2d105.78010801533206!3d21.02882509315103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab86cece9ac1%3A0xa9bc04e04602dd85!2zRlBUIEFwdGVjaCBIw6AgTuG7mWkgLSBI4buHIFRo4buRbmcgxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6puIFF14buRYyBU4bq_IChTaW5jZSAxOTk5KQ!5e0!3m2!1svi!2s!4v1646650815072!5m2!1svi!2s"  width="100%" height="300px"></iframe>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="copyright">
+            <p>Coyright &#169; 2021 Mativina. All Right Reserved</p>
+            <a href="warranty.html">Terms of Use</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
 
-		</footer>
-
+    </footer>
     <!--::footer_part end::-->
 
     <!-- jquery plugins here-->

@@ -51,19 +51,37 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <select name="sort" class="form-control  input-xs mr-sm-2">
-                        <option value="">Giá tiền</option>
-                        @if(isset($sort) && $sort == 'ASC')
-                            <option selected value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                    <select name="sort" class="form-control input-xs mr-sm-2">
+                        <option value="">Sắp xếp</option>
+                        @if(isset($sort) && $sort === 'asc')
+                            <option selected value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
-                        @if(isset($sort) && $sort == 'DESC')
-                            <option  value="ASC">Thấp đến cao</option>
-                            <option selected value="DESC">Cao đến thấp</option>
+                        @if(isset($sort) && $sort === 'desc')
+                            <option  value="asc">Price: Thấp đến cao</option>
+                            <option selected value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'latest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'oldest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
                         @endif
                         @if(empty($sort))
-                            <option value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
                     </select>
                 </div>
@@ -108,16 +126,17 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
+                        <th class="text-center">Giá trị đơn hàng (Sau thuế)</th>
                         <th class="text-center">Firt Name</th>
                         <th class="text-center">Last Name</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">SĐT</th>
                         <th class="text-center">Thành phố</th>
-                        <th class="text-center">Tổng tiền (Sau thuế)</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
@@ -127,13 +146,13 @@
                         @foreach ( $data as  $key =>  $value)                         
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
-                                <td class="text-center">{{  $value->firstname }}</td>
-                                <td class="text-center">{{  $value->lastname}}</td>
+                                <td class=""><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>
+                                <td class="font-weight-bold text-dark">{{  $value->firstname }}</td>
+                                <td class="font-weight-bold text-dark">{{  $value->lastname}}</td>
                                 <td class="text-center">{{  $value->email }}</td>
                                 <td class="text-center">{{  $value->mobile }}</td>
-                                <td class="text-center">{{ optional( $value->getCity)->vn_name }}</td>
+                                <td class="text-center">{{  optional( $value->getCity)->vn_name }}</td>
                                 {{-- <td class="text-center">{{  $value->getProduct->name }}</td> --}}
-                                <td class="text-center"><p class="text-success font-weight-bold">{{ number_format( $value->total, 0) }} VNĐ</p>
                                 </td>
                                 <td class="text-center">
                                     <?php
@@ -147,9 +166,11 @@
                                     ?>
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
+                                    @can('order-detail')
                                     <a class="btn btn-primary" href="#" onclick="get_product({{ $value->id}});viewOrderDetail({{ $value->id}})"data-toggle="modal" data-target="#modallist_product"><i class="fas fa-eye"></i></a>
+                                    @endcan
                                     {{-- @can('product-edit') --}}
-                                    <a href="{{ Route('order.edit', ['id'=> $value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    {{-- <a href="{{ Route('order.edit', ['id'=> $value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a> --}}
                                     {{-- @endcan --}}
                                 </td>
                             </tr>
@@ -312,12 +333,17 @@
                                                     <p class="mb-1"><span> Địa chỉ 1: </span><span class="text-success " style="font-size: 15px">  ${order.line1}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Trạng thái: </span><span class="text-success " style="font-size: 15px">  ${status}</span></p>
+                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-success " style="font-size: 15px">  ${order.line2}</span></p>
                                                 </div>
+                                                
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-success " style="font-size: 15px">  ${order.line2}</span></p>
+                                                    <p class="mb-1"><span> Trạng thái: </span><span class="text-success " style="font-size: 15px">  ${status}</span></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><span> Ngày xác nhận: </span><span class="text-success " style="font-size: 15px"> ${new Date(order.created_at).toLocaleDateString("en-US",options)} </span></p>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -370,9 +396,9 @@
                                     </div>
                                 </div>
                                 `
-                                quantity = ''
-                                list_product = ''
-                                 $('#modal-order-detail').html('').append(orderDetails);
+                        quantity = ''
+                        list_product = ''
+                         $('#modal-order-detail').html('').append(orderDetails);
                     }
             })
         }

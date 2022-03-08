@@ -122,15 +122,45 @@ class ComboController extends Controller
     public function search(Request $request){
         $search = $request->get('search');
         $status = $request->get('status_filter');
-        $sort = $request->get('sort');
+        $sort = $request->get('sort_filter');
+        $data = [];
 
-        $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->paginate(100);
-        if($sort == 'ASC'){
-            $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->orderBy('price', 'ASC')->paginate(100);
+        if($sort == null &&  $status == null && $search== null){
+            $data = $this->combo->whereNull('deleted_at')->latest()->paginate(10);
+            if($sort == 'asc' ){
+                $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+            }
+            if($sort == 'desc' ){
+                $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+            }
+    
+            if($sort == 'latest' ){
+                $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+            }
+    
+            if($sort == 'oldest'){
+                $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+            }
+        } else {
+            if($search != null || $status != null) {
+                $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->paginate(50);
+                if($sort == 'asc' ){
+                    $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+                }
+                if($sort == 'desc' ){
+                    $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+                }
+        
+                if($sort == 'latest' ){
+                    $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+                }
+        
+                if($sort == 'oldest'){
+                    $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+                }
+            }
         }
-        if($sort == 'DESC'){
-            $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status', 'like', '%'.$status.'%')->orderBy('price', 'DESC')->paginate(100);
-        }
+
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();

@@ -57,14 +57,15 @@
                 echo "</div>";
             }
         @endphp
-        <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+        <div class="text-dark font-weight-bold">Có {{ $all_category->count() }} kết quả / trang</div>
+        <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-dark ">
                 <tr >
                     <th colspan="1" class="text-center" style="width:5%">STT</th>
                     <th class="text-center" >Tên</th>
                     <th class="text-center" >Miêu tả</th>
                     <th class="text-center" >Status</th>
-                    <th class="text-center" >Ngày tạo</th>
+                    <th class="text-center" >Ngày thêm vào</th>
                     <th class="text-center" >Thao tác</th>
                 </tr>
             </thead> 
@@ -73,14 +74,14 @@
                     @foreach ($all_category as $key => $value)
                         <tr>
                             <td colspan="1" class="text-center" style="width:5%">{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</td>
-                            <td class="text-center">{{$value->name}}</td>
-                            <td class="text-center">{{$value->desc_name}}</td>
+                            <td class="text-dark font-weight-bold">{{$value->name}}</td>
+                            <td class="">{{$value->desc_name}}</td>
                             <td class="text-center">
                                 <?php
                                     if($value->status == 1){
-                                        echo "<span class='badge bg-success text-white'>Active</span>";
+                                        echo "<span class='badge bg-success  p-2 text-white'>Active</span>";
                                     } else {
-                                        echo "<span class='badge bg-danger text-white'>Disable</span>";
+                                        echo "<span class='badge bg-danger  p-2 text-white'>Disable</span>";
                                     }   
                                 ?>
                             </td>

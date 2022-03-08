@@ -33,7 +33,8 @@
                 echo "</div>";
             }
         @endphp
-        <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+        <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+        <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-dark ">
                 <tr >
                     <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -47,8 +48,8 @@
                     @foreach ($data as $key => $value)
                         <tr>
                             <td colspan="1" class="text-center" style="width:5%">{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</td>
-                            <td class="text-center">{{$value->name}}</td>
-                            <td class="text-center">{{$value->link}}</td>
+                            <td class="text-center text-dark font-weight-bold">{{$value->name}}</td>
+                            <td class="">{{$value->link}}</td>
                             <td class="text-center">
                                 @can('setting-edit')
                                     <a href="{{ Route('setting.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>

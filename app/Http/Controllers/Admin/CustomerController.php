@@ -31,6 +31,7 @@ class CustomerController extends Controller
         $address = $request->get('address');
         $city_id = $request->get('city_id');
         $allCity = $this->city->all();
+        
         $users = $this->user->where('full_name', 'like', '%'.$full_name.'%')->where('email', 'like', '%'.$email.'%')->where('telephone', 'like', '%'.$telephone.'%')->where('utype', 'like', '%'.'USR'.'%')->paginate(100);
         if($address != null || $city_id != null){
             $users = $this->user->where('full_name', 'like', '%'.$full_name.'%')->where('email', 'like', '%'.$email.'%')->where('telephone', 'like', '%'.$telephone.'%')->where('utype', 'like', '%'.'USR'.'%')->where('address', 'like', '%'.$address.'%')->where('city_id', 'like', '%'.$city_id.'%')->paginate(100);

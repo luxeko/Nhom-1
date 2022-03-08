@@ -27,20 +27,39 @@
                 <div class="form-group">
                     <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên sản phẩm" aria-label="Search">
                 </div>
+                
                 <div class="form-group">
-                    <select name="sort" class="form-control input-xs mr-sm-2">
-                        <option value="">Giá tiền</option>
-                        @if(isset($sort) && $sort == 'ASC')
-                            <option selected value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                    <select name="sort_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Sắp xếp</option>
+                        @if(isset($sort) && $sort === 'asc')
+                            <option selected value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
-                        @if(isset($sort) && $sort == 'DESC')
-                            <option  value="ASC">Thấp đến cao</option>
-                            <option selected value="DESC">Cao đến thấp</option>
+                        @if(isset($sort) && $sort === 'desc')
+                            <option  value="asc">Price: Thấp đến cao</option>
+                            <option selected value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'latest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'oldest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
                         @endif
                         @if(empty($sort))
-                            <option value="ASC">Thấp đến cao</option>
-                            <option value="DESC">Cao đến thấp</option>
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
                         @endif
                     </select>
                 </div>
@@ -63,35 +82,20 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control input-xs mr-sm-2" name="status_filter" >
-                        <option value="">Chọn status </option>
-                        @if(isset($status_filter)  && $status_filter == 1)
+                        @if(isset($status_filter) && $status_filter == 1)
+                            <option value="">Chọn status </option>  
                             <option selected value="1">Active</option>
                             <option value="2">Disable</option>
                         @endif
                         @if(isset($status_filter) && $status_filter == 2)
+                            <option value="">Chọn status </option>  
                             <option value="1">Active</option>
                             <option selected value="2">Disable</option>
                         @endif
-                        @if(empty($status_filter))
+                        @if(empty($status_filter) )
+                            <option value="">Chọn status </option>  
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
-                        @endif
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select class="form-control input-xs mr-sm-2" name="date" >
-                        <option value="">Top sản phẩm </option>
-                        @if(isset($date)  && $date == 'latest')
-                            <option selected value="latest">Mới nhất</option>
-                            <option value="oldest">cũ nhất</option>
-                        @endif
-                        @if(isset($date) && $date == 'oldest')
-                            <option value="latest">Mới nhất</option>
-                            <option selected value="oldest">Cũ nhất</option>
-                        @endif
-                        @if(empty($date))
-                            <option value="latest">Mới nhất</option>
-                            <option value="oldest">Cũ nhất</option>
                         @endif
                     </select>
                 </div>
@@ -109,7 +113,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -122,22 +127,22 @@
                     </tr>
                 </thead> 
                 <tbody id="list-product">
-                    @if(!empty($data) && $data->count()>0)
-                        @foreach ($data as $key => $value)                         
+                    @if(isset($data) && $data->count()>0)
+                        @foreach ($data as $key => $value)                              
                             <tr>
-                                <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
+                                <th colspan='1' class='text-center ' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->feature_image_path}}'></td>
-                                <td class="text-center">{{$value->name}}</td>
+                                <td class=" text-dark font-weight-bold">{{$value->name}}</td>
                                 
-                                <td class="text-center"><span class="text-success">{{ number_format($value->price, 0) }} VNĐ</span>
+                                <td class=""><span class="text-success font-weight-bolder font-italic">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center">{{ optional($value->category)->name }}</td>
+                                <td class="text-center text-dark font-weight-bold">{{ optional($value->category)->name }}</td>
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='badge bg-success text-white'>Active</span>";
+                                            echo "<span class='badge bg-success p-2 text-white'>Active</span>";
                                         } else {
-                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
+                                            echo "<span class='badge bg-danger p-2 text-white'>Disable</span>";
                                         }  
                                     ?>
                                 </td>

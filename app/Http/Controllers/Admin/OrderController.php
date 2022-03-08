@@ -57,14 +57,45 @@ class OrderController extends Controller
         $mobile = $request->get('mobile');
         $city = $request->get('city');
         $allCity = $this->city->all();
-        $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->paginate(100);
 
-        if($sort == 'ASC'){
-            $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'ASC')->paginate(100);
+
+        $data = [];
+        if($firstname == null &&  $lastname == null &&  $status == null && $email== null && $mobile== null && $city== null){
+            $data = $this->order->latest()->paginate(10);
+            if($sort == 'asc' ){
+                $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'asc')->paginate(100);
+            }
+            if($sort == 'desc' ){
+                $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'desc')->paginate(100);
+            }
+    
+            if($sort == 'latest' ){
+                $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('updated_at', 'desc')->paginate(100);
+            }
+    
+            if($sort == 'oldest'){
+                $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('updated_at', 'asc')->paginate(100);
+            }
+        } else {
+            if($firstname != null || $city != null || $email != null || $mobile != null || $status != null || $lastname != null){
+                $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->paginate(100);
+                if($sort == 'asc' ){
+                    $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'asc')->paginate(100);
+                }
+                if($sort == 'desc' ){
+                    $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'desc')->paginate(100);
+                }
+        
+                if($sort == 'latest' ){
+                    $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('updated_at', 'desc')->paginate(100);
+                }
+        
+                if($sort == 'oldest'){
+                    $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('updated_at', 'asc')->paginate(100);
+                }
+            }
         }
-        if($sort == 'DESC'){
-            $data = $this->order->where('firstname', 'like', '%'.$firstname.'%')->where('lastname', 'like', '%'.$lastname.'%')->where('status', 'like', '%'.$status.'%')->where('email', 'like', '%'.$email.'%')->where('mobile', 'like', '%'.$mobile.'%')->where('city', 'like', '%'.$city.'%')->orderBy('total', 'DESC')->paginate(100);
-        }
+
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
