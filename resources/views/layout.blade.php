@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} " >
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} ">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     @livewireStyles
 </head>
@@ -56,14 +56,18 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Special
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="navbarDropdown_2" role="button">
+                                        Combo
                                     </a>
                                     <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
+
+
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
+                                    </div> -->
+                                    <div  aria-labelledby="navbarDropdown_2">
+
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -73,8 +77,8 @@
                                     </a>
                                     @livewire('header-category-component');
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/shop" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -83,7 +87,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="/contact">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -93,11 +97,13 @@
                             </div>
                             @auth
                                 @if(Auth::user()->utype === "USR" || Auth::user()->utype === "ADM" )
+
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
                                         <div class="dropdown-menu" style="margin-top: 0.125rem">
+
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
                                             <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
@@ -109,13 +115,24 @@
                                             @csrf
                                         </form>
                                     </div>
-                                @endif
+                                <!-- @elseif(Auth::user()->utype === "ADM")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                            <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                        </div>
+                                    </div>
+                                @endif -->
                             @else
                                 <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                     <a class="navbar__icon">
                                         <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                     </a>
                                     <div class="dropdown-menu" style="margin-top: 0.125rem">
+
                                         <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
                                         <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
                                     </div>
@@ -132,16 +149,6 @@
     </header>
     <!-- Header part end-->
     <!--================Home Banner Area =================-->
-
-    {{-- @yield('all_products')
-    @yield('detail')
-    @yield('audio')
-    @yield('cam')
-    @yield('cases')
-    @yield('components')
-    @yield('cooling')
-    @yield('combo') --}}
-
 	
     {{$slot}}
 
@@ -161,6 +168,7 @@
                 
                 <a href="#">Contact</a>
             </p>
+
 
             <p class="footer-company-name">Matavina © 2015</p>
         </div>
@@ -202,6 +210,7 @@
 
         </div>
 
+
     </footer> --}}
     <footer class="footer">
         <div class="home-container">
@@ -238,6 +247,8 @@
                         <li><a href="">Contact Us</a></li>
                     </ul>
                 </div> 
+
+
 
                
                 <div class="footer-col">

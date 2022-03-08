@@ -57,13 +57,15 @@
                                     <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{{URL::to('/home')}}" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Special
+                                    <a class="nav-link" href="#" id="navbarDropdown_1" role="button">
+                                        Combo
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="#">Combo </a>
                                         <a class="dropdown-item" href="#">New product</a>
+                                    </div> -->
+                                    <div  aria-labelledby="navbarDropdown_2">
+
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -74,7 +76,7 @@
                                     @livewire('header-category-component');
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{ asset('public/blogs/index') }}" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="/blog" id="navbarDropdown_2" role="button">
                                         blog
                                     </a>
                                     <div  aria-labelledby="navbarDropdown_2">
@@ -83,7 +85,7 @@
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{URL::to('/contact')}}">Contact</a>
+                                    <a class="nav-link" href="/contact">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -92,12 +94,17 @@
                                 <a class="navbar__icon" id="search_1" href="javascript:void(0)"><ion-icon name="search-outline"></ion-icon></a>
                             </div>
                             @auth
+
                                 @if(Auth::user()->utype === "USR" || Auth::user()->utype === "ADM" )
+
+
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
+
                                         <div class="dropdown-menu" style="margin-top: 0.125rem" >
+
                                             <a class="dropdown-item" title="My Account" href="" style="color:#fefefe">My Account ({{Auth::user()->name}})</a>
                                             <!-- <a class="dropdown-item" title="My Account" href="{{route('user.dashboard')}}" style="color:#fefefe">Dashboard</a> -->
                                             <a class="dropdown-item" title="My Orders" href="{{ route('user.orders') }}">My Orders</a>
@@ -109,13 +116,24 @@
                                             @csrf
                                         </form>
                                     </div>
-                                @endif
+                                <!-- elseif(Auth::user()->utype === "USR")
+                                    <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
+                                        <a class="navbar__icon">
+                                            <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
+                                            <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
+                                        </div>
+                                    </div>
+                                @endif -->
                             @else
                                 <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                     <a class="navbar__icon">
                                         <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                     </a>
                                     <div class="dropdown-menu" style="margin-top: 0.125rem"  >
+
                                         <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
                                         <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
                                     </div>
@@ -154,13 +172,13 @@
 
 				<h3>Mativina</h3>
 				<p class="footer-links">
-					<a href="#" class="link-1">Home</a>
+					<a href="/" class="link-1">Home</a>
 					
-					<a href="#">Blog</a>
+					<a href="/blog">Blog</a>
 				
-					<a href="#">Product</a>
+					<a href="/shop">Product</a>
 					
-					<a href="#">Contact</a>
+					<a href="/contact">Contact</a>
 				</p>
 
 				<p class="footer-company-name">Matavina © 2015</p>

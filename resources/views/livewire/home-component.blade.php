@@ -94,7 +94,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
                         <h2 class="text-white">Weekly Sale on 60% Off All Products</h2>
-                        <div class="date_countdown">
+                        <div class="date_countdown" wire:ignore>
                             <div id="timer">
                                 <div id="days" class="date text-white"></div>
                                 <div id="hours" class="date text-white"></div>
@@ -155,7 +155,7 @@
     </section>
     <!-- product_list part end-->
 
-    {{-- blog starts  --}}
+    <!-- {{-- blog starts  --}} -->
     <section class="blog_public_main">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -193,7 +193,7 @@
             </div>
         </div>
     </section>
-    {{-- blog ends  --}}
+    <!-- {{-- blog ends  --}} -->
 
     <!---------- Testimonial ---------->
      <section class="mt-5">

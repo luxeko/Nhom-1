@@ -1,5 +1,5 @@
 <div>
-  <section class="cart_area padding_top">
+  <section class="cart_area padding_top padding_bottom">
     <div class="container">
       @if(Session::has('success_message'))
         <div class="alert alert-success">
@@ -126,7 +126,7 @@
               <a class="btn_1 checkout_btn_1" href="#" wire:click.prevent="checkout">Proceed to checkout</a>
             </div>
           @else
-            <div class="text-center" style="padding:30px 0;">
+            <div class="text-center padding_top padding_bottom">
               <h1>Your cart is empty!</h1>
               <p>Add item to it now</p>
               <a href="/" class="btn btn-success">Shop Now</a>
