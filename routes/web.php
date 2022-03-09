@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashDataController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
@@ -63,6 +64,10 @@ Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('
 Route::get('/search',SearchComponent::class)->name('products.search');
 Route::get('/contact',ContactComponent::class)->name('contact');
 Route::get('/blog',BlogComponent::class)->name('blog');
+
+// Route gui mail contact
+Route::post('send-contact', [MailController::class, 'send'])->name('send.contact');
+
 Route::middleware(['auth:sanctum','verified'])->group(function(){ 
     Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
     Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');

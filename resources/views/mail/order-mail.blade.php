@@ -15,7 +15,7 @@
 <tbody>
     @foreach($order->orderItems as $item)
         <tr>
-            <td><img src="{{asset('assets/images/products')}}/{{$item->product->image}}" width="100" /></td>
+            <td><img src="{{$item->product->feature_image_path}}" width="100" /></td>
             <td>{{$item->product->name}}</td>
             <td>{{$item->quantity}}</td>
             <td>{{number_format($item->price * $item->quantity)}} VND</td>

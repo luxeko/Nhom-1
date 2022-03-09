@@ -7,19 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestMail extends Mailable
+class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($mail_data)
     {
-        $this->details = $details;
+        $this->mail_data = $mail_data;
     }
 
     /**
@@ -29,6 +28,6 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test Mail From Surfsise Media')->view('admin.testmail');
+        return $this->view('livewire.email-template')->subject('subject')->from($this->mail_data['fromEmail'],$this->mail_data['fromName'])->with('mail_data', $this->mail_data);
     }
 }

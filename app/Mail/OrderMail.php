@@ -25,7 +25,6 @@ class OrderMail extends Mailable
         $this->orderUrl = route('user.orderdetails', ['order_id'=>$order->id]);
     }
 
-
     /**
      * Build the message.
      *
@@ -33,6 +32,6 @@ class OrderMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Confirmation')->markdown('mail.order-mail', ['url' => $this->orderUrl,]);
+        return $this->subject('Order Confirmation')->view('livewire.mail.order-mail', ['url' => $this->orderUrl]);
     }
 }
