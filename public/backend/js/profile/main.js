@@ -3,7 +3,7 @@ $(function(){
         $('input').attr('readonly', true);
         $('textarea').attr('readonly', true);
         $('select').attr('disabled', true);
-        $(".profile_update").hide();    
+        $(".profile_update").hide();
         $(".avatar_profile").hide();    
         $(".profile_cancel").hide();
 

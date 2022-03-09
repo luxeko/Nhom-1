@@ -10,10 +10,10 @@ use App\Models\Shipping;
 use App\Models\Transaction;
 use App\Mail\OrderMail;
 use App\Models\City;
-use Illuminate\Support\Facades\Auth;
-use Cart;
 use Stripe;
 use Illuminate\Support\Facades\Mail;
+use Cart;
+use Auth;
 use DB;
 
 class CheckoutComponent extends Component
@@ -116,7 +116,7 @@ class CheckoutComponent extends Component
         $order->is_shipping_different = $this->ship_to_different ? 1:0;
         $order->save();
         
-        foreach(Cart::content() as $item)
+        foreach(Cart::instance('cart')->content() as $item)
         {
             $orderItem = new OrderItem();
             $orderItem->product_id = $item->id;
@@ -192,7 +192,7 @@ class CheckoutComponent extends Component
                 ]);
                 
                 $charge = $stripe->charges()->create([
-                   'customer' => $customer['id'],
+                    'customer' => $customer['id'],
                     'currency' => 'USD',
                     'amount' => session()->get('checkout')['total'],
                     'description' => 'Payment for order no ' . $order->id
@@ -221,7 +221,7 @@ class CheckoutComponent extends Component
     public function resetCart()
     {
         $this->thankyou = 1;
-        Cart::destroy();
+        Cart::instance('cart')->destroy();
         session()->forget('checkout');
     }
     
@@ -285,8 +285,15 @@ class CheckoutComponent extends Component
     
     public function render()
     {
+        if(Auth::check())
+        {
+            if(DB::table('shoppingcart')->where('identifier', Auth::user()->email)->get()->count() == 1)
+            {
+                Cart::instance('cart')->erase(Auth::user()->email);
+            }
+            Cart::instance('cart')->store(Auth::user()->email);
+        }
         $this->verifyForCheckout();
-        
         return view('livewire.checkout-component')->layout('layout');
     }
 }
