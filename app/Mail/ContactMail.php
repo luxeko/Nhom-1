@@ -28,6 +28,8 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->view('livewire.email-template')->subject('subject')->from($this->mail_data['fromEmail'],$this->mail_data['fromName'])->with('mail_data', $this->mail_data);
+        return $this->view('livewire.email-template')->subject('subject')
+            ->from($this->mail_data['fromEmail'],$this->mail_data['fromName'])
+            ->with('mail_data', $this->mail_data);
     }
 }
