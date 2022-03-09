@@ -13,7 +13,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Doanh thu (Ngày)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{$sumPrice}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format($sumPrice, 0)}} VNĐ</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -30,7 +30,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Số đơn hàng (Ngày)</div>
+                                Số đơn hàng xác nhận (ngày)</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrder}} Delivered</div>
                         </div>
                         <div class="col-auto">
@@ -94,8 +94,18 @@
     <div class="row">
         <div class="col-md-6">
             <div id="table_data">
-                <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
-                    <thead class="thead-dark ">
+                <table class="table mb-0 pb-0" width="100%">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th>
+                                <a class="text-white" href="{{ route('product.index') }}">Danh sách sản phẩm mới nhất</a> 
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+                   
+                    <thead class="thead-dark">
                         <tr>
                             <th colspan="1" class="text-center" style="width:5%">STT</th>
                             <th class="text-center">Hình ảnh</th>
@@ -141,6 +151,15 @@
         </div>
         <div class="col-md-6">
             <div id="table_data">
+                <table class="table mb-0 pb-0" width="100%" cellspacing="0">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th>
+                                <a class="text-white" href="{{ route('order.index') }}">Danh sách orders mới nhất</a> 
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
                 <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark ">
                         <tr>
@@ -177,16 +196,14 @@
                                         ?>
                                     </td>
                                 </tr>
+                                
                             @endforeach
                         @else
                             <tr>
                                 <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
                             </tr>
                         @endif
-                        
-                    </tbody>
-                    <tbody id="list-order"></tbody>
-                    
+                    </tbody>                    
                 </table>
             </div>
         </div>

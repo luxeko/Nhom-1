@@ -17,22 +17,22 @@
         <div class="d-flex bg-light justify-content-between mb-3 ">
             <h2 class="border-bottom border-secondary">Danh sách order</h2>
         </div>
-        <div class="d-flex justify-content-end mb-3">    
+        <div class="d-flex justify-content-start mb-3">    
             <form action="{{ route('order.search') }}" method="get" class="form-inline">
                 <div class="form-group">
-                    <input value="{{ isset($firstname) ? $firstname : '' }}" class="form-control mr-sm-2" name="firstname" type="search" placeholder="First Name" aria-label="Search">
+                    <input value="{{ isset($firstname) ? $firstname : '' }}" class="form-control mr-sm-1" name="firstname" type="search" placeholder="First Name" aria-label="Search">
                 </div>
                 <div class="form-group">
-                    <input value="{{ isset($lastname) ? $lastname : '' }}" class="form-control mr-sm-2" name="lastname" type="search" placeholder="Last Name" aria-label="Search">
+                    <input value="{{ isset($lastname) ? $lastname : '' }}" class="form-control mr-sm-1" name="lastname" type="search" placeholder="Last Name" aria-label="Search">
                 </div>
                 <div class="form-group">
-                    <input  value="{{ isset($email) ? $email : '' }}" class="form-control mr-sm-2" name="email" type="search" placeholder="Email" aria-label="Search">
+                    <input  value="{{ isset($email) ? $email : '' }}" class="form-control mr-sm-1" name="email" type="search" placeholder="Email" aria-label="Search">
                 </div>
                 <div class="form-group">
-                    <input value="{{ isset($mobile) ? $mobile : '' }}" class="form-control mr-sm-2" name="mobile" type="search" placeholder="Số điện thoại" aria-label="Search">
+                    <input value="{{ isset($mobile) ? $mobile : '' }}" class="form-control mr-sm-1" name="mobile" type="search" placeholder="Số điện thoại" aria-label="Search">
                 </div>
                 <div class="form-group">
-                    <select name="city"  class="pr-5 form-control input-xs mr-sm-2">
+                    <select name="city"  class="pr-5 form-control input-xs mr-sm-1">
                         <option value="">Thành phố</option>
                         @if(isset($city))
                             @forEach($allCity as $value)
@@ -51,7 +51,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <select name="sort" class="form-control input-xs mr-sm-2">
+                    <select name="sort" class="form-control input-xs mr-sm-1">
                         <option value="">Sắp xếp</option>
                         @if(isset($sort) && $sort === 'asc')
                             <option selected value="asc">Price: Thấp đến cao</option>
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="form-group">
-                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                    <select class="form-control input-xs mr-sm-1" name="status_filter" >
                         <option value="">Chọn status </option>
                         @if(isset($status)  && $status == 'ordered')
                             <option selected value="ordered">ordered</option>
@@ -142,8 +142,14 @@
                     </tr>
                 </thead> 
                 <tbody id="list-order">
+                        @php
+                            $confirm = '';   
+                        @endphp  
                     @if(!empty( $data) &&  $data->count()>0)
-                        @foreach ( $data as  $key =>  $value)                         
+                        @foreach ( $data as  $key => $value) 
+                            @php
+                                $confirm = $value->status
+                            @endphp     
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
                                 <td class=""><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>
@@ -205,6 +211,12 @@
                         <div class="modal-body border-0" id="modal-order-detail"></div>
                         {{-- end code thông báo  --}}
                         <div class="modal-footer border-0">
+                            
+                           
+                                <div id="getConfirmButton">
+
+                                </div>
+                    
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -222,43 +234,23 @@
 
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/order/main.js')}}"></script>
-{{-- <script>
-        $(document).ready(function () {
-             
-              $('#search').on('keyup',function() {
-                 var query =  $(this).val(); 
-                  $.ajax({
-                    
-                     url:"{{ route('order.search') }}",
-               
-                     type:"GET",
-                    
-                     data:{'search':query},
-                    
-                     success:function (data) {
-                       
-                          $('#list-order').html(data);
-                     }
-                 })
-                 // end of ajax call
-             });
-
-             
-              $(document).on('click', 'td', function(){
-               
-                 var value =  $(this).text();
-                  $('#search').val(value);
-                  $('#list-order').html("");
-             });
-         });
-</script> --}}
-
 <script type="text/javascript">  
     //  $(document).ready(function(){
-        var test = ''
-        var quantity = ''
+        var quantity = '';
         var list_product = '';
+        var address1 = '';
+        var address2 = '';
+        var city = '';
+        var confirmForm = '';
         function get_product(id){
+            $.ajax({
+                url:'/admin/orders/city',
+                method:'GET',
+                data:{id:id},
+                success:(item)=>{
+                    city = item.vn_name
+                }
+            })
              $.ajax({
                 url:'/admin/orders/order_item',
                 method:'GET',
@@ -308,6 +300,12 @@
                     } else {
                         status = "<span class='badge bg-danger text-white'>Canceled</span>";
                     }  
+                    address1 = order.line1 + ', ' + city;
+                    if(order.line2 == null){
+                        address2 = " ";
+                    } else {
+                        address2 = order.line2 + ', ' + city;
+                    }
                     let orderDetails = `
                                 <div class="container-fluid">   
                                     <div class="row">
@@ -330,10 +328,10 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Địa chỉ 1: </span><span class="text-success " style="font-size: 15px">  ${order.line1}</span></p>
+                                                    <p class="mb-1"><span> Địa chỉ 1: </span><span class="text-success " style="font-size: 15px">${address1}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-success " style="font-size: 15px">  ${order.line2}</span></p>
+                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-success " style="font-size: 15px">${address2}</span></p>
                                                 </div>
                                                 
                                             </div>
@@ -342,13 +340,13 @@
                                                     <p class="mb-1"><span> Trạng thái: </span><span class="text-success " style="font-size: 15px">  ${status}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Ngày xác nhận: </span><span class="text-success " style="font-size: 15px"> ${new Date(order.created_at).toLocaleDateString("en-US",options)} </span></p>
+                                                    <p class="mb-1"><span> Ngày đặt đơn: </span><span class="text-success " style="font-size: 15px"> ${new Date(order.created_at).toLocaleDateString("vn-VN",options)} </span></p>
                                                     
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-3"><span> Ngày gửi: </span><span class="text-success " style="font-size: 15px">  ${order.delivered_date}</span></p>
+                                                    <p class="mb-3"><span> Ngày xác nhận đơn: </span><span class="text-success " style="font-size: 15px">${new Date(order.delivered_date).toLocaleDateString("vn-VN",options)}</span></p>
                                                 </div>
                                             </div>
                                             
@@ -366,7 +364,7 @@
                                             </tr>
                                         </thead> 
                                         <tbody>
-                                                 ${list_product}
+                                            ${list_product}
                                         </tbody>
                                     </table>
                                     <table class="table table-lg table-striped" id="dataTable" style="width:29%" cellspacing="0">
@@ -396,10 +394,37 @@
                                     </div>
                                 </div>
                                 `
-                        quantity = ''
-                        list_product = ''
-                         $('#modal-order-detail').html('').append(orderDetails);
+                    if(order.status == 'ordered'){
+                        confirmForm = `
+                            <form id="theForm">  
+                                <input hidden class="order_id" name="id" value="${id}">
+                                <input type='submit' class='confirmClick btn btn-success' value="Xác nhận">
+                            </form> ` ; 
                     }
+
+                  
+                    $('#modal-order-detail').html('').append(orderDetails);
+                    $('#getConfirmButton').html('').append(confirmForm);
+                    $('#theForm').submit(function(event){
+                                    event.preventDefault(); 
+                                    $.ajax({
+                                        headers: {'X-CSRF-Token': '{{ csrf_token() }}',
+                                        },
+                                        url: '/admin/orders/confirm-order',
+                                        data: {id:parseInt($('.order_id').val())},
+                                        method:'Get',
+                                        success:(item)=>{
+                                            console.log("success");
+                                        }
+                                    })
+                                })
+                    confirmForm = ''
+                    quantity = ''
+                    list_product = ''
+                    address1 = '';
+                    address2 = '';
+                    city = '';
+                }
             })
         }
     // });

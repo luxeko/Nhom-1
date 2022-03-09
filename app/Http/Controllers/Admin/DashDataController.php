@@ -21,8 +21,8 @@ class DashDataController extends Controller
     }
     public function dataOrder(){
         $currentDate = Carbon::today()->toDateString();
-        $orderDate = DB::table('orders')->whereDate('created_at',$currentDate)->get();
-        $userAccount = DB::table('users')->where('utype','USR')->get();
+        $orderDate = DB::table('orders')->whereDate('delivered_date',$currentDate)->get();
+        $userAccount = DB::table('users')->where('utype', '=','USR')->whereNull('deleted_at')->get();
         $orderWait = DB::table('orders')->where('status','ordered')->get();
         $result_one = DB::select('Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 1');
         $result_two = DB::select("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 2");
@@ -41,8 +41,9 @@ class DashDataController extends Controller
         foreach($orderDate as $order){
                 $sumPrice=$sumPrice + $order->total;  
         }
-        $products = $this->product->latest()->paginate(5);
-        $orders = $this->order->latest()->paginate(5);
+
+        $products = $this->product->where('status', 1)->latest()->paginate(5);
+        $orders = $this->order->where('status','ordered')->latest()->paginate(5);
         $currentPage = $products->currentPage();
         $perPage = $products->perPage();
         $total = $products->total();

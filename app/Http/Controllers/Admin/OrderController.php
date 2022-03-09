@@ -8,7 +8,9 @@ use App\Models\Combo;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
@@ -29,7 +31,8 @@ class OrderController extends Controller
         $perPage = $data->perPage();
         $total = $data->total();
         $allCity = $this->city->all();
-        return view('admin.manage_order.index', compact('data', 'currentPage', 'perPage', 'total', 'allCity'));
+        $order = $this->order->find($request->id);
+        return view('admin.manage_order.index', compact('data', 'currentPage', 'perPage', 'total', 'allCity', 'order'));
     }
 
     public function details_order(Request $request){
@@ -46,6 +49,21 @@ class OrderController extends Controller
         $order = $this->order->find($request->id);
         $order_item = $order->orderItems;
         return $order_item;
+    }
+    public function get_City(Request $request){
+        $order = $this->order->find($request->id);
+        $order_city = $order->getCity;
+        return $order_city;
+    }
+    public function confirm_order(Request $request){
+        DB::beginTransaction();
+        $date = date("Y-m-d H:i:s");
+        $this->order->find($request->id)->update([
+            'status' => 'delivered',
+            'delivered_date' => $date
+        ]);
+        DB::commit();
+        return Redirect::to('admin/orders/index')->with('success', 'Xác nhận đơn hàng thành công');
     }
 
     public function search(Request $request){

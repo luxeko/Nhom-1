@@ -76,7 +76,7 @@
         </script>
         <script>
             $(document).ready(function(){
-                $('#preloader').hide(0).delay(1500).show(0);
+                $('#preloader').hide(0).delay(1500).fadeIn(100);
             });
         </script>
         @livewireScripts

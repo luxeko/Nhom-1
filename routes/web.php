@@ -172,9 +172,11 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/details',[OrderController::class,'details_order'])->middleware('can:order-detail');
         Route::get('/product',[OrderController::class,'get_Product']);
         Route::get('/order_item',[OrderController::class,'get_Quantity']);
+        Route::get('/city',[OrderController::class,'get_City']);
         Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit')->middleware('can:order-edit');
         Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
         Route::get('/search', [OrderController::class,'search'])->name('order.search');
+        Route::get('/confirm-order', [OrderController::class,'confirm_order'])->name('order.confirm');
     }); 
 
      // Xử lý CRUD Combo
