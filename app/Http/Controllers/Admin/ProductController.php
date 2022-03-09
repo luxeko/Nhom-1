@@ -224,11 +224,11 @@ class ProductController extends Controller
             }
     
             if($sort == 'latest' ){
-                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','asc')->paginate(50);
             }
     
             if($sort == 'oldest'){
-                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'desc')->paginate(50);
             }
         } else {
             if($search != null || $status_filter != null || $category != null){

@@ -33,8 +33,8 @@ class AllProductComponent extends Component
     {
         $this->sorting = "default"; 
         $this->pagesize = 9;
-        $this->min_price = Product::orderBy('price', 'ASC')->first()->price;
-        $this->max_price = Product::orderBy('price', 'DESC')->first()->price;
+        $this->min_price = 100000;
+        $this->max_price = 10000000;
     }
 
     use WithPagination;
@@ -56,7 +56,7 @@ class AllProductComponent extends Component
             $products = Product::where('name', 'like', '%'.$this->search.'%')->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
         }
 
-        $categories = Category::all();
+        $categories = Category::where('status', 1)->get();
         $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
 
         if(Auth::check())

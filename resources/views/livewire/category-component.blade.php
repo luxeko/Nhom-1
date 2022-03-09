@@ -153,11 +153,11 @@
                                             'min': parseInt(min_price),
                                             'max': parseInt(max_price)
                                         },
-                                        pips:{
+                                        {{-- pips:{
                                             mode:'steps',
                                             stepped:true,
                                             density:10
-                                        }
+                                        } --}}
                                     })
                                     .on('update',function (value){
                                         min_price = value[0];
@@ -181,33 +181,33 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="product_top_bar d-flex justify-content-between align-items-center">
+                            <div class="product_top_bar d-flex justify-content-between text-center align-items-center">
                                 <div class="single_product_menu">
                                     <p><span>All Products</span></p>
                                 </div>
-                                <div class="single_product_menu d-flex">
-                                    <h5 style="margin-right: 5px;">sort by: </h5>
-                                    <select name="orderby" class="use-chosen" wire:model="sorting">
+                                <div class="single_product_menu justify-content-center align-items-center d-flex ">
+                                    <h5>sort by: </h5>
+                                    <select name="orderby" class="use-chosen form-control" wire:model="sorting">
                                         <option value="default" selected="selected">Default Sorting</option>
                                         <option value="price">price: low to high</option>
                                         <option value="price-desc">price: high to low</option>
                                         <option value="date">Lastest products</option>
                                     </select>
                                 </div>
-                                <div class="single_product_menu d-flex">
+                                <div class="single_product_menu justify-content-center align-items-center d-flex flex-row">
                                     <h5 style="margin-right: 5px;">show</h5>
                                     <div class="top_pageniation">
-                                    <select name="orderby" class="use-chosen" wire:model="pagesize">
+                                    <select name="orderby" class="use-chosen form-control " wire:model="pagesize">
                                         <option value="9" selected="selected">9</option>
                                         <option value="12">12</option>
                                         <option value="15">15</option>
                                         <option value="18">18</option>
                                     </select>
-                                    <h5 style="float: right; margin-left: 5px;">per page</h5>
                                     </div>
+                                    <h5 style="margin-left: 5px;">per page</h5>
                                 </div>
 
-                                <div class="single_product_menu d-flex">
+                                <div class="single_product_menu d-flex flex-row">
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="search" wire:model="search"
                                             aria-describedby="inputGroupPrepend">
@@ -218,7 +218,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

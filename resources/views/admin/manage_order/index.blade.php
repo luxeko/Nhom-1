@@ -117,6 +117,7 @@
         @if (Session::has('success_order'))
             <div class='alert alert-success' id='order_alert'> {{ Session::get('success_order') }} </div>
         @endif
+        {{ Session::put('success_order', null) }}
         <div id="table_data">
             <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
             <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
@@ -134,14 +135,8 @@
                     </tr>
                 </thead> 
                 <tbody id="list-order">
-                        @php
-                            $confirm = '';   
-                        @endphp  
                     @if(!empty( $data) &&  $data->count()>0)
-                        @foreach ( $data as  $key => $value) 
-                            @php
-                                $confirm = $value->status
-                            @endphp     
+                        @foreach ( $data as  $key => $value)   
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
                                 <td class=""><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>

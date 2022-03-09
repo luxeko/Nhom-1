@@ -227,8 +227,12 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          <?php echo $chartDataOne?>
+          <?php foreach($allArr as $value){
+                echo $value;
+          } 
+          ?>
         ]);
+
         var options = {
           title: 'My Daily Activities',
           is3D: true,

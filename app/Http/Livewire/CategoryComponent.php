@@ -57,9 +57,9 @@ class CategoryComponent extends Component
             $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
         }
         
-        $this->min_price = Product::where('category_id',$category_id)->orderBy('price', 'ASC')->first()->price;
-        $this->max_price = Product::where('category_id',$category_id)->orderBy('price', 'DESC')->first()->price;
-        $categories = Category::all();
+        $this->min_price = 500000;
+        $this->max_price = 10000000;
+        $categories = Category::where('status', 1)->get();
         $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
 
         if(Auth::check())

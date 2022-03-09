@@ -26,17 +26,22 @@ class DashDataController extends Controller
         $userAccount = DB::table('users')->where('utype', '=','USR')->whereNull('deleted_at')->get();
         $orderWait = DB::table('orders')->where('status','ordered')->get();
         $result_one = DB::select(DB::raw("select count(A.order_id), sum(A.price*A.quantity) as subtotal, C.name FROM `order_items` A left join products B on A.product_id = B.id left join categories C on B.category_id = C.id group by C.name order by A.price*A.quantity desc;"));
+        $allArr = [];
         $chartDataOne = "";
+
         foreach($result_one as $item){
             $chartDataOne = "['".$item->name."',  ".$item->subtotal."],";
+            array_push($allArr, $chartDataOne);
         }
+
         $countOrderWait = count($orderWait);
         $countUser      = count($userAccount);
         $countOrder     = count($orderDate);
         $sumPrice = 0;
         $categoryChart = Category::all();
+
         foreach($orderDate as $order){
-                $sumPrice=$sumPrice + $order->total;  
+            $sumPrice=$sumPrice + $order->total;  
         }
 
         $products = $this->product->where('status', 1)->latest()->paginate(5);
@@ -57,6 +62,7 @@ class DashDataController extends Controller
         , 'currentPage'
         , 'perPage'
         , 'total'
+        ,'allArr'
     ));
 
     }

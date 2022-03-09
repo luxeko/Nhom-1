@@ -48,18 +48,18 @@
                                             'min': min_price,
                                             'max': max_price
                                         },
-                                        pips:{
+                                        {{-- pips:{
                                             mode:'steps',
                                             stepped:true,
                                             density:10
-                                        }
+                                        } --}}
                                     })
                                     .on('update',function (value){
                                         min_price = value[0];
                                         max_price = value[1];
                                     });
                                 ">
-                                <div class="l_w_title">
+                                <div class="l_w_title ">
                                 <h3>Price Filter</h3>
                                     <p>
                                         <span x-text="parseInt(min_price)"></span> - <span x-text="parseInt(max_price)"></span>
