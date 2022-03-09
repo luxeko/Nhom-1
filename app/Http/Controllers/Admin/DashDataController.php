@@ -15,17 +15,13 @@ class DashDataController extends Controller
     public function dataOrder(){
         $currentDate = Carbon::today()->toDateString();
         $orderDate = DB::table('orders')->whereDate('created_at',$currentDate)->get();
-        $userAccount = DB::table('users')->where('utype','USR')->get();
+        $userAccount = DB::table('users')->where("utype","=","USR")->orWhere("deleted_at","=","null")->get();
         $orderWait = DB::table('orders')->where('status','ordered')->get();
-        $result_one = DB::select('Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 1');
-        $result_two = DB::select("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 2");
-        $result_three = DB::select(DB::raw("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 3"));
-        $result_four = DB::select(DB::raw("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 4"));
-        $result_five = DB::select(DB::raw("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 5"));
-        $result_six = DB::select(DB::raw("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 6"));
-        $result_seven = DB::select(DB::raw("Select count(category_id) from products inner join order_items on products.id = order_items.product_id where category_id = 7"));
-        // $chartDataOne = ;
-   
+        $result_one = DB::select(DB::raw("select count(A.order_id), sum(A.price*A.quantity) as subtotal, C.name FROM `order_items` A left join products B on A.product_id = B.id left join categories C on B.category_id = C.id group by C.name order by A.price*A.quantity desc;"));
+        $chartDataOne = "";
+        foreach($result_one as $item){
+            $chartDataOne = "['".$item->name."',  ".$item->subtotal."],";
+        }
         $countOrderWait = count($orderWait);
         $countUser = count($userAccount);
         $countOrder=count($orderDate);
@@ -41,20 +37,7 @@ class DashDataController extends Controller
         ,'countOrderWait'
         ,'currentDate'
         ,'categoryChart'
-        , 'result_one'
-        , 'result_two'
-        , 'result_three'
-        , 'result_four'
-        , 'result_five'
-        , 'result_six'
-        , 'result_seven'
-        // , 'chartDataOne'
+        , 'chartDataOne'
     ));
-    }
-    public function chartCategory(){
-        // $count = 0;
-        // $userAccount = Category::all();
-        // return
-
     }
 }

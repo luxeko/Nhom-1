@@ -70,7 +70,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Đơn hàng đang xử lý {{$result_one}}</div>
+                                Đơn hàng đang xử lý</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrderWait}} Orders</div>
                         </div>
                         <div class="col-auto">
@@ -111,15 +111,8 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Case',     1],
-          ['Fan',      2],
-          ['Colling',  2],
-          ['Motherboards', 2],
-          ['Power',    7],
-          ['Lighting',    7],
-          ['CPU',    7]
+          <?php echo $chartDataOne?>
         ]);
-
         var options = {
           title: 'My Daily Activities',
           is3D: true,
