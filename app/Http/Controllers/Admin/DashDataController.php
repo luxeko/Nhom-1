@@ -7,11 +7,18 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
-
-
+use App\Models\Order;
+use App\Models\Product;
 
 class DashDataController extends Controller
 {
+    private $product;
+    private $order;
+    public function __construct(Product $product, Order $order)
+    {
+        $this->product = $product;
+        $this->order = $order;
+    }
     public function dataOrder(){
         $currentDate = Carbon::today()->toDateString();
         $orderDate = DB::table('orders')->whereDate('created_at',$currentDate)->get();
@@ -34,6 +41,11 @@ class DashDataController extends Controller
         foreach($orderDate as $order){
                 $sumPrice=$sumPrice + $order->total;  
         }
+        $products = $this->product->latest()->paginate(5);
+        $orders = $this->order->latest()->paginate(5);
+        $currentPage = $products->currentPage();
+        $perPage = $products->perPage();
+        $total = $products->total();
         return view('admin.partials.gioithieu',compact('orderDate'
         ,'sumPrice'
         ,'countOrder'
@@ -47,7 +59,12 @@ class DashDataController extends Controller
         , 'result_four'
         , 'result_five'
         , 'result_six'
-        , 'result_seven' ));
+        , 'result_seven'
+        , 'currentPage'
+        , 'perPage'
+        , 'total'
+        , 'products'
+        , 'orders' ));
     }
     public function chartCategory(){
         // $count = 0;

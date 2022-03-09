@@ -125,7 +125,7 @@ class ComboController extends Controller
         $sort = $request->get('sort_filter');
         $data = [];
 
-        if($sort == null &&  $status == null && $search== null){
+        if($status == null && $search== null){
             $data = $this->combo->whereNull('deleted_at')->latest()->paginate(10);
             if($sort == 'asc' ){
                 $data = $this->combo->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);

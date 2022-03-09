@@ -65,20 +65,17 @@
 
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
-<<<<<<< HEAD
                                     </div> 
-=======
-                                    </div> --> 
->>>>>>> 31bf22238aaa5fbccf04222572f9a2f2226095d7
+
                                     <div  aria-labelledby="navbarDropdown_2">
 
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="/shop" >
-                                    <!-- id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
+                                    id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
                                         Product
-                                    </a>
+                                    </a>-->
                                     @livewire('header-category-component')
                                 </li>
                                 <li class="nav-item">

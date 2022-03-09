@@ -85,9 +85,9 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{asset('admin/blogs/index')}}">
+        <a class="nav-link" href="">
             <i style="font-size: 17px" class="text-white fab fa-rocketchat mr-2"></i>
-            <span style="font-size: 17px" class="text-white add_name">Contact</span>
+            <span style="font-size: 17px" class="text-white add_name">Inboxes</span>
         </a>
     </li>
 

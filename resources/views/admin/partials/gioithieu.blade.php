@@ -84,11 +84,111 @@
     <div class="row">
         <!-- Area Chart -->
         <!-- Calender -->
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div id="container" class="calendar-container pt-1"></div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
                 <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="table_data">
+                <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="thead-dark ">
+                        <tr>
+                            <th colspan="1" class="text-center" style="width:5%">STT</th>
+                            <th class="text-center">Hình ảnh</th>
+                            <th class="text-center sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer">Tên <span id="id_icon"></span></th>
+                            <th class="text-center sorting" data-sorting_type="asc" data-column_name="price" style="cursor: pointer">Giá <span id="post_title_icon"></span> </th>
+                            <th class="text-center">Danh mục</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead> 
+                    <tbody id="list-product">
+                        @if(isset($products) && $products->count()>0)
+                            @foreach ($products as $key => $value)                              
+                                <tr>
+                                    <th colspan='1' class='text-center ' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
+                                    <td class='text-center admin_product_img'><img src='{{$value->feature_image_path}}'></td>
+                                    <td class=" text-dark font-weight-bold">{{$value->name}}</td>
+                                    
+                                    <td class=""><span class="text-success font-weight-bolder font-italic">{{ number_format($value->price, 0) }} VNĐ</span>
+                                    </td>
+                                    <td class="text-center text-dark font-weight-bold">{{ optional($value->category)->name }}</td>
+                                    <td class="text-center">
+                                        <?php
+                                            if($value->status == 1){
+                                                echo "<span class='badge bg-success p-2 text-white'>Active</span>";
+                                            } else {
+                                                echo "<span class='badge bg-danger p-2 text-white'>Disable</span>";
+                                            }  
+                                        ?>
+                                    </td>
+                                   
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
+                            </tr>
+                        @endif                    
+                    </tbody>
+                    <tbody id="list-product"></tbody>
+                    
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="table_data">
+                <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="thead-dark ">
+                        <tr>
+                            <th colspan="1" class="text-center" style="width:5%">STT</th>
+                            <th class="text-center">Giá trị đơn hàng</th>
+                            <th class="text-center">Firt Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">SĐT</th>
+                            <th class="text-center">Thành phố</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead> 
+                    <tbody id="list-order">
+                        @if(!empty( $orders) &&  $orders->count()>0)
+                            @foreach ( $orders as  $key => $value)                         
+                                <tr>
+                                    <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
+                                    <td class=""><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>
+                                    <td class="font-weight-bold text-dark">{{  $value->firstname }}</td>
+                                    <td class="font-weight-bold text-dark">{{  $value->lastname}}</td>
+                                    <td class="text-center">{{  $value->mobile }}</td>
+                                    <td class="text-center">{{  optional( $value->getCity)->vn_name }}</td>
+                                    {{-- <td class="text-center">{{  $value->getProduct->name }}</td> --}}
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                            if( $value->status == 'ordered'){
+                                                echo "<span class='badge bg-warning text-white'>Ordered</span>";
+                                            } elseif ( $value->status == 'delivered') {
+                                                echo "<span class='badge bg-success text-white'>Delivered</span>";
+                                            } else {
+                                                echo "<span class='badge bg-danger text-white'>Canceled</span>";
+                                            }  
+                                        ?>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
+                            </tr>
+                        @endif
+                        
+                    </tbody>
+                    <tbody id="list-order"></tbody>
+                    
+                </table>
+            </div>
         </div>
     </div>
 @endsection
