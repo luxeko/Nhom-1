@@ -113,18 +113,10 @@
                 </div>
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
             </form>
-           
         </div>
-        
-        @php             
-             $success = Session::get('success_order');
-            if( $success){
-                echo "<div class='alert alert-success' id='order_alert'>";
-                    echo  $success;
-                    Session::put('success_order', null);
-                echo "</div>";
-            }
-        @endphp
+        @if (Session::has('success_order'))
+            <div class='alert alert-success' id='order_alert'> {{ Session::get('success_order') }} </div>
+        @endif
         <div id="table_data">
             <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
             <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
@@ -242,6 +234,7 @@
         var address2 = '';
         var city = '';
         var confirmForm = '';
+        var get_day_order = ''
         function get_product(id){
             $.ajax({
                 url:'/admin/orders/city',
@@ -275,8 +268,8 @@
                         let product = `<tr>
                                         <th colspan='1' class='text-center' style='width:5%'> ${stt++}</th>
                                         <td class='text-center admin_product_img'><img src=' ${e.feature_image_path}'></td>
-                                        <td class="text-center"> ${e.name}</td>
-                                        <td class="text-center"><span class="text-success"> ${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></td>
+                                        <td class="text-dark font-weight-bold"> ${e.name}</td>
+                                        <td class="text-center  font-italic"><span class="text-success"> ${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></td>
                                     </tr>`;
                         list_product += product;
                     });
@@ -306,54 +299,63 @@
                     } else {
                         address2 = order.line2 + ', ' + city;
                     }
+                    if(order.canceled_date != null){
+                        get_day_order = `<div class="row">
+                                                <div class="col-md-12">
+                                                    <p ><span> Thời gian huỷ đơn: </span><span class="text-dark font-weight-bold" style="font-size: 15px"> 
+                                                        ${new Date(order.canceled_date).toLocaleDateString("vn-VN",options)} </span></p>
+                                                </div>
+                                            </div>` }
+                    if(order.delivered_date != null){
+                        get_day_order = `<div class="row">
+                                                <div class="col-md-12">
+                                                    <p ><span> Thời gian xác nhận đơn: </span><span class="text-dark font-weight-bold " style="font-size: 15px"> 
+                                                        ${new Date(order.delivered_date).toLocaleDateString("vn-VN",options)} </span></p>
+                                                </div>
+                                            </div>` }
                     let orderDetails = `
                                 <div class="container-fluid">   
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> First name: </span><span class="text-success " style="font-size: 15px"> ${order.firstname}</span></p>
+                                                    <p class="mb-3"><span> First name: </span><span class="text-dark font-weight-bold " style="font-size: 15px"> ${order.firstname}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Last name: </span><span class="text-success " style="font-size: 15px"> ${order.lastname}</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><span> Email: </span><span class="text-success " style="font-size: 15px"> ${order.email}</span></p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><span> SĐT: </span><span class="text-success " style="font-size: 15px">  ${order.mobile}</span></p>
+                                                    <p class="mb-1"><span> Last name: </span><span class="text-dark font-weight-bold" style="font-size: 15px"> ${order.lastname}</span></p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Địa chỉ 1: </span><span class="text-success " style="font-size: 15px">${address1}</span></p>
+                                                    <p class="mb-1"><span> Email: </span><span class="text-dark font-weight-bold " style="font-size: 15px"> ${order.email}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-success " style="font-size: 15px">${address2}</span></p>
+                                                    <p class="mb-1"><span> SĐT: </span><span class="text-dark font-weight-bold " style="font-size: 15px">  ${order.mobile}</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><span> Địa chỉ 1: </span><span class="text-dark font-weight-bold" style="font-size: 15px">${address1}</span></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><span> Địa chỉ 2 (nếu có): </span><span class="text-dark font-weight-bold " style="font-size: 15px">${address2}</span></p>
                                                 </div>
                                                 
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Trạng thái: </span><span class="text-success " style="font-size: 15px">  ${status}</span></p>
+                                                    <p class="mb-1"><span> Trạng thái: </span><span style="font-size: 15px">  ${status}</span></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="mb-1"><span> Ngày đặt đơn: </span><span class="text-success " style="font-size: 15px"> ${new Date(order.created_at).toLocaleDateString("vn-VN",options)} </span></p>
+                                                    <p class="mb-1"><span> Thời gian đặt đơn: </span><span class="text-dark font-weight-bold " style="font-size: 15px"> ${new Date(order.created_at).toLocaleDateString("vn-VN",options)} </span></p>
                                                     
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p class="mb-3"><span> Ngày xác nhận đơn: </span><span class="text-success " style="font-size: 15px">${new Date(order.delivered_date).toLocaleDateString("vn-VN",options)}</span></p>
-                                                </div>
-                                            </div>
-                                            
+                                            ${get_day_order}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <table class="table table-lg table-striped" id="dataTable" style="width:70%" cellspacing="0">
                                         <thead class="thead-primary" >
                                             <tr>
@@ -398,32 +400,33 @@
                         confirmForm = `
                             <form id="theForm">  
                                 <input hidden class="order_id" name="id" value="${id}">
-                                <input type='submit' class='confirmClick btn btn-success' value="Xác nhận">
+                                <button type='submit' class='confirmClick btn btn-success' value="">Xác nhận</button>
                             </form> ` ; 
                     }
 
-                  
                     $('#modal-order-detail').html('').append(orderDetails);
                     $('#getConfirmButton').html('').append(confirmForm);
                     $('#theForm').submit(function(event){
-                                    event.preventDefault(); 
-                                    $.ajax({
-                                        headers: {'X-CSRF-Token': '{{ csrf_token() }}',
-                                        },
-                                        url: '/admin/orders/confirm-order',
-                                        data: {id:parseInt($('.order_id').val())},
-                                        method:'Get',
-                                        success:(item)=>{
-                                            console.log("success");
-                                        }
-                                    })
-                                })
+                        event.preventDefault(); 
+                        $.ajax({
+                            headers: {'X-CSRF-Token': '{{ csrf_token() }}',
+                            },
+                            url: '/admin/orders/confirm-order',
+                            data: {id:parseInt($('.order_id').val())},
+                            method:'GET',
+                            success:(item)=>{
+                                window.location.reload();
+                            }
+                        })
+                    })
+                
                     confirmForm = ''
                     quantity = ''
                     list_product = ''
                     address1 = '';
                     address2 = '';
                     city = '';
+                    get_day_order = '';
                 }
             })
         }

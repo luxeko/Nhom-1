@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ConfirmMail;
 use App\Models\City;
 use App\Models\Combo;
 use App\Models\Order;
@@ -10,6 +11,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
@@ -62,19 +64,22 @@ class OrderController extends Controller
             'status' => 'delivered',
             'delivered_date' => $date
         ]);
+        $getEmail = $this->order->find($request->id)->get('email');
+        Mail::to($getEmail)->send(new ConfirmMail());
         DB::commit();
-        return Redirect::to('admin/orders/index')->with('success', 'Xác nhận đơn hàng thành công');
+        $request->session()->put('success_order', 'Xác nhận đơn hàng thành công');
+        return redirect()->route('order.index');
     }
 
     public function search(Request $request){
-        $firstname = $request->get('firstname');
-        $lastname = $request->get('lastname');
-        $status = $request->get('status_filter');
-        $sort = $request->get('sort');
-        $email = $request->get('email');
-        $mobile = $request->get('mobile');
-        $city = $request->get('city');
-        $allCity = $this->city->all();
+        $firstname  = $request->get('firstname');
+        $lastname   = $request->get('lastname');
+        $status     = $request->get('status_filter');
+        $sort       = $request->get('sort');
+        $email      = $request->get('email');
+        $mobile     = $request->get('mobile');
+        $city       = $request->get('city');
+        $allCity    = $this->city->all();
 
 
         $data = [];

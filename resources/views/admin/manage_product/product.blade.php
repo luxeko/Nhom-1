@@ -132,7 +132,7 @@
                             <tr>
                                 <th colspan='1' class='text-center ' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->feature_image_path}}'></td>
-                                <td class=" text-dark font-weight-bold">{{$value->name}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->name}}</td>
                                 
                                 <td class=""><span class="text-success font-weight-bolder font-italic">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
@@ -286,7 +286,7 @@
                                         <p class="mb-0"><span> Updated_at: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${new Date(product.updated_at).toLocaleDateString("en-US",options)}</span></p>
                                     </div>
                                     <hr style="background:#999">
-                                    <div class="product-detail-content mt-1">
+                                    <div class="mt-1">
                                         <h6 class="mb-2">Content: </h6>
                                         <div class="font-italic">
                                             ${product.content}

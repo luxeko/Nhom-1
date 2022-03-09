@@ -31,7 +31,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Số đơn hàng xác nhận (ngày)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrder}} Delivered</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrder}} Đơn hàng đã gửi</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-bill fa-2x text-gray-300"></i>
@@ -49,7 +49,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Đơn hàng đang xử lý </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrderWait}} Orders</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countOrderWait}} Đơn hàng chờ xử lý</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
@@ -155,7 +155,7 @@
                     <thead class="thead-dark">
                         <tr class="text-center">
                             <th>
-                                <a class="text-white" href="{{ route('order.index') }}">Danh sách orders mới nhất</a> 
+                                <a class="text-white" href="{{ route('order.index') }}">Danh sách orders chờ xử lý</a> 
                             </th>
                         </tr>
                     </thead>

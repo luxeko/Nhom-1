@@ -84,12 +84,12 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="">
             <i style="font-size: 17px" class="text-white fab fa-rocketchat mr-2"></i>
             <span style="font-size: 17px" class="text-white add_name">Inboxes</span>
         </a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
