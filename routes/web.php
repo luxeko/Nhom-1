@@ -6,11 +6,15 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashDataController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Pages\PublicBlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
@@ -25,9 +29,12 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\ContactComponent;
+use App\Http\Livewire\BlogComponent;
 use App\Http\Livewire\user\UserDashboardComponent;
 use App\Http\Livewire\user\UserOrdersComponent;
 use App\Http\Livewire\user\UserOrderDetailsComponent;
+use App\Models\Category;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
@@ -54,7 +61,13 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
 Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
 Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
-Route::get('/search',SearchComponent::class)->name('products.search'); 
+Route::get('/search',SearchComponent::class)->name('products.search');
+Route::get('/contact',ContactComponent::class)->name('contact');
+Route::get('/blog',BlogComponent::class)->name('blog');
+
+// Route gui mail contact
+Route::post('send-contact', [MailController::class, 'send'])->name('send.contact');
+
 Route::middleware(['auth:sanctum','verified'])->group(function(){ 
     Route::get('/user/dashboard',UserDashboardComponent::class)->name('user.dashboard'); 
     Route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');
@@ -83,18 +96,18 @@ Route::get('/mailable2', function () {
 
 
 // Public route (Đức Anh)
-Route::group(['namespace'=>'Public'], function(){
-    // Xử lý CRUD Blogs
+// Route::group(['namespace'=>'Public'], function(){
+//     // Xử lý CRUD Blogs
 
-     Route::group(['prefix'=>'public/blogs'], function(){
-        Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
-        Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
-        Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
-    }); 
-    //Route::group(['prefix'=>'public/'], function(){
-    //    Route::get('/index', [PublicProductController::class, 'index']);
-     //}); 
-});
+//      Route::group(['prefix'=>'public/blogs'], function(){
+//         Route::get('/index',[PublicBlogController::class,'index'])->name('blog.index');
+//         Route::get('/detail/{id}',[PublicBlogController::class,'detail'])->name('blog.detail');
+//         Route::get('/test',[PublicBlogController::class,'test'])->name('blog.test');
+//     }); 
+//     Route::group(['prefix'=>'public/'], function(){
+//        Route::get('/index', [PublicProductController::class, 'index']);
+//      }); 
+// });
 
 
 
@@ -134,7 +147,8 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/categories/edit/{id}',[CategoryController::class,'edit'])->name('category.edit')->middleware('can:category-edit');
         Route::post('/admin/categories/update/{id}',[CategoryController::class,'update'])->name('category.update');
         Route::get('/admin/categories/delete/{id}',[CategoryController::class,'delete'])->name('category.delete')->middleware('can:category-delete');
-        Route::get('/admin/categories/search',[ProductController::class,'search'])->name('product.search');
+        Route::get('/admin/categories/search',[CategoryController::class,'search'])->name('category.search');
+
     }); 
 
     // Xử lý CRUD Product
@@ -144,24 +158,25 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/products/getCategoryById/{id}',[ProductController::class,'get_category_name']);
         Route::get('/admin/products/getThumbnail/{id}',[ProductController::class,'get_thumbnail']);
         // Route::get('/getDiscountById/{id}',[ProductController::class,'get_discount']);
-
         Route::get('/admin/products/create',[ProductController::class,'create'])->middleware('can:product-add');
         Route::post('/admin/products/store',[ProductController::class,'store']);
         Route::get('/admin/products/edit/{id}',[ProductController::class,'edit'])->name('product.edit')->middleware('can:product-edit');
         Route::post('/admin/products/update/{id}',[ProductController::class,'update'])->name('product.update');
         Route::get('/admin/products/delete/{id}',[ProductController::class,'delete'])->name('product.delete')->middleware('can:product-delete');
-
+        Route::get('/admin/products/search',[ProductController::class,'search'])->name('product.search');
         // Route::get('/show/fetch_data',[ProductController::class,'fetch_data'])->name('product.fetch_data');
     }); 
     // Xử lý CRUD Order
     Route::group(['prefix'=>'admin/orders','middleware'=>'CheckLogedOut'], function(){
-        Route::get('/index',[OrderController::class,'index'])->name('order.index');
-        Route::get('/details',[OrderController::class,'details_order']);
+        Route::get('/index',[OrderController::class,'index'])->name('order.index')->middleware('can:order-list');
+        Route::get('/details',[OrderController::class,'details_order'])->middleware('can:order-detail');
         Route::get('/product',[OrderController::class,'get_Product']);
         Route::get('/order_item',[OrderController::class,'get_Quantity']);
-        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
+        Route::get('/city',[OrderController::class,'get_City']);
+        Route::get('/edit/{id}',[OrderController::class,'edit'])->name('order.edit')->middleware('can:order-edit');
         Route::post('/update/{id}',[OrderController::class,'update'])->name('order.update');
-        Route::get('/search', [OrderController::class,'searchOrder'])->name('order.search');
+        Route::get('/search', [OrderController::class,'search'])->name('order.search');
+        Route::get('/confirm-order', [OrderController::class,'confirm_order'])->name('order.confirm');
     }); 
 
      // Xử lý CRUD Combo
@@ -173,6 +188,7 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::post('/update/{id}',[ComboController::class,'update'])->name('combo.update');
         Route::get('/delete/{id}',[ComboController::class,'delete'])->name('combo.delete')->middleware('can:combo-delete');
         Route::get('/details',[ComboController::class,'details_combo'])->name('combo.detail');
+        Route::get('/search',[ComboController::class,'search'])->name('combo.search');
     }); 
 
     // Xử lý CRUD Blogs
@@ -184,6 +200,16 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::post('/admin/blogs/update/{id}',[BlogController::class,'update'])->name('blog.update');
         Route::get('/admin/blogs/delete/{id}',[BlogController::class,'delete'])->name('blog.delete')->middleware('can:blog-delete');
         Route::get('/admin/blogs/details',[BlogController::class,'details_blog']);
+        Route::get('/admin/blogs/search',[BlogController::class,'search'])->name('blog.search');
+    }); 
+    // Xử lý CRUD Settings
+    Route::group(['middleware'=>'CheckLogedOut'], function(){
+        Route::get('/admin/settings/index',[SettingController::class,'index'])->name('setting.index')->middleware('can:setting-list');
+        Route::get('/admin/settings/create',[SettingController::class,'create'])->name('setting.create')->middleware('can:setting-add');
+        Route::post('/admin/settings/store',[SettingController::class,'store'])->name('setting.store');
+        Route::get('/admin/settings/edit/{id}',[SettingController::class,'edit'])->name('setting.edit')->middleware('can:setting-edit');
+        Route::post('/admin/settings/update/{id}',[SettingController::class,'update'])->name('setting.update');
+        Route::get('/admin/settings/delete/{id}',[SettingController::class,'delete'])->name('setting.delete')->middleware('can:setting-delete');
     }); 
 
     // Xử lý CRUD Roles
@@ -201,8 +227,6 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/permissions/create',[PermissionController::class,'create'])->name('permission.create')->middleware('can:permission-add');
         Route::post('/admin/permissions/store',[PermissionController::class,'store'])->name('permission.store');
     }); 
-
-
 
     // Xử lý CRUD Combo
     Route::group(['middleware'=>'CheckLogedOut'], function(){
@@ -224,7 +248,15 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/users/edit/{id}',[AdminUserController::class,'edit'])->name('user.edit')->middleware('can:user-edit');
         Route::post('/admin/users/update/{id}',[AdminUserController::class,'update'])->name('user.update');
         Route::get('/admin/users/delete/{id}',[AdminUserController::class,'delete'])->name('user.delete')->middleware('can:user-delete');
-        Route::get('/admin/users/details',[AdminUserController::class,'details']);
+        Route::get('/admin/users/search',[AdminUserController::class,'search'])->name('user.search');
+    }); 
+
+    // Xử lý CRUD Customer
+    Route::group(['middleware'=>'CheckLogedOut'], function(){
+        Route::get('/admin/customers/index',[CustomerController::class,'index'])->name('customer.index')->middleware('can:customer-list');
+        Route::get('/admin/customers/search',[CustomerController::class,'search'])->name('customer.search');
+        Route::get('/admin/customers/delete/{id}',[CustomerController::class,'delete'])->name('customer.delete')->middleware('can:customer-delete');
+        Route::get('/admin/users/detail',[CustomerController::class,'delete'])->name('customer.detail')->middleware('can:customer-detail');
     }); 
 });
 

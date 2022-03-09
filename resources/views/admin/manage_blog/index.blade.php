@@ -13,10 +13,7 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách Blogs</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách Blogs</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
@@ -24,36 +21,32 @@
                     <a href="{{ asset('admin/blogs/create') }} " class="btn btn-primary mb-3">Thêm blog</a>
                 @endcan
             </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                            {{-- {!! $htmlOption !!} --}}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
+            <form action="{{  route('blog.search') }}" method="get" class="form-inline mb-3">
+                <div class="form-group">
+                    <input value="{{ isset($title) ? $title : '' }}" class="form-control mr-sm-2" name="title" type="search" placeholder="Tiêu đề" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input value="{{ isset($author) ? $author : '' }}" class="form-control mr-sm-2" name="author" type="search" placeholder="Tác giả" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        <option value="">Chọn status </option>
+                        @if(isset($status_filter)  && $status_filter == 1)
+                            <option selected value="1">Active</option>
+                            <option value="2">Disable</option>
+                        @endif
+                        @if(isset($status_filter) && $status_filter == 2)
+                            <option value="1">Active</option>
+                            <option selected value="2">Disable</option>
+                        @endif
+                        @if(empty($status_filter))
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
            
         </div>
         
@@ -67,7 +60,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -84,14 +78,14 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->image}}'></td>
-                                <td class="text-center">{{$value->title}}</td>
-                                <td class="text-center">{{$value->author}}</td>
+                                <td class="font-weight-bold">{{$value->title}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->author}}</td>
                                 <td class="text-center">
                                     <?php
                                         if($value->status == 1){
-                                            echo "<span class='badge bg-success text-white'>Active</span>";
+                                            echo "<span class='badge bg-success p-2 text-white'>Active</span>";
                                         } elseif ($value->status == 2) {
-                                            echo "<span class='badge bg-danger text-white'>Disable</span>";
+                                            echo "<span class='badge bg-danger p-2 text-white'>Disable</span>";
                                         } 
                                     ?>
                                 </td>

@@ -46,7 +46,7 @@
                         <label for="remember_admin">Remember me</label>
                         </div>
                     </div>
-                    <button type="submit" name="loginadmin" class="btn solid">Đăng nhập</button>
+                    <button type="submit" name="loginadmin" class="btn solid btn_login_admin">Đăng nhập</button>
                 </form>
             </div>
         </div>

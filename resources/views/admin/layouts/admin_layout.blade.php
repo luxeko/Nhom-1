@@ -65,6 +65,7 @@
         <script src="{{URL::asset('backend/js/demo/chart-area-demo.js')}}"></script>
         <script src="{{URL::asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
         <script src="{{URL::asset('backend/dist/jquery.simple-calendar.js')}}"></script>
+
         <script>
             $(document).ready(function(){
                 var showMes = $('.cancel_btn').click(function(){
@@ -75,7 +76,7 @@
         </script>
         <script>
             $(document).ready(function(){
-                $('#preloader').hide(0).delay(1200).show(0);
+                $('#preloader').hide(0).delay(1500).fadeIn(100);
             });
         </script>
         @livewireScripts

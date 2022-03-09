@@ -43,18 +43,18 @@ class CategoryComponent extends Component
         $category_name = $category->name;
         if($this->sorting == "date")   
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
         else if($this->sorting == "price")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize);
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize);
         }
         else if($this->sorting == "price-desc")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
         }
         else{
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
         }
         
         $this->min_price = Product::where('category_id',$category_id)->orderBy('price', 'ASC')->first()->price;

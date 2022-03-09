@@ -138,4 +138,16 @@ class BlogController extends Controller
     public function details_blog(Request $request){
         return Blog::findOrFail($request->id);
     }
+
+    public function search(Request $request){
+        $title          = $request->get('title');
+        $author         = $request->get('author');
+        $status_filter  = $request->get('status_filter');
+        $data = $this->blog->where('title', 'like', '%'.$title.'%')->where('status', 'like', '%'.$status_filter.'%')->where('author', 'like', '%'.$author.'%')->paginate(100);
+       
+        $currentPage = $data->currentPage();
+        $perPage = $data->perPage();
+        $total = $data->total();
+        return view('admin/manage_blog.index', compact('data', 'currentPage', 'perPage', 'total', 'title', 'status_filter', 'author'));
+    }
 }

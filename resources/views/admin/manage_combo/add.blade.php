@@ -108,7 +108,7 @@
             <div class="">
                 <div class="form-group">
                     <button class="btn btn-primary">Thêm Combo</button>
-                    <a href="{{ asset('admin/combo/index')}}" class="btn btn-secondary">Huỷ</a>
+                    <a href="{{ asset('admin/combos/index')}}" class="btn btn-secondary">Huỷ</a>
                 </div>
             </div>
         </form>

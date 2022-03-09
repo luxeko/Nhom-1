@@ -1,5 +1,5 @@
 <div>
-<<section class="feature_part padding_top">
+<section class="feature_part padding_top">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -72,7 +72,7 @@
                                         <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                                         <div class="single_product_text">
                                         <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                                            <h3>{{number_format($item['price'],0,',','.')}}</h3>
+                                            <h3>{{number_format($item['price'],0,',','.')}} VND</h3>
                                             <a href="#" class="add_cart" wire:click.prevent="store( {{$item->id}}, '{{$item->name}}', {{$item->price}} )">+ add to cart</a>
                                         </div>
                                     </div>
@@ -90,22 +90,16 @@
     <!-- awesome_shop start-->
     <section class="our_offer section_padding">
         <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6">
-                    <div class="offer_img">
-                        <img src="{{ URL::asset('/frontend/img/offer_img.png'); }}" alt="">
-                    </div>
-                </div>
+            <div class="row align-items-center justify-content-center text-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
-                        <h2>Weekly Sale on
-                            60% Off All Products</h2>
-                        <div class="date_countdown">
+                        <h2 class="text-white">Weekly Sale on 60% Off All Products</h2>
+                        <div class="date_countdown" wire:ignore>
                             <div id="timer">
-                                <div id="days" class="date"></div>
-                                <div id="hours" class="date"></div>
-                                <div id="minutes" class="date"></div>
-                                <div id="seconds" class="date"></div>
+                                <div id="days" class="date text-white"></div>
+                                <div id="hours" class="date text-white"></div>
+                                <div id="minutes" class="date text-white"></div>
+                                <div id="seconds" class="date text-white"></div>
                             </div>
                         </div>
                         @if(Session::has('email-message'))
@@ -113,13 +107,15 @@
                                 {{Session::get('email-message')}}
                             </div>
                         @endif
-                        <div class="input-group">
+                        <div class="input-group align-items-center justify-content-center">
                             <form wire:submit.prevent="subscribe">
-                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email"
-                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
-                                <div class="input-group-append">
-                                    <button type="submit" class="input-group-text btn_2">book now</button>
+                                <div class="d-flex flex-row">
+                                    <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email"
+                                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    @error('email') <span class="text-danger">{{$message}}</span> @enderror
+                                    <div class="input-group ml-3">
+                                        <button type="submit" class="input-group-text btn_2">book now</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -148,7 +144,7 @@
                             <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                             <div class="single_product_text">
                                 <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                                <h3>{{number_format($item->price,0,',','.')}}</h3>
+                                <h3>{{number_format($item->price,0,',','.')}} VND</h3>
                             </div>
                         </div>
                         @endforeach
@@ -159,35 +155,105 @@
     </section>
     <!-- product_list part end-->
 
-    <!-- subscribe_area part start-->
-    <section class="subscribe_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="subscribe_area_text text-center">
-                        <h5>Join Our Newsletter</h5>
-                        <h2>Subscribe to get Updated
-                            with new offers</h2>
-                        @if(Session::has('email-message'))
-                            <div class="alert alert-success" style="width: 50%;">
-                                {{Session::get('email-message')}}
-                            </div>
-                        @endif
-                        <div class="input-group">
-                            <form wire:submit.prevent="subscribe">
-                                <input type="email" name="email" class="form-control" placeholder="enter email address" wire:model="email">
-                                @error('email') <span class="text-danger">{{$message}}</span> @enderror
-                                <div class="input-group-append">
-                                    <button type="submit" class="input-group-text btn_2">subscribe now</button>
-                                </div>
-                            </form>
-                        </div>
+    <!-- {{-- blog starts  --}} -->
+    <section class="blog_public_main">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="section_tittle text-center">
+                    <h2>Blogs</h2>
+                </div>
+            </div>
+        </div>
+        <div class="blog_public_container">
+            <div class="blog_public_box">
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom1.jpg'); }}" class="blog_public_image">
+                    <div>
+                        <h2>
+                            TEst title
+                        </h2>
+                        <p>Content here</p>
                     </div>
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom5.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom6.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom7.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom8.jpg'); }}" class="blog_public_image">
+                </div>
+                <div class="blog_public_item">
+                    <img src="{{ URL::asset('/frontend/img/gamingroom3.jpg'); }}" class="blog_public_image">
                 </div>
             </div>
         </div>
     </section>
-    <!--::subscribe_area part end::-->
+    <!-- {{-- blog ends  --}} -->
+
+    <!---------- Testimonial ---------->
+     <section class="mt-5">
+         <div class="row justify-content-center">
+             <div class="col-lg-12">
+                 <div class="section_tittle text-center">
+                     <h2>Feedback</h2>
+                 </div>
+             </div>
+         </div>
+        <div class="feedback">
+            <div class="home-testimonial">
+                <div class="home-row">
+
+                    <div class="home-col-2">
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/s1mple.jpg'); }}">
+                            <div>
+                                <h4>S1mple Leo</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div> 
+                        <p> <i class="fa fa-quote-left"> </i>&#160;&#160; Great product and service from the team at MATIVINA. Thank you for support. @s1mpleleo</p>   
+                    </div>
+                    <div class="home-col-2">                      
+                       
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/niko.jpg'); }}">
+                            <div>
+                                <h4>Niko Kovač</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div> 
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; i hate having my game drop in fps. And MATINIVA helped me overcome it. @nikocsgo</p>
+                    </div>
+                    <div class="home-col-2">                       
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/faker.jpg'); }}">
+                            <div>
+                                <h4>Faker</h4>
+                                <p>Pro Gamer</p>
+                            </div>
+                        </div>  
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; Come with MATIVINA if you want pro like me. @fake_r</p>
+                    </div>
+                    <div class="home-col-2">
+                        <div class="tes-info">
+                            <img src="{{ URL::asset('/frontend/img/avatar/domixi.jpg'); }}">
+                            <div>
+                                <h4>Mixi Moi</h4>
+                                <p>Streamer</p>
+                            </div>
+                        </div> 
+                        <p><i class="fa fa-quote-left"></i>&#160;&#160; Cuộc sống này phức tạp là do bạn làm quá nó lên. @mixigaming</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
 
     <!-- subscribe_area part start-->
     <section class="client_logo padding_top">

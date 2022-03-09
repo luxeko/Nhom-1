@@ -13,46 +13,51 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh User</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách User</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/users/create') }} " class="btn btn-primary mb-3">Thêm User</a>
-            </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
+                @can('user-add')
+                    <a href="{{ asset('admin/users/create') }} " class="btn btn-primary mb-3">Thêm User</a>
                     
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                            {{-- {!! $htmlOption !!} --}}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
+                @endcan
             </div>
-           
+            <form action="{{ route('user.search') }}" method="get" class="form-inline mb-3">
+                <div class="form-group">
+                    <input value="{{ isset($full_name) ? $full_name : '' }}" class="form-control mr-sm-2" name="full_name" type="search" placeholder="Tên" aria-label="Search">
+                </div>
+                
+                <div class="form-group">
+                    <input value="{{ isset($telephone) ? $telephone : '' }}" class="form-control mr-sm-2" name="telephone" type="search" placeholder="Số điện thoại" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input  value="{{ isset($email) ? $email : '' }}" class="form-control mr-sm-2" name="email" type="search" placeholder="Email" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <input value="{{ isset($address) ? $address : '' }}" class="form-control mr-sm-2" name="address" type="search" placeholder="Địa chỉ" aria-label="">
+                </div>
+                <div class="form-group">
+                    <select name="city_id"  class="pr-5 form-control input-xs mr-sm-2">
+                        <option value="{{ null }}">Thành phố</option>
+                        @if(isset($city_id))
+                            @forEach($allCity as $value)
+                                @if($city_id == $value->city_id)
+                                    <option selected value="{{$value->city_id}}">{{$value->vn_name}}</option>
+                                @else
+                                    <option value="{{$value->city_id}}">{{$value->vn_name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                        @if(empty($city_id) || $city_id == null)
+                            @forEach($allCity as $value)
+                                <option value="{{$value->city_id}}">{{ $value->vn_name}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
         </div>
         @php             
             $success = Session::get('success_user');
@@ -64,7 +69,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $users->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -72,6 +78,9 @@
                         <th class="text-center">Tên</th>
                         <th class="text-center">Phone</th>
                         <th class="text-center">Email</th>
+                        <th class="text-center">Địa chỉ</th>
+                        <th class="text-center">Thành phố</th>
+                        <th class="text-center">Vai trò</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead> 
@@ -81,13 +90,23 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{URL::asset($value->avatar_img_path)}}'></td>
-                                <td class="text-center">{{$value->full_name}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->full_name}}</td>
                                 <td class="text-center">{{$value->telephone}}</td>
                                 <td class="text-center">{{$value->email}}</td>
+                                <td class="text-center">{{$value->address}}</td>
+                                <td class="text-center">{{ optional($value->getCity)->vn_name }}</td>
+                                <td class="">
+                                    @forEach($value->roles as $data )
+                                        <span class='badge bg-success p-2 text-white' style="font-size: 15px">{{$data->name}}</span>
+                                    @endforeach
+                                </td>
                                 <td colspan="1" class="text-center" style="width:15%">
-                                    <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @can('user-edit')
+                                        <a href="{{ Route('user.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('user-delete')
+                                        <a data-url="{{Route('user.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -100,28 +119,12 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                {!! $users->links() !!}
+                @if (!empty($users))
+                    {!! $users->links() !!}
+                @endif  
             </div>
         </div>
         
-        <section>
-            <!-- Modal -->
-            <div class="modal fade" id="modalDetailUser" tabindex="-1" aria-labelledby="user-modal-label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header border-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
-                        </div>
-                        {{-- code từ đây  --}}
-                        <div class="modal-body border-0" id="modal-user-detail"></div>
-                        {{-- end code thông báo  --}}
-                        <div class="modal-footer border-0">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <style>
             .w-5{
                 display: none;
@@ -135,42 +138,4 @@
 
 <script src="{{URL::asset('backend/js/user/main.js')}}"></script>
 
-<script type="text/javascript" >  
-    function viewUserDetail(id){
-        let path = 'http://127.0.0.1:8000'
-        $.ajax({
-            url:'/admin/users/details/',
-            method:'GET',
-            data:{id:id},
-            success:(user)=>{
-                console.log(user);           
-                let userDetails = `
-                    <div class="single-product small-container">
-                        <div class="details_row">
-                            <div class="details_col">
-                                <div class="main-img-row position-relative rounded border border-secondary">
-                                    <img src="{{'${path}${user.avatar_img_path}' }}" id="productImg"/>
-                                </div>
-                            </div>
-                            <div class="details_col">
-                                <h4 class="text-center text-capitalize">${user.full_name}</h4>
-                                <!--<div class="mt-1">
-                                    <p class="mb-0"><span> Username: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${user.user_name}</span></p>
-                                </div>-->
-                                <div class="mt-1">
-                                    <p class="mb-0"><span> Email: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${user.email}</span></p>
-                                </div>
-                                <div class="mt-1">
-                                    <p class="mb-0"><span> Phone: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${user.telephone}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `
-                role_name = ``
-                $('#modal-user-detail').html('').append(userDetails);
-            }
-        });
-    }
-</script>
 

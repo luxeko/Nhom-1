@@ -13,10 +13,7 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách combo</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách combo</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
@@ -24,36 +21,66 @@
                     <a href="{{ route('combo.create') }} " class="btn btn-primary mb-3">Thêm combo</a>
                 @endcan
             </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                            {{-- {!! $htmlOption !!} --}}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+            <form action="{{ route('combo.search') }}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên combo" aria-label="Search">
+                </div>
+                <div class="form-group">
+                    <select name="sort_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Sắp xếp</option>
+                        @if(isset($sort) && $sort === 'asc')
+                            <option selected value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'desc')
+                            <option  value="asc">Price: Thấp đến cao</option>
+                            <option selected value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'latest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'oldest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(empty($sort))
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        @if(isset($status)  && $status == 'Active')
+                            <option value="">Chọn status </option>  
+                            <option selected value="Active">Active</option>
+                            <option value="Disable">Disable</option>
+                        @endif
+                        @if(isset($status) && $status == 'Disable')
+                            <option value="">Chọn status </option>  
+                            <option value="Active">Active</option>
+                            <option selected value="Disable">Disable</option>
+                        @endif
+                        @if(empty($status))
+                            <option value="">Chọn status </option>  
+                            <option value="Active">Active</option>
+                            <option value="Disable">Disable</option>
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
            
         </div>
         
@@ -67,13 +94,14 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
                         <th class="text-center">Hình ảnh</th>
-                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer">Tên</th>
-                        <th class="text-center sorting" data-sorting_type="asc" data-column_name="price" style="cursor: pointer">Giá <span class="text-success">(-20%)</span></th>
+                        <th class="text-center">Tên</th>
+                        <th class="text-center">Giá <span class="text-success">(-20%)</span></th>
                         <th class="text-center">Mô tả</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Thao tác</th>
@@ -85,21 +113,20 @@
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
                                 <td class='text-center admin_product_img'><img src='{{$value->image_combo_path}}'></td>
-                                <td class="text-center">{{$value->name}}</td>
-                                <td class="text-center"><span class="text-danger">{{ number_format($value->price, 0) }} VNĐ</span>
+                                <td class="text-dark font-weight-bolder">{{$value->name}}</td>
+                                <td class="font-italic"><span class="text-success ">{{ number_format($value->price, 0) }} VNĐ</span>
                                 </td>
-                                <td class="text-center"> @php echo  $value->desc @endphp</td>
+                                <td class=""> @php echo  $value->desc @endphp</td>
                                 <td class="text-center"> 
                                     @if ($value->status == "Active")
-                                        <span class='badge bg-success text-white'>{{$value->status}}</span>
+                                        <span class='badge bg-success text-white p-2'>{{$value->status}}</span>
                                     @else
-                                        <span class='badge bg-danger text-white'>{{$value->status}}</span>
+                                        <span class='badge bg-danger text-white p-2'>{{$value->status}}</span>
                                     @endif 
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('combo-edit')
                                         <a class="btn btn-primary" href="#" onclick="viewComboDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailCombo"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ Route('combo.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
                                     @endcan
                                     @can('combo-delete')
                                         <a data-url="{{Route('combo.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
@@ -116,7 +143,9 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                {!! $data->links() !!}
+                @if (!empty($data))
+                    {!! $data->links() !!} 
+                @endif  
             </div>
         </div>
         <section>

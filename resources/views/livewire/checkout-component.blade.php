@@ -176,7 +176,7 @@
         						@error('paymentmode') <span class="text-danger">{{$message}}</span> @enderror
         					</div>
         					@if (Session::has('checkout'))
-        						<p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">${{ Cart::instance('cart')->total() }}</span></p>
+        						<p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">{{ Cart::instance('cart')->total() }} VND</span></p>
         					@endif
         					<button type="submit" class="btn_1 checkout_btn_1">Place order now</button>
         				</div>
@@ -188,7 +188,6 @@
 				</form>
 			</div><!--end main content area-->
 		</div><!-- end container -->
-		
 	</main>
 </div>
 

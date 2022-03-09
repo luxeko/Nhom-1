@@ -5,7 +5,7 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Sửa danh mục</title>
+    <title>Cập nhật Category</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
@@ -16,7 +16,7 @@
         <div class="">
             <form action="{{ route('category.update', ['id'=>$category->id]) }}" method="post" style="width:50%">
                 @csrf
-                <h2 class="form-title">Sửa danh mục</h2>
+                <h2 class="form-title">Cập nhật Category</h2>
                 <div class="form-group" style="width:100%">
                     <input  type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="category_name" style="width: 100%;" placeholder="Tên danh mục" value="{{$category->name}}" />
                 </div>

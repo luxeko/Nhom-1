@@ -62,7 +62,7 @@
                     <div class="">
                         <div class="single_product_list_slider">
                             <div class="row align-items-center justify-content-between">
-                                @foreach($products->take(8) as $item)
+                                @foreach($products->latest()->take(8) as $item)
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="single_product_item">
                                         <a href="detail/{{$item['id']}}"><img src="{{$item['feature_image_path']}}" alt=""></a>
@@ -87,11 +87,6 @@
     <section class="our_offer section_padding">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6">
-                    <div class="offer_img">
-                        <img src="{{ URL::asset('/frontend/img/index/5.png'); }}" alt="">
-                    </div>
-                </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="offer_text">
                         <h2>Weekly Sale on

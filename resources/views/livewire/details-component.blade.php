@@ -42,7 +42,7 @@
       </div>
     </div>
     <span>
-      <p>Price: <span class="price">${{number_format($product->price,0,',','.')}}</span></p>
+      <p>Price: <span class="price">{{number_format($product->price,0,',','.')}} VND</span></p>
 
       <div style="display:flex">
         <label for="quantity" style="padding-top: 3px;margin-right: 10px;">Quantity:</label>
@@ -523,7 +523,7 @@
                           <a href="{{route('product.details', ['slug'=>$item->slug])}}"><img src="{{$item->feature_image_path}}" alt=""></a>
                           <div class="single_product_text">
                               <a href="{{route('product.details', ['slug'=>$item->slug])}}" style="color:$fefefe; opacity: 100; visibility: visible;"><h4><span>{{$item->name}}</span></h4></a>
-                              <h3>{{number_format($item->price,0,',','.')}}</h3>
+                              <h3>{{number_format($item->price,0,',','.')}} VND</h3>
                           </div>
                       </div>
                       @endforeach

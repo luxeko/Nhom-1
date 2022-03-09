@@ -23,10 +23,10 @@
         </div>
     </section>
     <!-- breadcrumb start-->  
-    <div class="container" style="padding: 30px 0;">        
+    <div class="container">    
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
+                <div class="panel panel-default padding_top padding_bottom">
                     <div class="panel-heading">
                         <h2>My Orders</h2>
                     </div>
@@ -51,9 +51,9 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>{{$loop->index +1}}</td>
-                                        <td>${{number_format($order->subtotal)}}</td>
-                                        <td>${{number_format($order->tax)}}</td>
-                                        <td>${{number_format($order->total)}}</td>
+                                        <td>{{number_format($order->subtotal)}} VND</td>
+                                        <td>{{number_format($order->tax)}} VND</td>
+                                        <td>{{number_format($order->total)}} VND</td>
                                         <td>{{$order->firstname}}</td>
                                         <td>{{$order->lastname}}</td>
                                         <td>{{$order->mobile}}</td>

@@ -1,5 +1,5 @@
 <div>
-  <section class="cart_area padding_top">
+  <section class="cart_area padding_top padding_bottom">
     <div class="container">
       @if(Session::has('success_message'))
         <div class="alert alert-success">
@@ -37,7 +37,7 @@
                     </div>
                   </td>
                   <td >
-                    <h5>${{number_format($item->price)}}</h5>
+                    <h5>{{number_format($item->price)}} VND</h5>
                   </td>
                   <td>
                   <div class="quantity">
@@ -49,7 +49,7 @@
                   </div>
                   </td>
                   <td>
-                    <h5>${{$item->subtotal()}}</h5>
+                    <h5>${{$item->subtotal()}} VND</h5>
                   </td>
                   <td> 
                     <a href="" wire:click.prevent="destroy('{{$item->rowId}}')" style="color: #2a2a2a;">
@@ -77,7 +77,7 @@
                     <h5>Subtotal</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->subtotal()}}</h5>
+                    <h5>{{Cart::instance('cart')->subtotal()}} VND</h5>
                   </td>
                 </tr>
                 <tr class="shipping_area">
@@ -88,7 +88,7 @@
                     <h5>Tax</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->tax()}}</h5>
+                    <h5>{{Cart::instance('cart')->tax()}} VND</h5>
                   </td>
                 </tr>
                 <tr>
@@ -116,7 +116,7 @@
                     <h5>Total</h5>
                   </td>
                   <td>
-                    <h5>${{Cart::instance('cart')->total()}}</h5>
+                    <h5>{{Cart::instance('cart')->total()}} VND</h5>
                   </td>
                 </tr>
               </tbody>
@@ -126,7 +126,7 @@
               <a class="btn_1 checkout_btn_1" href="#" wire:click.prevent="checkout">Proceed to checkout</a>
             </div>
           @else
-            <div class="text-center" style="padding:30px 0;">
+            <div class="text-center padding_top padding_bottom">
               <h1>Your cart is empty!</h1>
               <p>Add item to it now</p>
               <a href="/" class="btn btn-success">Shop Now</a>

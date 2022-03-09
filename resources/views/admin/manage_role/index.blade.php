@@ -13,48 +13,21 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách vai trò</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2>Danh sách vai trò</h2>
+            
         </div>
-        <div class="d-flex justify-content-between">    
+        <div class="d-flex justify-content-between mb-3">    
             <div>
                 @can('role-add')
-                    <a href="{{ asset('admin/roles/create') }} " class="btn btn-primary mb-3">Thêm vai trò</a>
+                    <a href="{{ asset('admin/roles/create') }} " class="btn btn-primary">Thêm vai trò</a>
                 @endcan
-            </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <button class="btn btn-success">Lọc <i class="fas fa-filter"></i></button>
-                    </div>
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                    
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Giá tiền</option>
-                            <option value="">Thấp đến cao</option>
-                            <option value="">Cao đến thấp</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                  
-                        <select name="category_filter" class="form-control input-xs">
-                            <option value=""> Danh mục </option>
-                            {{-- {!! $htmlOption !!} --}}
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                
-                        <select  class="form-control input-xs"  name="" >
-                            <option value="">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-           
+            </div>    
+            {{-- <form action=" "  class="form-inline mb-3">
+                <div class="form-group">
+                    <input class="form-control input-xs mr-sm-2" type="text" id="search" name="search" placeholder="Search">
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>      
+            </form>  --}}
         </div>
         
         @php             
@@ -67,7 +40,8 @@
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -81,8 +55,8 @@
                         @foreach ($data as $key => $value)                         
                             <tr>
                                 <th colspan='1' class='text-center' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
-                                <td class="text-center">{{$value->name}}</td>
-                                <td class="text-center">{{$value->desc_name}}</td>
+                                <td class="text-dark font-weight-bold">{{$value->name}}</td>
+                                <td class="">{{$value->desc_name}}</td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('role-edit')
                                         <a href="{{ Route('role.edit', ['id'=>$value->id]) }}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
