@@ -61,21 +61,18 @@
                                         Combo
                                     </a>
                                     <!-- <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
-
-
                                         <a class="dropdown-item" href="">Combo </a>
                                         <a class="dropdown-item" href="">New product</a>
-                                    </div> 
+                                    </div>  -->
 
                                     <div  aria-labelledby="navbarDropdown_2">
 
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="/shop" >
-                                    id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                                    <a class="nav-link dropdown-toggle" href="/shop">
                                         Product
-                                    </a>-->
+                                    </a> 
                                     @livewire('header-category-component')
                                 </li>
                                 <li class="nav-item">
