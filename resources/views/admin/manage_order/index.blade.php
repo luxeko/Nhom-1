@@ -116,8 +116,8 @@
         </div>
         @if (Session::has('success_order'))
             <div class='alert alert-success' id='order_alert'> {{ Session::get('success_order') }} </div>
+            {{ Session::put('success_order', null) }}
         @endif
-        {{ Session::put('success_order', null) }}
         <div id="table_data">
             <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
             <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">

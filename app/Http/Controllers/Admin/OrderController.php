@@ -59,16 +59,15 @@ class OrderController extends Controller
     }
     public function confirm_order(Request $request){
         DB::beginTransaction();
-        $date = date("Y-m-d H:i:s");
         $this->order->find($request->id)->update([
             'status' => 'delivered',
-            'delivered_date' => $date
+            'delivered_date' => date("Y-m-d H:i:s")
         ]);
         $getEmail = $this->order->find($request->id)->get('email');
         Mail::to($getEmail)->send(new ConfirmMail());
-        DB::commit();
         $request->session()->put('success_order', 'Xác nhận đơn hàng thành công');
-        return redirect()->route('order.index');
+
+        DB::commit();
     }
 
     public function search(Request $request){

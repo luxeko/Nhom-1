@@ -156,7 +156,7 @@
                 let list_order = '';
                 order.forEach(detail_order => {
                     if(detail_order.status == 'ordered'){
-                        list_order = `<tr class="text-center ">
+                        list_order = `<tr  class="text-center ">
                                         <td><span class='badge bg-warning text-white'>Ordered</span></td>
                                     </tr>`
                     } else if (detail_order.status == 'delivered') {
@@ -214,7 +214,7 @@
                 details_order_item = `<div class="text-center">
                                         <h2 class="text-dark font-weight-bold">Chi tiết order của khách hàng</h2>
                                         </div>
-                                        <div class="row mt-4 text-center d-flex justify-content-center ">
+                                        <div style="height:650px" class="row mt-4 text-center d-flex justify-content-center overflow-auto">
                                             <table class="table table-lg" id="dataTable" style="width:48%">
                                                 <thead class="thead-dark " >
                                                     <tr>

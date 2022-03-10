@@ -42,4 +42,4 @@
 <!-- End of Topbar -->
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-{{-- <script src="{{URL::asset('backend/js/getCurrentTime.js')}}"></script> --}}
+<script src="{{URL::asset('backend/js/getCurrentTime.js')}}"></script>

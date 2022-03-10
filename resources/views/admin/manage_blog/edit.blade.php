@@ -49,8 +49,8 @@
                         <label for="background">Chọn ảnh bìa</label>
                         <input class="form-control-file" type="file" id="background" name="background">
                         <div class="col-md-12">
-                            <div class="row rounded border border-secondary p-2" style="width:120px; height:120px">
-                                <img src="{{ $blog->image }}" style="width:100%">
+                            <div class="row mt-3 mb-5" style="width:120px; height:120px">
+                                <img src="{{ $blog->image }}" style="width:80%">
                             </div>
                         </div>
                     </div>
@@ -66,17 +66,17 @@
         
                     <div class="form-group">
                         <select name="status" class="form-control input-xs" style="width:30%">
-                            @if($product->status == 1)
+                            @if($blog->status == 1)
                                 <option value=""> Trạng thái </option>
                                 <option selected value="1"> Active </option>
                                 <option value="2"> Disable </option>
                             @endif
-                            @if($product->status == 2)
+                            @if($blog->status == 2)
                                 <option value=""> Trạng thái </option>
                                 <option value="1"> Active </option>
                                 <option selected value="2"> Disable </option>
                             @endif
-                            @if($product->status == "")
+                            @if($blog->status == "")
                             <option value=""> Trạng thái </option>
                                 <option value="1"> Active </option>
                                 <option value="2"> Disable </option>

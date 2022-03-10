@@ -23,7 +23,7 @@ class CustomerController extends Controller
         $this->order_items = $order_items;
     }
     public function index(){
-        $users = $this->user->oldest()->paginate(5);
+        $users = $this->user->where('utype', "USR")->oldest()->paginate(5);
         $currentPage = $users->currentPage();
         $perPage = $users->perPage();
         $total = $users->total();

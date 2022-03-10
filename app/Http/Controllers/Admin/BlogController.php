@@ -91,9 +91,6 @@ class BlogController extends Controller
             if($request->content_post == null){
                 $err['content_null'] = 'Vui lòng nhập nội dung cho Blog';
             }
-            if($this->storageTraitUpload($request, 'background', 'blog') == null){
-                $err['image_null'] = 'Vui lòng chọn ảnh bìa';
-            }
             if(count($err)>0){
                 return Redirect::back()->withInput()->with($err);
             } else{

@@ -2,7 +2,16 @@
 @extends('admin.home')
 @section('gioi_thieu')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tổng quan</h1>
+        <div>
+            <button  class="btn btn-danger click_show_calendar">Lịch</button>
+            <button hidden  class="btn btn-danger click_hide_calendar">Ẩn</button>
+            <div class="row">
+                <div hidden id="hide_calendar" style="position:relative;" class="col-md-12 ">
+                    <div style="z-index: 1000; position:absolute; left:-500%; top:30%" id="container" class="calendar-container px-5 py-3 bg-white border rounded shadow-lg "></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
@@ -85,18 +94,25 @@
     <div class="row mb-3">
         <!-- Area Chart -->
         <!-- Calender -->
-        <div class="col-md-9">
+        <div class="col-md-6">
             <div class="card">
     			<div class="card-body">
-    				<div class="chart-container" style="width: 900px; height: 500px; margin:auto">
+    				<div class="chart-container" style="width: 100%; height: 500px; margin:auto">
                         <canvas id="barChart"></canvas>
     				</div>
     			</div>
     		</div>
         </div>
-        <div class="col-md-3">
-            <div id="container" class="calendar-container pt-1"></div>
+        <div class="col-md-6">
+            <div class="card">
+    			<div class="card-body">
+    				<div class="chart-container" style="width: 100%; height: 500px; margin:auto">
+                        <canvas id="topUser"></canvas>
+    				</div>
+    			</div>
+    		</div>
         </div>
+       
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -111,7 +127,6 @@
                     </thead>
                 </table>
                 <table class="table table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
-                   
                     <thead class="thead-dark">
                         <tr>
                             <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -184,7 +199,7 @@
                             @foreach ( $orders as  $key => $value)                         
                                 <tr>
                                     <th colspan='1' class='text-center' style='width:5%'>{{ (  $currentPage - 1 ) *  $perPage +  $key + 1 }}</th>
-                                    <td class=""><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>
+                                    <td colspan='1'><p class="text-success font-weight-bolder">{{ number_format( $value->total, 0) }} VNĐ</p>
                                     <td class="font-weight-bold text-dark">{{  $value->firstname }}</td>
                                     <td class="font-weight-bold text-dark">{{  $value->lastname}}</td>
                                     <td class="text-center">{{  $value->mobile }}</td>
@@ -231,17 +246,38 @@
 </script>
 
 <script>
-     $(function(){
-        var datas = {!! json_encode($allArr) !!};
+    $(function(){
+        var price = [];
+        var categoryName = [];
+        let element;
+        var datas = {!! json_encode($result_one) !!};
+        for (let i = 0; i < datas.length; i++) {        
+            element = datas[i];
+            categoryName.push(element['name'])
+            price.push(element['subtotal'])
+        }
+        console.log(categoryName);
+        console.log(price);
         var barCanvas = $('#barChart');
         var barChart = new Chart(barCanvas, {
             type: 'bar',
             data: {
-                labels: ['Case', 'CPU', 'Motherboard', 'Cooling', 'Power', 'Lighting'],
+               
+                labels: categoryName,
                 datasets:[{
-                    label: 'Biểu đồ doanh thu theo danh mục',
-                    data:datas,
-                    backgroundColor: ['red', 'yellow', 'blue', 'green', 'violet', 'silver', 'orange']
+                    label: 'Biểu đồ doanh thu theo danh mục sản phẩm',
+                    data: price,
+                    backgroundColor: [
+                        '   rgb(146, 168, 209) ', 
+                        '   rgb(149,212,122)   ',
+                        '   RGB(149, 82, 81)   ', 
+                        '   RGB(239, 192, 80)  ',
+                        '   #DB7093            ', 
+                        '   rgb(255, 111, 97)  ', 
+                        '   #E9967A            ',
+                        '   rgb(107, 91, 149)  ',
+                        '   rgb(52, 86, 139)   ',
+                    ]
                 }]
             },
             options: {
@@ -254,5 +290,56 @@
                 }
             }
         })
+    })
+</script>
+<script>
+    $(function(){
+        var total = [];
+        var user_name = [];
+        let element;
+        var datas_user = {!! json_encode($getTopUser) !!};
+        var datas_total = {!! json_encode($getTopTotal) !!};
+        console.log(user_name);
+        console.log(total);
+        var barCanvas = $('#topUser');
+        var barChart = new Chart(barCanvas, {
+            type: 'bar',
+            data: {
+                labels: datas_user,
+                datasets:[{
+                    label: 'Top 3 khách hàng mua nhiều nhất ',
+                    data: datas_total,
+                    backgroundColor: [
+                        '   RGB(239, 192, 80)  ', 
+                        '   RGB(152, 180, 212) ',
+                        '   RGB(149, 82, 81)   '
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                     y: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        })
+    })
+    
+</script>
+<script>
+    $(document).ready(function(){
+        $(".click_show_calendar").on('click' ,function(){
+            $("#hide_calendar").prop("hidden", false);;
+            $(".click_hide_calendar").prop("hidden", false);
+            $(".click_show_calendar").prop("hidden", true);
+        });
+        $(".click_hide_calendar").on('click',function(){
+            $("#hide_calendar").prop("hidden", true);;
+            $(".click_hide_calendar").prop("hidden", true);
+            $(".click_show_calendar").prop("hidden", false);
+        });
     })
 </script>
