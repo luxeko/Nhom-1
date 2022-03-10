@@ -1,12 +1,12 @@
 <div>
-    <section class="breadcrumb breadcrumb_bg">
+    <section class="breadcrumb breadcrumb_bg" >
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="breadcrumb_iner">
                         <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                         <div class="breadcrumb_iner_item">
-                        <h2></h2>
+                            <h2 style="font-size: 50px"   >Order Details</h2>
                         </div>
                     </div>
                 </div>
@@ -77,10 +77,7 @@
                                     <div class="quantity">
                                         <h5>{{$item->quantity}}</h5>                                        
                                     </div>
-                                    <div class="price-field sub-total"><p class="price">{{number_format($item->price * $item->quantity)}} VND</p></div>  
-                                    @if($order->status == 'delivered' && $item->rstatus == false)                                 
-                                        <div class="price-field sub-total"><p class="price"><a href="{{route('user.review',['order_item_id'=>$item->id])}}">Write Review</a></p></div>
-                                    @endif    
+                                    <div class="price-field sub-total"><p class="price">{{number_format($item->price * $item->quantity)}} VND</p></div>    
                                 </li> 
                                 @endforeach                   										
                             </ul>                           

@@ -1,14 +1,14 @@
 <div>
     @if($category_name === "Case")
     {
-        <section class="breadcrumb breadcrumb_bg">
+        <section class="breadcrumb breadcrumb_bg" >
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>Case</h2>
+                                <h2 style="font-size: 100px"   >Case</h2>
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>Fan</h2>
+                                <h2 style="font-size: 100px">Fan</h2>
                             </div>
                         </div>
                     </div>
@@ -38,11 +38,11 @@
         <section class="breadcrumb breadcrumb_bg">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>Cooling</h2>
+                                <h2 style="font-size: 100px">Cooling</h2>
                             </div>
                         </div>
                     </div>
@@ -55,11 +55,13 @@
         <section class="breadcrumb breadcrumb_bg">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-md-12">
                         <div class="breadcrumb_iner">
-                            <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                            <div>
+                                <img style="width:50%; margin-left: 170px" src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                            </div>
                             <div class="breadcrumb_iner_item">
-                                <h2>Motherboards</h2>
+                                <h2 style="font-size: 100px">Motherboards</h2>
                             </div>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>Power</h2>
+                                <h2 style="font-size: 100px">Power</h2>
                             </div>
                         </div>
                     </div>
@@ -89,11 +91,62 @@
         <section class="breadcrumb breadcrumb_bg">
             <div class="container">
                 <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="breadcrumb_iner">
+                            <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                            <div class="breadcrumb_iner_item">
+                                <h2 style="font-size: 100px">Lighting</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    @elseif ($category_name === "Keyboard")
+    {
+        <section class="breadcrumb breadcrumb_bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-11">
+                        <div class="breadcrumb_iner">
+                            <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                            <div class="breadcrumb_iner_item">
+                                <h2 style="font-size: 100px">Keyboard</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    @elseif ($category_name === "Mouse")
+    {
+        <section class="breadcrumb breadcrumb_bg">
+            <div class="container">
+                <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>Lighting</h2>
+                                <h2 style="font-size: 100px">Mouse</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    @elseif ($category_name === "Chair")
+    {
+        <section class="breadcrumb breadcrumb_bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="breadcrumb_iner">
+                            <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
+                            <div class="breadcrumb_iner_item">
+                                <h2 style="font-size: 100px">Chair</h2>
                             </div>
                         </div>
                     </div>
@@ -110,7 +163,7 @@
                         <div class="breadcrumb_iner">
                             <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                             <div class="breadcrumb_iner_item">
-                                <h2>CPU</h2>
+                                <h2 style="font-size: 100px">CPU</h2>
                             </div>
                         </div>
                     </div>
@@ -253,8 +306,8 @@
     </section>
     <!--================End Category Product Area =================-->
 
-    <!-- product_list part start-->
-    <section class="product_list best_seller section_padding">
+     <!-- product_list part start-->
+     <section class="product_list best_seller section_padding">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">

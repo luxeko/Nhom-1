@@ -198,12 +198,7 @@
                         <div class="modal-body border-0" id="modal-order-detail"></div>
                         {{-- end code thông báo  --}}
                         <div class="modal-footer border-0">
-                            
-                           
-                                <div id="getConfirmButton">
-
-                                </div>
-                    
+                                <div id="getConfirmButton"></div>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -230,6 +225,11 @@
         var city = '';
         var confirmForm = '';
         var get_day_order = ''
+        let stt = 1;
+        let formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'vnd',
+        });
         function get_product(id){
             $.ajax({
                 url:'/admin/orders/city',
@@ -247,7 +247,7 @@
                     let getQuantityOneItem  = ''
                     item.forEach(e => {
                         getQuantityOneItem = `<tr>
-                                                <td class="text-center"><span class="text-success"> ${e.quantity}</span></td>
+                                                <td class="text-center"><span class="text-success font-weight-bold"> ${e.quantity}</span></td>
                                             </tr>`;
                         quantity += getQuantityOneItem
                     })
@@ -258,13 +258,13 @@
                 method:'GET',
                 data:{id:id},
                 success:(product)=>{
-                    let stt = 1;
+                    
                     product.forEach(e => {
                         let product = `<tr>
                                         <th colspan='1' class='text-center' style='width:5%'> ${stt++}</th>
                                         <td class='text-center admin_product_img'><img src=' ${e.feature_image_path}'></td>
                                         <td class="text-dark font-weight-bold"> ${e.name}</td>
-                                        <td class="text-center  font-italic"><span class="text-success"> ${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></td>
+                                        <td class="text-center"><span class="text-success font-weight-bold"> ${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></td>
                                     </tr>`;
                         list_product += product;
                     });
@@ -351,8 +351,8 @@
                                     </div>
                                 </div>
                                 <div class="row mt-2">
-                                    <table class="table table-lg table-striped" id="dataTable" style="width:70%" cellspacing="0">
-                                        <thead class="thead-primary" >
+                                    <table class="table table-lg" id="dataTable" style="width:70%" cellspacing="0">
+                                        <thead class="thead-dark " >
                                             <tr>
                                                 <th colspan="1" class="text-center" style="width:5%">STT</th>
                                                 <th class="text-center">Hình ảnh</th>
@@ -364,8 +364,8 @@
                                             ${list_product}
                                         </tbody>
                                     </table>
-                                    <table class="table table-lg table-striped" id="dataTable" style="width:29%" cellspacing="0">
-                                        <thead class="thead-primary" >
+                                    <table class="table table-lg " id="dataTable" style="width:29%" cellspacing="0">
+                                        <thead class="thead-dark " >
                                             <tr>
                                                 <th class="text-center">Quantity </th>
                                             </tr>
@@ -384,9 +384,10 @@
                                             <li class="list-group-item font-weight-bold">Total:</li>
                                         </ul>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><span class="text-success"> ${order.subtotal} VNĐ</span></li>
-                                            <li class="list-group-item"><span class="text-success"> ${order.tax} VNĐ</span></li>
-                                            <li class="list-group-item"><span class="text-success font-weight-bold"> ${order.total} VNĐ</span></li>
+                                            <li class="list-group-item"><span class="text-success"> ${parseInt(order.subtotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></li>
+                                            <li class="list-group-item"><span class="text-success"> ${parseInt(order.tax).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></li>
+                                            <li class="list-group-item"><span class="text-success font-weight-bold"> ${parseInt(order.total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</span></li>
+                                       
                                         </ul>
                                     </div>
                                 </div>
@@ -422,6 +423,7 @@
                     address2 = '';
                     city = '';
                     get_day_order = '';
+                    stt = 1;
                 }
             })
         }

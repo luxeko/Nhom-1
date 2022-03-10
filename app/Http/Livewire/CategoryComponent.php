@@ -43,24 +43,24 @@ class CategoryComponent extends Component
         $category_name = $category->name;
         if($this->sorting == "date")   
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
         else if($this->sorting == "price")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize);
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize);
         }
         else if($this->sorting == "price-desc")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
         }
         else{
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->whereNull('deleted_at')->where('category_id',$category_id)->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->where('category_id',$category_id)->paginate($this->pagesize);  
         }
         
-        $this->min_price = 500000;
+        $this->min_price = 100000;
         $this->max_price = 10000000;
         $categories = Category::where('status', 1)->get();
-        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
+        $lproducts = Product::where('status',1)->where('deleted_at', null)->orderBy('created_at','DESC')->get()->take(8);
 
         if(Auth::check())
         {
@@ -72,10 +72,10 @@ class CategoryComponent extends Component
         }
 
         return view('livewire.category-component', [
-            'products'=> $products, 
-            'categories'=>$categories, 
-            'category_name'=>$category_name,
-            'lproducts'=>$lproducts
+            'products'      => $products, 
+            'categories'    =>  $categories, 
+            'category_name' =>  $category_name,
+            'lproducts'     =>  $lproducts
             ])
             ->layout('layout');
     }

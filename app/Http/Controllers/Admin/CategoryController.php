@@ -28,7 +28,7 @@ class CategoryController extends Controller
         return view('admin/manage_category.add_category', compact('htmlOption'));
     }
     public function show(){
-        $all_category = $this->category->latest()->paginate(7);
+        $all_category = $this->category->latest()->paginate(10);
         $currentPage = $all_category->currentPage();
         $perPage = $all_category->perPage();
         $total = $all_category->total(); 

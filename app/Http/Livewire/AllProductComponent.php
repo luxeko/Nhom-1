@@ -42,22 +42,22 @@ class AllProductComponent extends Component
     {
         if($this->sorting == "date")   
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
         else if($this->sorting == "price")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize); 
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','ASC')->paginate($this->pagesize); 
         }
         else if($this->sorting == "price-desc")
         {
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->whereBetween('price',[$this->min_price,$this->max_price])->orderBy('price','DESC')->paginate($this->pagesize); 
         }
         else{
-            $products = Product::where('name', 'like', '%'.$this->search.'%')->whereBetween('price',[$this->min_price,$this->max_price])->paginate($this->pagesize);  
+            $products = Product::where('name', 'like', '%'.$this->search.'%')->where('status', 1)->where('deleted_at', null)->paginate($this->pagesize);  
         }
 
         $categories = Category::where('status', 1)->get();
-        $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
+        $lproducts = Product::where('status', 1)->where('deleted_at', null)->orderBy('created_at','DESC')->get()->take(8);
 
         if(Auth::check())
         {

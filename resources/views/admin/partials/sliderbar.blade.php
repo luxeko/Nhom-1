@@ -116,12 +116,12 @@
             </a>
         </li>
     @endcan
-        <li class="nav-item ">
+        {{-- <li class="nav-item ">
             <a class="nav-link" >
                 <i style="font-size: 17px" class="text-white fas fa-camera-retro mr-2"></i>
                 <span style="font-size: 17px" class="text-white add_name">Image</span>
             </a>
-        </li>
+        </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

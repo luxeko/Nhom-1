@@ -113,29 +113,19 @@
                                             @csrf
                                         </form>
                                     </div>
-                                <!-- @elseif(Auth::user()->utype === "ADM")
+                                    @endif
+                                @else
                                     <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
                                         <a class="navbar__icon">
                                             <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
                                         </a>
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu" style="margin-top: 0.125rem">
+
                                             <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
                                             <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
                                         </div>
                                     </div>
-                                @endif -->
-                            @else
-                                <div class="dropdown navbar__icon" style="margin-top: 5px; padding-top:10px">
-                                    <a class="navbar__icon">
-                                        <ion-icon  name="person-circle-outline" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></ion-icon>
-                                    </a>
-                                    <div class="dropdown-menu" style="margin-top: 0.125rem">
-
-                                        <a class="dropdown-item" title="My Account" href="{{ route('login') }}" style="color:#fefefe">Login</a>
-                                        <a class="dropdown-item" title="My Account" href="{{ route('register') }}" style="color:#fefefe">Register</a>
-                                    </div>
-                                </div>
-                            @endif
+                                @endif
 
                             @livewire('cart-count-component')
                         </div>

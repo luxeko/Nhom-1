@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Product;
 use App\Mail\SubscribeMail;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Cart;
@@ -43,12 +44,12 @@ class HomeComponent extends Component
     {
         $products = Product::paginate(10);
         $lproducts = Product::orderBy('created_at','DESC')->get()->take(8);
-        
+        $blog = Blog::all();
         if(Auth::check())
         {
             Cart::instance('cart')->restore(Auth::user()->email);
         }
 
-        return view('livewire.home-component',  ['products' => $products, 'lproducts'=>$lproducts])->layout('index');
+        return view('livewire.home-component',  ['products' => $products, 'lproducts'=>$lproducts, 'blog'=>$blog])->layout('index');
     }
 }

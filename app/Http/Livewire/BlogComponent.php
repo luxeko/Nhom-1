@@ -18,4 +18,7 @@ class BlogComponent extends Component
         $blogs = Blog::where('status', '=', 1)->paginate(3);
         return view('livewire.blog-component', ['blogs'=>$blogs])->layout('layout');
     }
+    public function detail_blog(){
+        return view('livewire.social.blog');
+    }
 }

@@ -167,28 +167,65 @@
         <div class="blog_public_container">
             <div class="blog_public_box">
                 <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom1.jpg'); }}" class="blog_public_image">
-                    <div>
-                        <h2>
-                            TEst title
-                        </h2>
-                        <p>Content here</p>
-                    </div>
+                    <a href="{{ route('blog') }}"> <img src="{{ URL::asset('/frontend/img/gamingroom1.jpg'); }}" class="blog_public_image">
+                    <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white">How to make your Computer faster? </h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
+                </div>
+                
+                <div class="blog_public_item">
+                    <a href="{{ route('blog') }}"> 
+                        <img src="{{ URL::asset('/frontend/img/gamingroom5.jpg'); }}" class="blog_public_image">
+                        <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white">Design gaming room</h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
                 </div>
                 <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom5.jpg'); }}" class="blog_public_image">
+                    <a href="{{ route('blog') }}"> 
+                        <img src="{{ URL::asset('/frontend/img/gamingroom6.jpg'); }}" class="blog_public_image">
+                        <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white">Cooling Fan New Gen</h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
                 </div>
                 <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom6.jpg'); }}" class="blog_public_image">
+                    <a href="{{ route('blog') }}"> 
+                        <img src="{{ URL::asset('/frontend/img/gamingroom7.jpg'); }}" class="blog_public_image">
+                        <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white"> PC for Streamer </h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
                 </div>
                 <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom7.jpg'); }}" class="blog_public_image">
+                    <a href="{{ route('blog') }}"> 
+                        <img src="{{ URL::asset('/frontend/img/gamingroom8.jpg'); }}" class="blog_public_image">
+                        <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white">Top Wallpaper</h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
                 </div>
+
                 <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom8.jpg'); }}" class="blog_public_image">
-                </div>
-                <div class="blog_public_item">
-                    <img src="{{ URL::asset('/frontend/img/gamingroom3.jpg'); }}" class="blog_public_image">
+                    <a href="{{ route('blog') }}"> 
+                        <img src="{{ URL::asset('/frontend/img/gamingroom3.jpg'); }}" class="blog_public_image">
+                        <div class="img-overlay"></div>
+                        <ul class="details-demo">
+                            <li><h2 class="text-white">The New Custom Keyboard</h2></li>
+                            <li class="text-warning font-weight-bold ">Read more ...</li>
+                        </ul>
+                    </a>
                 </div>
             </div>
         </div>
@@ -207,7 +244,6 @@
         <div class="feedback">
             <div class="home-testimonial">
                 <div class="home-row">
-
                     <div class="home-col-2">
                         <div class="tes-info">
                             <img src="{{ URL::asset('/frontend/img/avatar/s1mple.jpg'); }}">
@@ -255,16 +291,16 @@
      </section>
 
 
-    <!-- subscribe_area part start-->
-    <section class="client_logo padding_top">
+   <!-- subscribe_area part start-->
+   <section class="client_logo padding_top padding_bottom ">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_1.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/3.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_2.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_1.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_3.png'); }}" alt="">
@@ -276,19 +312,19 @@
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_5.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_3.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/4.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_1.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/2.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
                         <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_2.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_3.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/7.png'); }}" alt="">
                     </div>
                     <div class="single_client_logo">
-                        <img src="{{ URL::asset('/frontend/img/client_logo/client_logo_4.png'); }}" alt="">
+                        <img src="{{ URL::asset('/frontend/img/client_logo/5.png'); }}" alt="">
                     </div>
                 </div>
             </div>

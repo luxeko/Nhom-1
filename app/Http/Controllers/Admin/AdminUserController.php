@@ -157,8 +157,7 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'password'         => bcrypt($request->password),
-                        'utype'            => 'ADM',      
+                        'password'         => bcrypt($request->password),     
                         'address'          => $request->address,
                         'city_id'          => $request->city_id
                     ];
@@ -167,7 +166,6 @@ class AdminUserController extends Controller
                     $dataUserCreate = [
                         'full_name'        => $request->full_name,
                         'telephone'        => $request->telephone,
-                        'utype'            => 'ADM',
                         'address'          => $request->address,
                         'city_id'          => $request->city_id
                     ];

@@ -8,14 +8,14 @@
         }
     </style> -->
     <!-- breadcrumb start-->
-    <section class="breadcrumb breadcrumb_bg">
+    <section class="breadcrumb breadcrumb_bg" >
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="breadcrumb_iner">
                         <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
                         <div class="breadcrumb_iner_item">
-                        <h2></h2>
+                            <h2 style="font-size: 100px">Orders</h2>
                         </div>
                     </div>
                 </div>

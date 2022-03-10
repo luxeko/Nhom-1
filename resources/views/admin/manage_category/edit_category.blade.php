@@ -49,9 +49,22 @@
                 </div>
                 <div class="form-group">
                     <select name="status" class="form-control input-xs" style="width:30%">
-                        <option disabled selected> Trạng thái </option>
-                        <option value="1"> Hiển thị </option>
-                        <option value="2"> Ẩn </option>
+                        @if($product->status == 1)
+                            <option value=""> Trạng thái </option>
+                            <option selected value="1"> Active </option>
+                            <option value="2"> Disable </option>
+                        @endif
+                        @if($product->status == 2)
+                            <option value=""> Trạng thái </option>
+                            <option value="1"> Active </option>
+                            <option selected value="2"> Disable </option>
+                        @endif
+                        @if($product->status == "")
+                        <option value=""> Trạng thái </option>
+                            <option value="1"> Active </option>
+                            <option value="2"> Disable </option>
+                        @endif
+                </select>
                     </select>
                 </div>
                 @php         

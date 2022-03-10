@@ -18,11 +18,11 @@
 									</fieldset>									
 									<fieldset class="wrap-input">
 										<label for="frm-reg-lname">Name*</label>
-										<input type="text" id="frm-reg-lname" name="name" placeholder="Your name*" :value="old('name')" required autofocus autocomplete="name">
+										<input type="text" id="frm-reg-lname" name="full_name" placeholder="Your name*" value="{{old('full_name')}}" autofocus autocomplete="full_name">
 									</fieldset>
 									<fieldset class="wrap-input">
 										<label for="frm-reg-email">Email Address*</label>
-										<input type="email" id="frm-reg-email" name="email" placeholder="Email address" :value="old('email')">
+										<input type="email" id="frm-reg-email" name="email" placeholder="Email address" value="{{old('email')}}">
 									</fieldset>
 									
 									<fieldset class="wrap-title">

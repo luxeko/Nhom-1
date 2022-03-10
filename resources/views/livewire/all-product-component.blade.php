@@ -1,17 +1,8 @@
 <div>
     <!-- breadcrumb start-->
-    <section class="breadcrumb breadcrumb_bg">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="breadcrumb_iner">
-                        <img src="{{ URL::asset('/frontend/img/product/banner/all_product.png'); }}" alt="logo">
-                        <div class="breadcrumb_iner_item">
-                        <h2>All Products</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section>
+        <div>
+            <img src="{{ URL::asset('/frontend/img/gamingroom4.jpg'); }}" style="width: 100%; height:700px">
         </div>
     </section>
     <!-- breadcrumb start-->  
@@ -149,7 +140,7 @@
     <!--================End Category Product Area =================-->
 
     <!-- product_list part start-->
-    <section class="product_list best_seller section_padding">
+     <section class="product_list best_seller section_padding">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">

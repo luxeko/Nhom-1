@@ -1,50 +1,68 @@
 <div>
-  
   <div class="content-container">
     <div class="left-container">
-      @if(Session::has('success_message'))
-        <div class="alert alert-success" style="width: 40%;">
-          <strong>Success</strong> {{Session::get('success_message')}}
-        </div>
-      @endif
+        @if(Session::has('success_message'))
+            <div class="alert alert-success" style="width:40%;">
+            <strong>Success</strong> {{Session::get('success_message')}}
+            </div>
+        @endif
       <div class="product-image-container">
         <img class="product-image-featured" id="featured" src="{{$product->feature_image_path}}" alt="Canon Image">
         <ul class="product-image-list">
-            <!-- <li class="item-selected">
-                <img src="{{$product->feature_image_path}}" class="product-image-item"
-                alt="Canon Image">
-            </li>
             <li class="item-selected">
-                <img src="{{$product->feature_image_path}}" class="product-image-item"
-                alt="Canon Image">
+                <img class="product-image-item"  src="{{$product->feature_image_path}}" alt="Canon Image">
             </li>
-            <li class="item-selected">
-                <img src="{{$product->feature_image_path}}" class="product-image-item"
-                alt="Canon Image">
-            </li> -->
-
-          @foreach($product_image_detail as $item)
-            <li class="item-selected">
-                <img src="{{$item->image_path}}" class="product-image-item"
-                alt="Canon Image">
-            </li>
-          @endforeach
+            @foreach($product_image_detail as $item)
+                <li class="item-selected">
+                    <img src="{{$item->image_path}}" class="product-image-item"
+                    alt="Canon Image">
+                </li>
+            @endforeach
         </ul>
       </div>
     </div>
     <div class="right-container">
       <div>
-        <h1 class="title">{{$product->name}}</h1>
-        <h2 class="subtitle subtitle-container">
+        <h1 style="margin-bottom:15px" class="title">{{$product->name}}</h1>
+        <strong style="font-size:12px" class="subtitle subtitle-container">
             Mirrorless with EF-M 15-45 is STM Lens
-        </h2>
-        <div>
-      </div>
+        </strong>
+        <div style="font-size: 18px"  class="mt-3">
+            <ion-icon style="color: #fbd600" name="star"></ion-icon>
+            <ion-icon style="color: #fbd600" name="star"></ion-icon>
+            <ion-icon style="color: #fbd600" name="star"></ion-icon>
+            <ion-icon style="color: #fbd600" name="star"></ion-icon>
+            <ion-icon style="color: #fbd600" name="star"></ion-icon>
+            <span style="color: #333;">5.0 (172) | <a href="#section1">Review</a></span>
+        </div>
     </div>
     <span>
-      <p>Price: <span class="price">{{number_format($product->price,0,',','.')}} VND</span></p>
+      <p class="text-dark font-weight-bold">Price: <span style="font-size: 25px" class="price text-success font-italic">{{number_format($product->price,0,',','.')}} VND</span></p>
+    </span>
 
-      <div style="display:flex">
+    <div>
+        <h3 class="title">Product Description</h3>
+        <div class="subtitle-container">
+            <span>Display: 3 inches</span>
+            <span>|</span>
+            <span>Color: Black</span>
+        </div> 
+        @php
+            echo $product->content
+        @endphp
+    </div>
+    <hr>
+    <div class="details-container">
+        <div class="details-product tab-1" style="">
+            <p><i class="fas fa-check-circle"></i> Status:@if($product->status) <span class="text-success">  Available </span> @endif</p>
+            <div><i class="fas fa-shield-alt"></i> Trade with peace of mind and enjoy exclusive offers</div>
+            <div><i class="fa fa-truck"></i> Free shipping and Fast delivery</div>
+            <div><i class="fa fa-cogs"></i> Free Installation</div>
+            
+        </div>
+    </div>
+    <hr>
+    <div style="display:flex">
         <label for="quantity" style="padding-top: 3px;margin-right: 10px;">Quantity:</label>
         <div class="buttons_added">
           <input class="minus is-form" type="button" value="-" wire:click.prevent="decreaseQuantity">
@@ -66,21 +84,11 @@
           <input class="plus is-form" type="button" value="+" wire:click.prevent="increaseQuantity">
         </div>
       </div>
-
-    </span>
-
-    <div>
-        <h2 class="title">Product Description</h2>
-        <div class="subtitle-container">
-            <span>Display: 3 inches</span>
-            <span>|</span>
-            <span>Color: Black</span>
-        </div> 
-        @php
-            echo $product->content
-        @endphp
+    <div style="margin-top:20px"><button class="btn btn-danger" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->price}} )"><i class="fas fa-cart-plus"> </i> Add To Cart</button></div>
+    <hr>
+    <div class="delivery-option">
+        <code>* Delivery options may vary by region</code>
     </div>
-    <div style="margin-top:20px"><button class="btn" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->price}} )">Add To Cart</button></div>
     </div>
   </div>
   <!--================End Single Product Area =================-->
@@ -102,7 +110,7 @@
             aria-selected="false">Comments</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+          <a id="section1" class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
             aria-selected="false">Reviews</a>
         </li>
       </ul>
@@ -375,19 +383,17 @@
                     </div>
                     <div class="media-body">
                       <h4>Blake Ruiz</h4>
-                      <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
-
+                        <ion-icon style="color: #fbd600" name="star"></ion-icon>
                     </div>
+                    <div><p class="font-weight-bold text-dark">June/26/2021</p></div>
+
                   </div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
+                    All PSU can do that given the proper circumstances. The PSU in this PC is strong enough to power it and them some. Your best protection is to put a UPS on the PC.
                   </p>
                 </div>
                 <div class="review_item">
@@ -402,14 +408,11 @@
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
-
                     </div>
+                    <div><p class="text-dark font-weight-bold ">December/06/2021</p></div>
                   </div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
+                    120 easily, 144 if you have the Digital port cable(about $8 on Amazon). At the 144 it will dip between 144 and 100. No stutter, no perceivable lag. I am running on a wireless network, Net gear Nighthawk using the 5ghz band.
                   </p>
                 </div>
                 <div class="review_item">
@@ -425,12 +428,11 @@
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                         <ion-icon style="color: #fbd600" name="star"></ion-icon>
                     </div>
+                    <div><p class="text-dark font-weight-bold ">January/18/2022</p></div>
+
                   </div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
+                    120 easily, 144 if you have the Digital port cable(about $8 on Amazon). At the 144 it will dip between 144 and 100. No stutter, no perceivable lag. I am running on a wireless network, Net gear Nighthawk using the 5ghz band.
                   </p>
                 </div>
               </div>

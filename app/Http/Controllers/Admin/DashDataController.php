@@ -21,7 +21,6 @@ class DashDataController extends Controller
     }
     public function dataOrder(){
         $currentDate = Carbon::today()->toDateString();
-
         $orderDate = DB::table('orders')->whereDate('delivered_date',$currentDate)->get();
         $userAccount = DB::table('users')->where('utype', '=','USR')->whereNull('deleted_at')->get();
         $orderWait = DB::table('orders')->where('status','ordered')->get();
@@ -62,8 +61,9 @@ class DashDataController extends Controller
         , 'currentPage'
         , 'perPage'
         , 'total'
-        ,'allArr'
+        , 'allArr'
     ));
 
     }
+
 }

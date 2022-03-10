@@ -1,13 +1,10 @@
-<!doctype html>
-<html lang="zxx">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Mativina</title>
     <link rel="icon" href="{{ URL::asset('/frontend/img/logoteam.png'); }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.min.css'); }}">
     <!-- animate CSS -->
@@ -31,13 +28,14 @@
     <!-- css trang checkout -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/color-01.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nouislider.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('backend/vendor/fontawesome-free/css/all.min.css') }} ">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     @livewireStyles
 </head>
-
 <body>
-    <!--::header part start::-->
-    <header class="main_menu home_menu" id="nav_bar">
+     <!--::header part start::-->
+     <header class="main_menu home_menu" id="nav_bar">
         <div class="container ">
             <div class="row align-items-center">
                 <div class="col-lg-12">
@@ -57,7 +55,7 @@
                                     <a class="nav-link" href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link"  href="{{URL::to('/combo')}}" id="navbarDropdown_1" role="button">
+                                    <a class="nav-link" href="#" id="navbarDropdown_1" role="button">
                                         Combo
                                     </a>
                                     <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
@@ -137,80 +135,6 @@
         
     </header>
     <!-- Header part end-->
-
-    <!-- banner part start-->
-    <div class="bg-video-wrap">
-    <video src="{{ URL::asset('/frontend/img/newBackground.mp4'); }}" loop muted autoplay>
-    </video>
-    <div class="overlay">
-    </div>
-    <div class="banner-text">
-        <h1> Life Is More Fun If You <span style="font-size: 50px">PLAY GAMES</span> </h1>
-    </div>
-    </div>
-    <button onclick="topFunction()" id="myBtn" title="Go to top"><ion-icon name="arrow-up-outline"></ion-icon></button>
-    <!-- banner part start-->
-    {{$slot}}
-    <!--::subscribe_area part end::-->
-    
-    <!--::footer_part start::-->
-    {{-- <footer class="footer-distributed">
-
-			<div class="footer-left">
-
-				<h3>Mativina</h3>
-				<p class="footer-links">
-					<a href="/" class="link-1">Home</a>
-					
-					<a href="/blog">Blog</a>
-				
-					<a href="/shop">Product</a>
-					
-					<a href="/contact">Contact</a>
-				</p>
-
-				<p class="footer-company-name">Matavina © 2015</p>
-			</div>
-
-			<div class="footer-center">
-
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="location-outline"></ion-icon>
-					<p style="padding-left: 10px;">Số 8, Tôn Thất Thuyết, Mỹ Đình, Cầu Giấy</p>
-				</div>
-
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="call-outline"></ion-icon>
-					<p style="padding-left: 10px;">+84.987654321</p>
-				</div>
-
-				<div style="display:flex;">
-                    <ion-icon class="footer_icon" name="mail-outline"></ion-icon>
-					<p style="padding-left: 10px;"><a href="mailto:support@company.com">support@company.com</a></p>
-				</div>
-
-			</div>
-
-			<div class="footer-right">
-
-				<p class="footer-company-about">
-					<span>About the company</span>
-					Our company is a place to produce unique computer equipment. Our products have inspired many people to work. Not only that, but we also translate the unique ideas of our customers into our products. products delicately. Hope you find your favorite device and have the best experience!
-				</p>
-
-				<div class="footer-icons">
-
-					<a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-					<a href="#"><ion-icon name="logo-instagram"></ion-icon></i></a>
-					<a href="#"><ion-icon name="logo-linkedin"></ion-icon></i></a>
-					<a href="#"><ion-icon name="logo-github"></ion-icon></i></a>
-
-				</div>
-
-			</div>
-
-	</footer> --}}
-
     <footer class="footer">
         <div class="home-container">
             <div class="footer-row">
@@ -246,6 +170,8 @@
                         <li><a href="">Contact Us</a></li>
                     </ul>
                 </div> 
+
+
 
                
                 <div class="footer-col">
@@ -287,9 +213,8 @@
     </footer>
     <!--::footer_part end::-->
 
-    @livewireScripts
-    
     <!-- jquery plugins here-->
+    @livewireScripts
     <script src="{{ URL::asset('/frontend/js/jquery-1.12.1.min.js'); }}"></script>
     <!-- popper js -->
     <script src="{{ URL::asset('/frontend/js/popper.min.js'); }}"></script>
@@ -303,7 +228,7 @@
     <script src="{{ URL::asset('/frontend/js/masonry.pkgd.js'); }}"></script>
     <!-- particles js -->
     <script src="{{ URL::asset('/frontend/js/owl.carousel.min.js'); }}"></script>
-    
+    <!-- <script src="{{ URL::asset('/frontend/js/jquery.nice-select.min.js'); }}"></script> -->
     <!-- slick js -->
     <script src="{{ URL::asset('/frontend/js/slick.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.counterup.min.js'); }}"></script>
@@ -313,12 +238,75 @@
     <script src="{{ URL::asset('/frontend/js/jquery.form.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/mail-script.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/stellar.js'); }}"></script>
+    <!-- <script src="{{ URL::asset('/frontend/js/price_rangs.js'); }}"></script> -->
     <script src="{{ URL::asset('/frontend/js/functions.js'); }}"></script>
+    <script src="{{ URL::asset('/frontend/js/nouislider.min.js'); }}"></script>
     <script src="{{ URL::asset('/frontend/js/main.js'); }}"></script>
+
     <!-- custom js -->
     <script src="{{ URL::asset('/frontend/js/custom.js'); }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>   
-</body>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- <script>
+$(document).ready(function(){
 
+ $(document).on('click', '.pagination a', function(event){
+  event.preventDefault(); 
+  var page = $(this).attr('href').split('page=')[1];
+  fetch_data(page);
+ });
+
+ function fetch_data(page)
+ {
+  $.ajax({
+   url:"/all_product/fetch_data?page="+page,
+   success:function(data)
+   {
+    $('#table_data').html(data);
+   }
+  });
+ }
+ 
+});
+</script> -->
+<script>
+    $(function() {
+      $(document).on("click", "#pagination a,#search_btn", function() {
+
+        //get url and make final url for ajax 
+        var url = $(this).attr("href");
+        var append = url.indexOf("?") == -1 ? "?" : "&";
+        var finalURL = url + append + $("#searchform").serialize();
+
+        //set to current url
+        window.history.pushState({}, null, finalURL);
+
+        $.get(finalURL, function(data) {
+
+          $("#pagination_data").html(data);
+
+        });
+
+        return false;
+      })
+
+    });
+    $("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+    });
+    </script>
+</body>
 </html>

@@ -19,7 +19,7 @@ use App\Http\Controllers\Pages\PublicBlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\PublicHomeController;
 use App\Http\Controllers\Pages\PublicProductController;
-
+use App\Http\Controllers\PublicComboController;
 //livewire controller
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\CartComponent;
@@ -59,11 +59,13 @@ Route::get('/shop',AllProductComponent::class);
 Route::get('/cart',CartComponent::class)->name('product.cart');
 Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/thankyou', ThankyouComponent::class)->name('thankyou');
+// Route::get('/combo', PublicComboController::class,'index')->name('publicCombo.index');
 Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
 Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
 Route::get('/search',SearchComponent::class)->name('products.search');
 Route::get('/contact',ContactComponent::class)->name('contact');
 Route::get('/blog',BlogComponent::class)->name('blog');
+Route::get('/blog-details',BlogComponent::class, 'detail_blog')->name('detail.blog');
 
 // Route gui mail contact
 Route::post('send-contact', [MailController::class, 'send'])->name('send.contact');
@@ -256,7 +258,9 @@ Route::group(['namespace'=>'Admin'], function(){
         Route::get('/admin/customers/index',[CustomerController::class,'index'])->name('customer.index')->middleware('can:customer-list');
         Route::get('/admin/customers/search',[CustomerController::class,'search'])->name('customer.search');
         Route::get('/admin/customers/delete/{id}',[CustomerController::class,'delete'])->name('customer.delete')->middleware('can:customer-delete');
-        Route::get('/admin/users/detail',[CustomerController::class,'delete'])->name('customer.detail')->middleware('can:customer-detail');
+        Route::get('/admin/customers/detailOrderItem',[CustomerController::class,'detail_customer'])->name('customer.detail')->middleware('can:customer-detail');
+        Route::get('/admin/customers/getProductId',[CustomerController::class,'getProductInOrder'])->name('customer.product')->middleware('can:customer-detail');
+        Route::get('/admin/customers/getOrder',[CustomerController::class,'getOrder'])->name('customer.order')->middleware('can:customer-detail');
     }); 
 });
 

@@ -90,7 +90,7 @@
                                 <td class="text-center">{{ optional($value->getCity)->vn_name }}</td>
                                 <td colspan="1" class="text-center" style="width:15%">
                                     @can('customer-detail')
-                                        <a class="btn btn-primary" href="#" onclick="viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-primary" href="#" onclick="getOrder({{$value->id}});getProduct({{$value->id}});viewUserDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailUser"><i class="fas fa-eye"></i></a>
                                     @endcan
                                     @can('customer-delete')
                                         <a data-url="{{Route('customer.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
@@ -107,8 +107,8 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                @if (!empty($customer))
-                    {!! $customer->links() !!}
+                @if (!empty($users))
+                    {!! $users->links() !!}
                 @endif  
             </div>
         </div>
@@ -142,5 +142,121 @@
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
 <script src="{{URL::asset('backend/js/customer/main.js')}}"></script>
+<script>
+    let getDetailOrderItem   = '';
+    let getDetailOrder       = '';
+    let getDetailProduct     = '';
+    let details_order_item   = '';
+    var stt = 1;
+    function getOrder(id){
+        $.ajax({
+            url: '/admin/customers/getOrder',
+            data: {id:id},
+            success:(order)=>{
+                let list_order = '';
+                order.forEach(detail_order => {
+                    if(detail_order.status == 'ordered'){
+                        list_order = `<tr class="text-center ">
+                                        <td><span class='badge bg-warning text-white'>Ordered</span></td>
+                                    </tr>`
+                    } else if (detail_order.status == 'delivered') {
+                
+                        list_order = `<tr class="text-center">
+                                        <td><span class='badge bg-success  text-white'>Delivered</span></td>
+                                    </tr>`
+                    } else {
+                        list_order = `<tr class="text-center">
+                                        <td><span class='badge bg-danger text-white'>Canceled</span></td>
+                                    </tr>`
+                    }  
+                    getDetailOrder += list_order;
+                })
+            }
+        })
+    }
+    function getProduct(id){
+        $.ajax({
+            url: '/admin/customers/getProductId',
+            data: {id:id},
+            success:(product)=>{
+                let list_product = '';
+                product.forEach(detail_product => {
+                    list_product = `<tr class="">
+                                        <th colspan='1' class='text-center ' style='width:5%'> ${stt++}</th>
+                                        <td class='text-center admin_product_img'><img src=' ${detail_product.feature_image_path}'></td>
+                                        <td class="text-dark font-weight-bold"> ${detail_product.name}</td>
+                                        
+                                    </tr>`
+                    getDetailProduct += list_product;
+                })
+            }
+        })
+    }
+    function viewUserDetail(id){
+        $.ajax({
+            url: '/admin/customers/detailOrderItem',
+            data: {id:id},
+            success:(order)=>{
+                let list_item = '';
+                order.forEach(order_items => {
+                    order_items.forEach(e => {
+                        list_item = `<tr>
+                                        <td class="text-center">
+                                            <span class="text-dark font-weight-bold"> ${e.price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="text-success font-weight-bold"> ${e.quantity}</span>
+                                        </td>
+                                    </tr>`;
+                        getDetailOrderItem += list_item
+                    })
+                });   
+                details_order_item = `<div class="text-center">
+                                        <h2 class="text-dark font-weight-bold">Chi tiết order của khách hàng</h2>
+                                        </div>
+                                        <div class="row mt-4 text-center d-flex justify-content-center ">
+                                            <table class="table table-lg" id="dataTable" style="width:48%">
+                                                <thead class="thead-dark " >
+                                                    <tr>
+                                                        <th colspan="1" class="text-center" style="width:5%">STT</th>
+                                                        <th class="text-center">Hình ảnh</th>
+                                                        <th class="text-center">Tên </th>
+                                                    </tr>
+                                                </thead> 
+                                                <tbody>
+                                                    ${getDetailProduct}
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-lg" id="dataTable" style="width:30%">
+                                                <thead class="thead-dark" >
+                                                    <tr>
+                                                        <th class="text-center">Giá/SP </th>
+                                                        <th class="text-center">Số lượng </th>
+                                                    </tr>
+                                                </thead> 
+                                                <tbody>
+                                                    ${getDetailOrderItem}
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-lg" id="dataTable" style="width:20%">
+                                                <thead class="thead-dark" >
+                                                    <tr>
+                                                        <th class="text-center">Status</th>
+                                                    </tr>
+                                                </thead> 
+                                                <tbody>
+                                                    ${getDetailOrder}
+                                                </tbody>
+                                            </table>
+                                        </div>`;
+                $('#modal-user-detail').html('').append(details_order_item);
+                getDetailProduct = '';              
+                getDetailOrderItem = '';  
+                getDetailOrder = '';
+                stt = 1         
+            }
+        })
+    }
+</script>
 
 

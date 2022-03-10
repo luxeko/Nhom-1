@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,13 +13,17 @@ use Illuminate\Support\Facades\Log;
 class CustomerController extends Controller
 {
     private $user;
+    private $order;
     private $city;
-    public function __construct(User $user, City $city){
+    private $order_items;
+    public function __construct(User $user, City $city, Order $order, OrderItem $order_items){
         $this->user = $user;
         $this->city = $city;
+        $this->order = $order;
+        $this->order_items = $order_items;
     }
     public function index(){
-        $users = $this->user->where('utype','USR')->latest()->paginate(10);
+        $users = $this->user->oldest()->paginate(5);
         $currentPage = $users->currentPage();
         $perPage = $users->perPage();
         $total = $users->total();
@@ -56,5 +62,35 @@ class CustomerController extends Controller
                 'message'   => 'fail'
             ], 500);
         }
+    }
+    public function detail_customer(Request $request){
+        $id = $request->id;
+        $order = $this->order->where('user_id',$id)->latest()->get()->all();
+        $test = [];
+        $stt = 0;
+        foreach ($order as $value) {
+            $test[$stt] = $value->orderItems;
+            $stt++;
+        }
+        return $test;
+    }
+    public function getProductInOrder(Request $request){
+        $id = $request->id;
+        $order = $this->order->where('user_id',$id)->latest()->get()->all();
+        $test = [];
+        $stt = 0;
+        foreach ($order as $value) {
+            foreach($value->orderItems as $value2){
+                // $getProduct = $value->product;
+                $test[$stt] = $value2->product;
+                $stt++;
+            }
+        }
+        return $test;
+    }
+    public function getOrder(Request $request){
+        $id = $request->id;
+        $order = $this->order->where('user_id',$id)->latest()->get()->all();
+        return $order;
     }
 }

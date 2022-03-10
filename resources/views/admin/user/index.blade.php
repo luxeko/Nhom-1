@@ -97,7 +97,7 @@
                                 <td class="text-center">{{ optional($value->getCity)->vn_name }}</td>
                                 <td class="">
                                     @forEach($value->roles as $data )
-                                        <span class='badge bg-success p-2 text-white' style="font-size: 15px">{{$data->name}}</span>
+                                        <span class='badge bg-success p-1 m-1 text-white' style="font-size: 15px">{{$data->name}}</span>
                                     @endforeach
                                 </td>
                                 <td colspan="1" class="text-center" style="width:15%">

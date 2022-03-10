@@ -1,8 +1,8 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @extends('admin.home')
 @section('gioi_thieu')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
@@ -82,14 +82,20 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <!-- Area Chart -->
         <!-- Calender -->
-        <div class="col-md-6">
-            <div id="container" class="calendar-container pt-1"></div>
+        <div class="col-md-9">
+            <div class="card">
+    			<div class="card-body">
+    				<div class="chart-container" style="width: 900px; height: 500px; margin:auto">
+                        <canvas id="barChart"></canvas>
+    				</div>
+    			</div>
+    		</div>
         </div>
-        <div class="col-md-6">
-                <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+        <div class="col-md-3">
+            <div id="container" class="calendar-container pt-1"></div>
         </div>
     </div>
     <div class="row">
@@ -212,7 +218,7 @@
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{URL::asset('backend/js/dashboard/main.js')}}"></script>
-<script src="{{URL::asset('backend/js/loader.js')}}"></script>
+{{-- <script src="{{URL::asset('backend/js/loader.js')}}"></script> --}}
 <script type="text/javascript">
     var $calendar;
     $(document).ready(function () {
@@ -222,23 +228,31 @@
         });
         $calendar = container.data('plugin_simpleCalendar')
     });
-    google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          <?php foreach($allArr as $value){
-                echo $value;
-          } 
-          ?>
-        ]);
+</script>
 
-        var options = {
-          title: 'My Daily Activities',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
+<script>
+     $(function(){
+        var datas = {!! json_encode($allArr) !!};
+        var barCanvas = $('#barChart');
+        var barChart = new Chart(barCanvas, {
+            type: 'bar',
+            data: {
+                labels: ['Case', 'CPU', 'Motherboard', 'Cooling', 'Power', 'Lighting'],
+                datasets:[{
+                    label: 'Biểu đồ doanh thu theo danh mục',
+                    data:datas,
+                    backgroundColor: ['red', 'yellow', 'blue', 'green', 'violet', 'silver', 'orange']
+                }]
+            },
+            options: {
+                scales: {
+                     y: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        })
+    })
 </script>
