@@ -27,7 +27,7 @@
         @php             
             $success = Session::get('success_discount');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success'>";
                     echo $success;
                     Session::put('success_discount', null);
                 echo "</div>";

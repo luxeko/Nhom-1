@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 {{-- Các bước để tạo khung trang Dashboard --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- Bước 1: @extends('admin/layouts.admin_layout') --}}
 @extends('admin/layouts.admin_layout')
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Sản phẩm</title>
+    <title>Product</title>
 @endsection
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
@@ -13,57 +15,106 @@
     <div class="container-fluid" id="preloader">
         <!-- code database bắt đầu từ đây  -->
         <div class="d-flex bg-light justify-content-between mb-3">
-            <h2>Bảng danh sách sản phẩm</h2>
-            <div class="form-inline">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search">
-            </div>
+            <h2 class="border-bottom border-secondary">Danh sách Product</h2>
         </div>
         <div class="d-flex justify-content-between">    
             <div>
-                <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm sản phẩm</a>
+                @can('product-add')
+                    <a href="{{ asset('admin/products/create') }} " class="btn btn-primary mb-3">Thêm Product</a>
+                @endcan
             </div>
-            <div> 
-                <form class="form-inline">
-                    <div class="d-flex flex-row form-group mr-sm-4">
-                        <label class="mr-sm-2" for="test1">Price </label>
-                        <select  class="form-control input-xs"  name="" id="test1" >
-                            <option value="">-----------</option>
-                            <option value="">Low to High</option>
-                            <option value="">High to Low</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row mr-sm-4">
-                        <label class="mr-sm-2" for="test3">Category </label>
-                        <select  class="form-control input-xs "  name="" id="test3" >
-                            <option value="">-----------</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <label class="mr-sm-2" for="test2">Status </label>
-                        <select  class="form-control input-xs"  name="" id="test2">
-                            <option value="">-----------</option>
+            <form action="{{ route('product.search') }}" method="get" class="form-inline mb-3">
+                <div class="form-group">
+                    <input value="{{ isset($search) ? $search : '' }}" class="form-control mr-sm-2" name="search" type="search" placeholder="Tên sản phẩm" aria-label="Search">
+                </div>
+                
+                <div class="form-group">
+                    <select name="sort_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Sắp xếp</option>
+                        @if(isset($sort) && $sort === 'asc')
+                            <option selected value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'desc')
+                            <option  value="asc">Price: Thấp đến cao</option>
+                            <option selected value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'latest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option selected value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(isset($sort) && $sort === 'oldest')
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option selected value="oldest">Cũ nhất</option>
+                        @endif
+                        @if(empty($sort))
+                            <option value="asc">Price: Thấp đến cao</option>
+                            <option value="desc">Price: Cao đến thấp</option>
+                            <option value="latest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select name="category_filter" class="form-control input-xs mr-sm-2">
+                        <option value="">Danh mục</option>
+                        @if(isset($category))
+                            @foreach($getAllCategory as $value)
+                                @if($category == $value->id)
+                                    <option selected value="{{$value->id}}">{{$value->name}}</option>
+                                @else
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                        @if(empty($category))
+                            {!! $htmlOption !!}
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control input-xs mr-sm-2" name="status_filter" >
+                        @if(isset($status_filter) && $status_filter == 1)
+                            <option value="">Chọn status </option>  
+                            <option selected value="1">Active</option>
+                            <option value="2">Disable</option>
+                        @endif
+                        @if(isset($status_filter) && $status_filter == 2)
+                            <option value="">Chọn status </option>  
+                            <option value="1">Active</option>
+                            <option selected value="2">Disable</option>
+                        @endif
+                        @if(empty($status_filter) )
+                            <option value="">Chọn status </option>  
                             <option value="1">Active</option>
                             <option value="2">Disable</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-           
+                        @endif
+                    </select>
+                </div>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
         </div>
         
         @php             
             $success = Session::get('success_product');
             if($success){
-                echo "<div class='alert alert-success' role='alert'>";
+                echo "<div class='alert alert-success' id='product_alert'>";
                     echo $success;
                     Session::put('success_product', null);
                 echo "</div>";
             }
         @endphp
         <div id="table_data">
-            <table class="table table-striped table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
+            <div class="text-dark font-weight-bold">Có {{ $data->count() }} kết quả / trang</div>
+            <table class="table  table-hover table-bordered shadow-lg" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark ">
                     <tr>
                         <th colspan="1" class="text-center" style="width:5%">STT</th>
@@ -76,23 +127,60 @@
                     </tr>
                 </thead> 
                 <tbody id="list-product">
-                    @include('admin/manage_product.data')
-                    
+                    @if(isset($data) && $data->count()>0)
+                        @foreach ($data as $key => $value)                              
+                            <tr>
+                                <th colspan='1' class='text-center ' style='width:5%'>{{ ( $currentPage - 1 ) * $perPage + $key + 1 }}</th>
+                                <td class='text-center admin_product_img'><img src='{{$value->feature_image_path}}'></td>
+                                <td class="text-dark font-weight-bold">{{$value->name}}</td>
+                                
+                                <td class=""><span class="text-success font-weight-bolder font-italic">{{ number_format($value->price, 0) }} VNĐ</span>
+                                </td>
+                                <td class="text-center text-dark font-weight-bold">{{ optional($value->category)->name }}</td>
+                                <td class="text-center">
+                                    <?php
+                                        if($value->status == 1){
+                                            echo "<span class='badge bg-success p-2 text-white'>Active</span>";
+                                        } else {
+                                            echo "<span class='badge bg-danger p-2 text-white'>Disable</span>";
+                                        }  
+                                    ?>
+                                </td>
+                                <td colspan="1" class="text-center" style="width:15%">
+                                    @can('product-edit')
+                                        <a class="btn btn-primary" href="#" onclick="getCategory({{$value->category_id}});getThumbnail({{$value->id}});viewProductDetail({{$value->id}})" data-toggle="modal" data-target="#modalDetailProduct"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ Route('product.edit', ['id'=>$value->id])}}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                    @endcan
+                                    @can('product-delete')
+                                        <a data-url="{{Route('product.delete', ['id'=>$value->id])}}" class="btn btn-danger action_delete"><i class="fas fa-trash-alt"></i></a>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="12">Chưa có dữ liệu</td>
+                        </tr>
+                    @endif                    
                 </tbody>
-                               
+                <tbody id="list-product"></tbody>
+                
             </table>
+            <div class="d-flex justify-content-center">    
+                @if (!empty($data))
+                    {!! $data->links() !!} 
+                @endif    
+            </div>
         </div>
-        <input type="hidden" name="hidden_page" id="hidden_page" value="1">
-        <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
-        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
-        
+
         <section>
             <!-- Modal -->
             <div class="modal fade" id="modalDetailProduct" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header border-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        <div class="modal-header bg-dark">
+                            <span class="text-white modal-title" id="myModalLabel150">Chi tiết sản phẩm</span>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">x</button>
                         </div>
                         {{-- code từ đây  --}}
                         <div class="modal-body border-0" id="modal-product-detail"></div>
@@ -113,76 +201,14 @@
     </div>
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('backend/js/product/main.js')}}"></script>
 <script type="text/javascript" src={{URL::asset('backend/js/actionDelete.js')}}></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.product_active').addClass('active');
-    });
-</script>
 
 
 <script type="text/javascript" >  
-    $(document).ready(function(){
+    // $(document).ready(function(){
         var category_name = '';
         let imagesPath = '';
-        function clear_icon(){
-            $('#id_icon').html('');
-            $('#post_title_icon').html('');
-        }
-        function fetch_data(page, sort_type, sort_by, query){
-            $.ajax({
-                url: "/admin/products/show/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
-                success:function(data){
-                    $('tbody').html('');
-                    $('#table_data tbody').html(data)
-                }
-            });
-        }
-        $(document).on('click', '.pagination a', function(event){
-            event.preventDefault();
-            var page = $(this).attr('href').split('page=')[1];
-            $('#hidden_page').val(page);
-            var column_name = $('#hidden_column_name').val();
-            var sort_type = $('#hidden_sort_type').val();
-            var query = $('#search').val();
-            $('li').removeClass('active');
-            $(this).parent().addClass('active');
-            fetch_data(page, sort_type, column_name, query);
-
-        });
-        $(document).on('click', '.sorting', function(){
-            var column_name = $(this).data('column_name');
-            var order_type = $(this).data('sorting_type');
-            var reverse_order = '';
-            if(order_type == 'asc'){
-                $(this).data('sorting_type', 'desc');
-                reverse_order = 'desc';
-                clear_icon();
-                $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
-            }
-            if(order_type == 'desc'){
-                $(this).data('sorting_type', 'asc');
-                reverse_order = 'asc';
-                clear_icon
-                $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
-            }
-            $('#hidden_column_name').val(column_name);
-            $('#hidden_sort_type').val(reverse_order);
-            var page = $('#hidden_page').val();
-            var query  = $('#search').val();
-            fetch_data(page, reverse_order, column_name, query );
-        });
-
-        $(document).on('keyup', '#search', function(){
-            var query  = $('#search').val();
-            var column_name = $('#hidden_column_name').val();
-            var sort_type = $('#hidden_sort_type').val();
-            var page = $('#hidden_page').val();
-            fetch_data(page, sort_type, column_name, query);
-        });
-
-        
         function getCategory(id){
             $.ajax({
                 url:`/admin/products/getCategoryById/${id}`,
@@ -201,9 +227,10 @@
                     let getUrlToFileImg = '';
                     for (let i = 0; i < getArrayThumbnail.length; i++) {
                         names = getArrayThumbnail.map(function(i) {
-                            getUrlToFileImg =   `<div class="small-img-col rounded border border-secondary">
-                                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
-                                                </div>`;
+                            getUrlToFileImg = `
+                                <div class="small-img-col">
+                                    <img src="{{  '${i.image_path}' }}" width="100%" class="smallImg">
+                                </div>`;
                             imagesPath += getUrlToFileImg;
                         });
                         break;
@@ -235,7 +262,7 @@
                         <div class="single-product small-container">
                             <div class="details_row">
                                 <div class="details_col">
-                                    <div class="main-img-row position-relative rounded border border-secondary">
+                                    <div class="main-img-row position-relative ">
                                         <img src="{{ '${product.feature_image_path}' }}" id="productImg"/>
                                         <p class="product-detail-status text-light position-absolute bg-primary rounded" style="top: 10px; left: 1rem; padding: 4px 12px;"><span style="font-size: 14px;">${product.name}</span></p>
                                     </div>
@@ -245,7 +272,9 @@
                                 </div>
                                 <div class="details_col">
                                     <h4 class="text-center text-capitalize">${product.name}</h4>
-                                    <div class="mt-1">${product.price}</div>
+                                    <div class="mt-1">
+                                        <p class="mb-0"><span> Price: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${formatter.format(product.price)}</span></p>
+                                    </div>
                                     <div class="mt-1">
                                         <p class="mb-0"><span> Category: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${category_name}</span></p>
                                     </div>
@@ -257,7 +286,7 @@
                                         <p class="mb-0"><span> Updated_at: </span><span class="ml-2 text-success font-italic" style="font-size: 15px">${new Date(product.updated_at).toLocaleDateString("en-US",options)}</span></p>
                                     </div>
                                     <hr style="background:#999">
-                                    <div class="product-detail-content mt-1">
+                                    <div class="mt-1">
                                         <h6 class="mb-2">Content: </h6>
                                         <div class="font-italic">
                                             ${product.content}
@@ -272,8 +301,7 @@
                 }
             });
         }
-
-    });
+    // });
 
 </script>
 

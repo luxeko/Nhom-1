@@ -22,14 +22,12 @@ class ProductController extends Controller
     private $product;
     private $category;
     private $productImage;
-    private $discount;
 
-    public function __construct(Product $product, Category $category, ProductImage $productImage, discount $discount)
+    public function __construct(Product $product, Category $category, ProductImage $productImage)
     {
         $this->product = $product;
         $this->category = $category;
         $this->productImage = $productImage;
-        $this->discount = $discount;
     }
     public function getCategory($parentId){
         $data = $this->category->all();
@@ -39,32 +37,18 @@ class ProductController extends Controller
     }
     public function create(){
         $htmlOption = $this->getCategory($parentId = '');
-        $discountOption = $this->discount->all();
-        return view('admin.manage_product.add', compact('htmlOption','discountOption'));
+        return view('admin.manage_product.add', compact('htmlOption'));
     }
     
     public function show(){
-        $data = $this->product->paginate(5);
+        $htmlOption = $this->getCategory($parentId = '');
+        $data = $this->product->latest()->paginate(10);
         $currentPage = $data->currentPage();
         $perPage = $data->perPage();
         $total = $data->total();
-        return view('admin.manage_product.product', compact('data', 'currentPage', 'perPage', 'total'));
+        return view('admin.manage_product.product', compact('data', 'currentPage', 'perPage', 'total', 'htmlOption'));
     }
-    public function fetch_data(Request $request){
-        if($request->ajax())
-        {
-            $sort_by = $request->get('sortby');
-            $sort_type = $request->get('sorttype');
-            $search = $request->get('search');
-            $search = str_replace(" ", "%", $search);
-            $data = $this->product
-                            ->where('name', 'LIKE', '%'.$search.'%')
-                            ->orWhere('price', 'LIKE', '%'.$search.'%')
-                            ->orderBy($sort_by, $sort_type)
-                            ->paginate(5);
-            return view('admin.manage_product.data', compact('data'))->render();
-        }
-    }
+   
     public function details_product(Request $request){
         return Product::findOrFail($request->id);
     }   
@@ -76,13 +60,10 @@ class ProductController extends Controller
         $thumbnail = ProductImage::where('product_id',"=", $product_id)->get('image_path');
         return $thumbnail;
     }
-    public function get_discount($discount_id){
-        $discount = $this->discount->find($discount_id);
-        return $discount;
-    } 
     public function store(Request $request){
         try {
             $err = [];
+            $getName = $this->product->where('name', $request->product_name)->exists();
             if($request->category == null){
                 $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
             }
@@ -95,27 +76,27 @@ class ProductController extends Controller
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
             }
-            if( !is_int($request->product_price) ){
-                $err['price_not_int'] = 'Giá tiền phải là số';
-            }
             if($request->contents == null){
                 $err['content_null'] = 'Vui lòng nhập nội dung cho sản phẩm';
+            }
+            if($getName == true){
+                $err['duplicate_product'] = 'Sản phẩm đã tồn tại';
             }
             if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
                 $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
             }
             if(count($err)>0){
-                return Redirect::back()->with($err);
+                return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
                 $dataProductCreate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(',','', $request->product_price),
                     'status'        => $request->status,
                     'category_id'   => $request->category,
-                    'discount_id'   => $request->discount_id,
                     'user_id'       => auth()->id(),
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -149,15 +130,12 @@ class ProductController extends Controller
     public function edit($id){
         $product = $this->product->find($id);
         $htmlOption = $this->getCategory($product->category_id);
-        $discountOption = $this->discount->all();
-        return view('admin/manage_product.edit', compact('product', 'htmlOption', 'discountOption'));
+        return view('admin/manage_product.edit', compact('product', 'htmlOption'));
     }
     public function update(Request $request, $id){
         try {
             $err = [];
-            if($request->category == null){
-                $err['category_id_null'] = 'Vui lòng chọn danh mục cho sản phẩm';
-            }
+         
             if($request->product_name == null){
                 $err['product_name_null'] = 'Vui lòng nhập tên cho sản phẩm';
             }
@@ -167,21 +145,19 @@ class ProductController extends Controller
             if($request->product_price == null){
                 $err['price_null'] = 'Vui lòng nhập giá cho sản phẩm';
             }
-            if($this->storageTraitUpload($request, 'feature_image_path', 'product') == null){
-                $err['image_null'] = 'Vui lòng chọn ảnh đại diện';
-            }
+        
             if(count($err)>0){
-                return Redirect::back()->with($err);
+                return Redirect::back()->withInput()->with($err);
             } else{
                 DB::beginTransaction();
                 $dataProductUpdate = [
                     'name'          => $request->product_name,
                     'content'       => $request->contents,
-                    'price'         => $request->product_price,
+                    'price'         => str_replace(',','', $request->product_price) ,
                     'status'        => $request->status,
                     'category_id'   => $request->category,
-                    'discount_id'   => $request->discount_id,
                     'user_id'       => auth()->id(),
+                    'slug'          => strtolower(str_replace(' ','-', $request->product_name))
                 ];
                 $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
                 if(!empty($dataUploadFeatureImage)){
@@ -227,6 +203,58 @@ class ProductController extends Controller
                 'message'   => 'fail'
             ], 500);
         }
+    }
+
+    public function search(Request $request){
+        $search = $request->get('search');
+        $status_filter = $request->get('status_filter');
+        $category = $request->get('category_filter');
+        $sort = $request->get('sort_filter');
+        $getAllCategory = $this->category->where('status', 1)->get();
+        $htmlOption = $this->getCategory($parentId = '');
+        
+        $data = [];
+        if($category == null && $status_filter == null && $search== null){
+            $data = $this->product->whereNull('deleted_at')->latest()->paginate(10);
+            if($sort == 'asc' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+            }
+            if($sort == 'desc' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+            }
+    
+            if($sort == 'latest' ){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','asc')->paginate(50);
+            }
+    
+            if($sort == 'oldest'){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'desc')->paginate(50);
+            }
+        } else {
+            if($search != null || $status_filter != null || $category != null){
+                $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->paginate(50);
+                if($sort == 'asc' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'asc')->paginate(50);
+                }
+                if($sort == 'desc' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('price', 'desc')->paginate(50);
+                }
+        
+                if($sort == 'latest' ){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at','desc')->paginate(50);
+                }
+        
+                if($sort == 'oldest'){
+                    $data = $this->product->where('name', 'like', '%'.$search.'%')->where('status','like', '%'.$status_filter.'%')->where('category_id','like','%'.$category.'%')->whereNull('deleted_at')->orderBy('updated_at', 'asc')->paginate(50);
+                }
+            }
+        }        
+
+        $currentPage = $data->currentPage();
+        $perPage = $data->perPage();
+        $total = $data->total();
+       
+        return view('admin.manage_product.product', compact('data','currentPage', 'perPage', 'total', 'search', 'status_filter', 'category', 'htmlOption', 'sort', 'getAllCategory'));
     }
     
 }

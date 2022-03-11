@@ -5,17 +5,18 @@
 
 {{-- Bước 2: Đặt tên cho title  --}}
 @section('title')
-    <title>Thêm danh mục</title>
+    <title>Cập nhật Category</title>
 @endsection
 
 {{-- Bước 3: Viết code cần show data ở sau thẻ div  --}}
 @section('content')
     <!-- code database bắt đầu từ đây  -->
-    <div class="container-fluid ">
+    @include('admin/partials.preloader')
+    <div class="container-fluid" id="preloader">
         <div class="">
             <form action="{{ route('category.update', ['id'=>$category->id]) }}" method="post" style="width:50%">
                 @csrf
-                <h2 class="form-title">Sửa danh mục</h2>
+                <h2 class="form-title">Cập nhật Category</h2>
                 <div class="form-group" style="width:100%">
                     <input  type="text" class="form-control form-control-sm py-4 px-3 mb-1" name="category_name" style="width: 100%;" placeholder="Tên danh mục" value="{{$category->name}}" />
                 </div>
@@ -48,9 +49,22 @@
                 </div>
                 <div class="form-group">
                     <select name="status" class="form-control input-xs" style="width:30%">
-                        <option disabled selected> Trạng thái </option>
-                        <option value="1"> Hiển thị </option>
-                        <option value="2"> Ẩn </option>
+                        @if($category->status == 1)
+                            <option value=""> Trạng thái </option>
+                            <option selected value="1"> Active </option>
+                            <option value="2"> Disable </option>
+                        @endif
+                        @if($category->status == 2)
+                            <option value=""> Trạng thái </option>
+                            <option value="1"> Active </option>
+                            <option selected value="2"> Disable </option>
+                        @endif
+                        @if($category->status == "")
+                        <option value=""> Trạng thái </option>
+                            <option value="1"> Active </option>
+                            <option value="2"> Disable </option>
+                        @endif
+                </select>
                     </select>
                 </div>
                 @php         
@@ -72,9 +86,5 @@
     <!-- kết thúc code ở đây  -->
 @endsection
 <script src="{{URL::asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#collapseOne').addClass('show');
-        $('.category_active').addClass('active');
-    });
-</script>
+<script type='text/javascript' src="{{URL::asset('backend/js/category/main.js')}}"></script>
+

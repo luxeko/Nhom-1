@@ -27,15 +27,29 @@ class PublicProductController extends Controller
         $products = Product::all();
         return view('pages.layout',compact('products'));
     }
-    public function allProduct(){
-        $products = Product::paginate(9);
+    // public function filterCategory(){
+    //     $categories = Category::all();
+    //     return view('pages.products.all_product',compact('categories'));
+    // }
+   
+    public function searchPaginate(Request $request)
+    {
+        $products=Product::when($request->has("name"),function($q)use($request){
+            return $q->where("name","like","%".$request->get("name")."%");
+        })->paginate(9); 
+        $count = 0;
+        if($request->ajax()){
+            $count = count($products);
+            return view('pages.products.pagination_data' ,compact('products','count')); 
+        } 
         return view('pages.products.all_product',compact('products'));
     }
-    public function fetch_data(Request $request){
-        if($request->ajax()){
-            $products = Product::paginate(9);
-            return view ('pages.products.pagination_data',compact('products'))->render();
-        }
-    }
     
+    public function store($product_id,$product_name,$product_price)
+    {
+        Cart::add($product_id,$product_name,1,$product_price)->associate('App\Models\Product');              
+        session()->flash('success_message','Item added in Cart');
+        return view ('/cart');
+    }   
+
 }
