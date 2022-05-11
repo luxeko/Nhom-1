@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                 @endif
-                        
+                            @livewire('cart-count-component')
                         </div>
                     </nav>
                 </div>
