@@ -78,7 +78,10 @@ class CheckoutComponent extends Component
             ]);
         }
     }
-    
+    public function changeRate($amount)
+    {
+        return $amount*0.000043;
+    }
     public function placeOrder()
     {
         $this->validate([
@@ -156,7 +159,7 @@ class CheckoutComponent extends Component
         else if($this->paymentmode == 'card')
         {
             $stripe = Stripe::make(env('STRIPE_KEY'));
-            
+            // dd($this->changeRate(session()->get('checkout')['total']));
             try{
                 $token = $stripe->tokens()->create([
                     'card' => [
@@ -190,14 +193,13 @@ class CheckoutComponent extends Component
                     ],
                     'source' => $token['id']
                 ]);
-                
                 $charge = $stripe->charges()->create([
                     'customer' => $customer['id'],
                     'currency' => 'USD',
-                    'amount' => session()->get('checkout')['total'],
+                    'amount' => $this->changeRate(session()->get('checkout')['total']),
                     'description' => 'Payment for order no ' . $order->id
                 ]);
-                
+
                 if($charge['status'] == 'succeeded')
                 {
                     $this->makeTransaction($order->id, 'approved');
@@ -217,7 +219,8 @@ class CheckoutComponent extends Component
         
         $this->sendOrderConfirmationMail($order);
     }
-    
+
+
     public function resetCart()
     {
         $this->thankyou = 1;

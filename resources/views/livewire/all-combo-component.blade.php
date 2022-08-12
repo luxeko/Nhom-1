@@ -13,7 +13,7 @@
                     <div class="row">
                         <div  class="col-md-6 mr-2">
                             <div  class="row align-items-center latest_product_inner" id="scroll_combo">
-                               <img style="width: 100%; height:700px" src="{{ URL::asset('/frontend/img/bg_combo.jpg'); }}" alt="">
+                               <img style="width: 100%; height:100%" src="{{ URL::asset('/frontend/img/bg_combo.jpg'); }}" alt="">
                             </div>
                         </div>
                         <div class="col-md-5 ml-2">
@@ -22,9 +22,9 @@
                                 <h1>
                                     Gaming PCs Made Simple
                                 </h1>
-                                <h3>
+                                <h4>
                                     We build custom PCs around your budget, optimized for the games you love, all protected by a 2-year warranty.
-                                </h3>
+                                </h4>
                             </div>
                             <div class="row align-items-center latest_product_inner" id="table_data">
                                 @foreach($combos as $item)
@@ -63,16 +63,12 @@
 <script>
     $(document).ready(function(){
         $(window).scroll(function(){
-            if( $(window).scrollTop() > 800  && $(window).scrollTop() < 900){
-                // $("#scroll_combo").stop().animate({"marginTop": 450 + "px"}, "slow" ); 
-                $("#scroll_combo").css({
-    "top": ($(window).scrollTop()) + "px",
-    "left": ($(window).scrollLeft()) + "px"
-  });
+            if( $(window).scrollTop() > 1200  && $(window).scrollTop() < 1250){
+                $("#scroll_combo").stop().animate({"marginTop": 450 + "px"}, "slow" ); 
             }
-                // if($(window).scrollTop() <= 900){
-                    //     $("#scroll_combo").stop().animate({"marginTop": 0 + "px"}, "fast" );
-            // }
+            if($(window).scrollTop() < 1200 ){
+                $("#scroll_combo").stop().animate({"marginTop": 0 + "px"}, "slow" ); 
+            }
         });
     })
 </script>

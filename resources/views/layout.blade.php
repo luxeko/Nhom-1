@@ -54,10 +54,10 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav" style="margin-top: 20px;">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/">Home</a>
+                                    <a class="nav-link"  href="{{URL::to('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" id="navbarDropdown_2" role="button">
+                                    <a class="nav-link" href="{{URL::to('/combo')}}" id="navbarDropdown_2" role="button">
                                         Combo
                                     </a>
                                     <!-- <div class="dropdown-menu"  aria-labelledby="navbarDropdown_1">
